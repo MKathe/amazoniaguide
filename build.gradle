@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.1'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.google.gms:google-services:3.0.0'
 
@@ -50,7 +50,7 @@ ext {
     calligraphyVersion = '2.2.0'
     saripaarVersion = '2.0.3'
     googleServiceVersion = '9.0.2'
-    facebookVersion = '4.0.0'
+    facebookVersion = '4.19.0'
     firebaseVersion = '9.0.2'
     materialPickerVersion = "2.3.0"
     expandableRecycleViewVersion = "3.0.0-RC1"
