@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.cerezaconsulting.pushayadmin", appContext.getPackageName());
+        assertEquals("com.openlab.pushayadmin", appContext.getPackageName());
     }
 }

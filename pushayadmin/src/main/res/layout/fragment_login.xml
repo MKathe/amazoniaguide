@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:background="@drawable/background_clean"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:focusableInTouchMode="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_logo_team_black"/>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_nombre"
+                    android:layout_width="300dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/et_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
+                        android:imeOptions="actionNext"
+                        android:padding="10dp" />
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_pass"
+                    android:layout_width="300dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/et_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:imeOptions="actionDone"
+                        android:padding="10dp" />
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btn_login"
+                    android:layout_width="300dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/button_square_border"
+                    android:text="Ingresar"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/et_register"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:text="¿Olvidaste tu contraseña?"
+                        android:textSize="13sp" />
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+</RelativeLayout>

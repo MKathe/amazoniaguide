@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.RadioButton;
 
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
@@ -25,21 +25,25 @@ import butterknife.Unbinder;
 
 public class RegisterFragment extends BaseFragment implements RegisterContract.View {
 
+
+    boolean gender;
     @BindView(R.id.et_name)
     EditText etName;
-    @BindView(R.id.et_bith)
-    EditText etBith;
+    @BindView(R.id.et_birth)
+    EditText etBirth;
     @BindView(R.id.et_email)
     EditText etEmail;
     @BindView(R.id.et_celphone)
     EditText etCelphone;
     @BindView(R.id.btn_man)
-    Button btnMan;
+    RadioButton btnMan;
     @BindView(R.id.btn_woman)
-    Button btnWoman;
+    RadioButton btnWoman;
     @BindView(R.id.btn_create)
     Button btnCreate;
     Unbinder unbinder;
+
+
     private RegisterContract.Presenter mPresenter;
 
     public RegisterFragment() {
@@ -81,7 +85,7 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
 
     @Override
     public void setPresenter(RegisterContract.Presenter mPresenter) {
-        //this.mPresenter = mPresenter;
+        this.mPresenter = mPresenter;
     }
 
     @Override
@@ -105,17 +109,21 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+
     }
+
 
     @OnClick({R.id.btn_man, R.id.btn_woman, R.id.btn_create})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_man:
+                gender = false;
                 break;
             case R.id.btn_woman:
+                gender = true;
                 break;
             case R.id.btn_create:
-                showMessage("Conectar al presenter");
+                showMessage("Conexión con presenter");
                 break;
         }
     }

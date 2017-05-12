@@ -44,7 +44,14 @@ public abstract  class BaseActivity extends AppCompatActivity {
         }
 
     }
-
+    protected void next(Activity context, Bundle bundle, Class<?> activity, boolean destroy) {
+        Intent intent = new Intent(context, activity);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+        if (destroy) context.finish();
+    }
 
 
     protected void nextActivity(Activity context, Bundle bundle, Class<?> activity, boolean destroy) {

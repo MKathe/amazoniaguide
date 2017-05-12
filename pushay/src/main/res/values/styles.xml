@@ -14,4 +14,9 @@
         <!--  <item name="android:background">@drawable/symbiosis_1440</item> -->
       </style>
 
+
+    <style name="FacebookButtonStyle" parent="Base.TextAppearance.AppCompat.Button">
+
+        <item name="android:drawableLeft">@drawable/com_facebook_button_icon</item>
+    </style>
   </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_free">
@@ -8,10 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <LinearLayout
             android:layout_marginTop="40dp"
             android:layout_width="match_parent"
+            android:focusableInTouchMode="true"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -21,6 +21,7 @@
                 android:textSize="@dimen/xxxlarge_text"
                 android:text="Obtener una cuenta"
                 android:layout_marginBottom="15dp"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center"/>
 
             <android.support.design.widget.TextInputLayout
@@ -35,7 +36,9 @@
                     android:layout_margin="5dp"
                     android:hint="@string/name"
                     android:textColor="@color/white"
-                    android:inputType="textEmailAddress"
+                    android:backgroundTint="@color/white"
+                    android:inputType="textCapWords"
+                    android:imeOptions="actionNext"
                     android:padding="10dp" />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -44,13 +47,15 @@
                 android:textColorHint="@color/white"
                 android:layout_height="wrap_content">
                 <EditText
-                    android:id="@+id/et_bith"
+                    android:id="@+id/et_birth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:hint="@string/birth"
                     android:textColor="@color/white"
-                    android:inputType="textEmailAddress"
+                    android:backgroundTint="@color/white"
+                    android:inputType="date"
+                    android:imeOptions="actionNext"
                     android:padding="10dp" />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -65,7 +70,9 @@
                     android:layout_margin="5dp"
                     android:hint="@string/email"
                     android:textColor="@color/white"
+                    android:backgroundTint="@color/white"
                     android:inputType="textEmailAddress"
+                    android:imeOptions="actionNext"
                     android:padding="10dp" />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -80,34 +87,52 @@
                     android:layout_margin="5dp"
                     android:hint="@string/cellphone"
                     android:textColor="@color/white"
-                    android:inputType="textEmailAddress"
+                    android:backgroundTint="@color/white"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
                     android:padding="10dp" />
             </android.support.design.widget.TextInputLayout>
-            <LinearLayout
+            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:orientation="horizontal"
                 android:gravity="center">
 
-                <Button
+                <RadioButton
                     android:id="@+id/btn_man"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="140dp"
+                    android:layout_height="35dp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:background="@drawable/radio_button_group"
+                    android:button="@null"
                     android:text="@string/male" />
-                <Button
+                <RadioButton
                     android:id="@+id/btn_woman"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="140dp"
+                    android:layout_height="35dp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:background="@drawable/radio_button_group"
+                    android:button="@null"
                     android:text="@string/female"/>
-            </LinearLayout>
+
+
+            </RadioGroup>
+
+
             <Button
                 android:id="@+id/btn_create"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:text="Crear Cuenta"/>
+                android:layout_width="300dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_square_border"
+                android:text="@string/create"
+                android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

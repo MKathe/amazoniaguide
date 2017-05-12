@@ -1,4 +1,4 @@
-package com.cerezaconsulting.pushay.data.model;
+package com.cerezaconsulting.pushayadmin.data.entities;
 
 import java.io.Serializable;
 

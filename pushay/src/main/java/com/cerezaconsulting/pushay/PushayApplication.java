@@ -14,7 +14,7 @@ public class PushayApplication extends Application {
     public void onCreate() {
         super.onCreate();
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/proximanovaregular.otf")
+                .setDefaultFontPath("fonts/Gotham-Book.otf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );

@@ -25,7 +25,7 @@ import android.widget.TextView;
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.data.local.SessionManager;
-import com.cerezaconsulting.pushay.data.model.UserEntity;
+import com.cerezaconsulting.pushay.data.entities.UserEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -205,7 +205,6 @@ public class CountriesActivity extends BaseActivity {
 
 
     }
-
 
 
     @Override

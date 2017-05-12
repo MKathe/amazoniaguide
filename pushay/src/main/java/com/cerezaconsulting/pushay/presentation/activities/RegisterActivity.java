@@ -16,18 +16,11 @@ import com.cerezaconsulting.pushay.utils.ActivityUtils;
 
 public class RegisterActivity extends BaseActivity {
 
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_back);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setDisplayShowHomeEnabled(true);
+        setContentView(R.layout.activity_clear);
 
         RegisterFragment fragment = (RegisterFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.body);

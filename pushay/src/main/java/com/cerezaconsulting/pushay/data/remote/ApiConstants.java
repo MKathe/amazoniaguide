@@ -1,4 +1,4 @@
-package com.cerezaconsulting.pushay.data;
+package com.cerezaconsulting.pushay.data.remote;
 
 /**
  * URL BASE

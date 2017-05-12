@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.cerezaconsulting.pushayadmin"
-        minSdkVersion 22
-        targetSdkVersion 25
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -15,9 +15,33 @@ android {
 
     }
     buildTypes {
-        release {
-            minifyEnabled false
+        debug {
+            minifyEnabled true
+            // Uses new built-in shrinker http://tools.android.com/tech-docs/new-build-system/built-in-shrinker
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardTest-rules.pro'
+        }
+
+        release {
+            minifyEnabled true
+            useProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardTest-rules.pro'
+        }
+    }
+    productFlavors {
+        prod {
+            minSdkVersion 18
+            targetSdkVersion 25
+            applicationId = "com.cerezaconsulting.pushayadmin"
+            buildConfigField 'String', 'BASE', '"http://glup.kodevianstudio.com/api/"'
+        }
+        mock {
+            minSdkVersion 18
+            targetSdkVersion 25
+            applicationId = "com.cerezaconsulting.pushayadmin.test"
+            buildConfigField 'String', 'BASE', '"http://glupnew.kodevianstudio.com/api/"'
         }
     }
 }
@@ -27,7 +51,27 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
     testCompile 'junit:junit:4.12'
+
+    compile supportDesignLibraries.appcompat
+    compile supportDesignLibraries.design
+    compile supportDesignLibraries.recyclerView
+    compile supportDesignLibraries.supportv4
+    compile supportDesignLibraries.supportv13
+    compile supportDesignLibraries.cardview
+
+
+
+    compile coreProject.retrofit
+    compile coreProject.retrofitGson
+    compile coreProject.gson
+    compile coreProject.interceptor
+    compile coreProject.butterKnife
+    annotationProcessor coreProject.butterknifeProcesor
+
+    compile helpLibraries.guava
+    compile helpLibraries.calligraphy
+
+    compile imagesLoader.glide
 }

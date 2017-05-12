@@ -1,6 +1,6 @@
 package com.cerezaconsulting.pushay.presentation.fragments;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,12 +34,12 @@ import butterknife.Unbinder;
 /**
  * Created by junior on 27/08/16.
  */
-public class LoginFragment extends BaseFragment implements LoginContract.View {
+public class LoginFragment extends BaseFragment implements LoginContract.View,FacebookCallback<LoginResult> {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
 
-    CallbackManager callbackManager;
+    CallbackManager mCallbackManager;
     @BindView(R.id.et_email)
     EditText etEmail;
     @BindView(R.id.et_password)
@@ -47,15 +47,13 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     @BindView(R.id.btn_login)
     Button btnLogin;
     @BindView(R.id.login_button)
-    LoginButton loginButton;
+    Button loginButton;
     Unbinder unbinder;
     @BindView(R.id.et_register)
     TextView etRegister;
 
 
     private LoginContract.Presenter mPresenter;
-    Context mContext;
-
     private ProgressDialogCustom mProgressDialogCustom;
 
 
@@ -70,29 +68,14 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        callbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(mCallbackManager,this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
+        mPresenter.start();
     }
 
 
@@ -101,31 +84,6 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
-
-        loginButton = (LoginButton) root.findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email");
-        // If using in a fragment
-        loginButton.setFragment(this);
-        // Other app specific specialization
-
-        // Callback registration
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-            }
-
-            @Override
-            public void onCancel() {
-                // App code
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
-            }
-        });
-
         unbinder = ButterKnife.bind(this, root);
         return root;
     }
@@ -161,7 +119,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
 
     @Override
     public void loginSucessful() {
-
+        showMessage("Login realizado correctamente");
     }
 
     @Override
@@ -178,17 +136,20 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @OnClick({R.id.btn_login, R.id.login_button,R.id.et_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
+               // mPresenter.loginUser(etEmail.getText().toString(), etPassword.getText().toString());
                showMessage("Conexión presenter");
                 break;
             case R.id.login_button:
-                LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+                LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
                 break;
             case R.id.et_register:
                 nextActivity(getActivity(), null, RegisterActivity.class, false);
@@ -196,4 +157,25 @@ public class LoginFragment extends BaseFragment implements LoginContract.View {
         }
     }
 
+    @Override
+    public void onSuccess(LoginResult loginResult) {
+        String access_token_facebook = loginResult.getAccessToken().getToken();
+        if (access_token_facebook != null || !access_token_facebook.equals("")) {
+            // mPresenter.loginUserFacebook(access_token_facebook);
+            showMessage("Login con facebook correcto");
+
+        } else {
+            showErrorMessage("Algo sucedió mal al intentar loguearse");
+        }
+    }
+
+    @Override
+    public void onCancel() {
+        showErrorMessage("El login a facebook se a cancelado, intente más tarde");
+    }
+
+    @Override
+    public void onError(FacebookException error) {
+        showErrorMessage("Error al intentar loguearse");
+    }
 }

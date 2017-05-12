@@ -9,6 +9,7 @@ import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.presentation.fragments.LoginFragment;
 import com.cerezaconsulting.pushay.presentation.presenters.ExamplePresenter;
+import com.cerezaconsulting.pushay.presentation.presenters.LoginPresenter;
 import com.cerezaconsulting.pushay.utils.ActivityUtils;
 
 import butterknife.BindView;
@@ -32,13 +33,8 @@ public class LoginActivity extends BaseActivity {
         }
 
         // Create the presenter
-       // new ExamplePresenter(fragment,this);
+        new LoginPresenter(fragment,this);
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
 
 }

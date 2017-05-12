@@ -3,8 +3,8 @@ package com.cerezaconsulting.pushay.data.local;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.cerezaconsulting.pushay.data.model.AccessTokenEntity;
-import com.cerezaconsulting.pushay.data.model.UserEntity;
+import com.cerezaconsulting.pushay.data.entities.AccessTokenEntity;
+import com.cerezaconsulting.pushay.data.entities.UserEntity;
 import com.google.gson.Gson;
 
 /**
@@ -40,23 +40,11 @@ public class SessionManager {
         return preferences.getBoolean(IS_LOGIN, false);
     }
 
-
     public void openSession(AccessTokenEntity token) {
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(USER_TOKEN, token.getAccessToken());
         editor.commit();
     }
-
-
-    public boolean isExplanationSchedule()  {
-        return preferences.getBoolean(EXPLANATION_SCHEDULE, false);
-    }
-
-    public void setExplanationSchedle(boolean active){
-        editor.putBoolean(EXPLANATION_SCHEDULE, active);
-        editor.commit();
-    }
-
 
     public void closeSession() {
         editor.putBoolean(IS_LOGIN, false);
@@ -64,6 +52,7 @@ public class SessionManager {
         editor.putString(USER_JSON, null);
         editor.commit();
     }
+
 
 
     public String getUserToken() {

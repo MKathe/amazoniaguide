@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_clean">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:focusableInTouchMode="true"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/xxxlarge_text"
+                android:text="Obtener una cuenta"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_gravity="center_horizontal"
+                android:textColorHint="@color/white"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:hint="@string/name"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:inputType="textCapWords"
+                    android:imeOptions="actionNext"
+                    android:padding="10dp" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_gravity="center_horizontal"
+                android:textColorHint="@color/white"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_birth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:hint="@string/birth"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:inputType="date"
+                    android:imeOptions="actionNext"
+                    android:padding="10dp" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_gravity="center_horizontal"
+                android:textColorHint="@color/white"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:hint="@string/email"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionNext"
+                    android:padding="10dp" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_gravity="center_horizontal"
+                android:textColorHint="@color/white"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_celphone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:hint="@string/cellphone"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:padding="10dp" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/btn_create"
+                android:layout_width="300dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_square_border"
+                android:text="@string/create"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

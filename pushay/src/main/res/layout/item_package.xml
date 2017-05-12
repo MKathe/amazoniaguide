@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/ticket"/>
             <TextView
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
