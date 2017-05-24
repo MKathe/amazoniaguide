@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_margin="20dp"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="@dimen/xxlarge_text"
+        android:text="@string/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center"
+            android:textSize="@dimen/large_text"
+            android:text="@string/name"/>
+
+        <TextView
+            android:id="@+id/tv_name_detail_travel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/package_name"
+            android:textSize="@dimen/large_text" />
+
+        <TextView
+            android:id="@+id/tv_descript_travel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textSize="@dimen/large_text"
+            android:text="@string/decript"/>
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textSize="@dimen/large_text"
+            android:text="cantidad"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_validate_travel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/validate_travel"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"/>
+
+
+
+</LinearLayout>

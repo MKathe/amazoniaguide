@@ -36,7 +36,7 @@
                         android:layout_margin="10dp"
                         android:layout_gravity="center_horizontal"
                         android:background="@drawable/button_border"
-                        android:text="Iniciar Sesión"/>
+                        android:text="@string/sign_in"/>
                     <Button
                         android:id="@+id/btn_register"
                         android:layout_width="150dp"
@@ -44,7 +44,7 @@
                         android:layout_margin="10dp"
                         android:layout_gravity="center_horizontal"
                         android:background="@drawable/button_border"
-                        android:text="Registrarse"/>
+                        android:text="@string/register"/>
 
                 </LinearLayout>
 
@@ -59,13 +59,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="¿Buscas PUsahy para usuarios?"/>
+                            android:text="@string/find"/>
                         <TextView
+                            android:layout_marginLeft="5dp"
                             android:id="@+id/tv_download"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorPrimary"
-                            android:text="Descárgala aquí."/>
+                            android:text="@string/download"/>
 
                     </LinearLayout>
 

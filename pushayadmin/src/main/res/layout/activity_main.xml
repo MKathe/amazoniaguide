@@ -17,11 +17,16 @@
             android:layout_height="wrap_content"
             android:elevation="3dp"
             android:minHeight="?attr/actionBarSize"
-            app:title="Symbiosis"
             app:itemIconTint="@color/white"
             android:foregroundTint="@color/white"
             app:titleTextColor="@color/white">
-
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_logo_team"/>>
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
@@ -42,8 +47,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/background_light"
-
-
             />
 
         <!-- The navigation drawer -->

@@ -34,11 +34,11 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_scrollFlags="scroll|enterAlways"
-        tools:context=".presentation.activities.CountriesActivity"
+        tools:context="com.cerezaconsulting.pushayadmin.presentation.activities.TravelActivity"
         tools:openDrawer="start">
         <!-- main content mView -->
         <FrameLayout
-            android:id="@+id/layout_content_frame"
+            android:id="@+id/body"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/background_light"

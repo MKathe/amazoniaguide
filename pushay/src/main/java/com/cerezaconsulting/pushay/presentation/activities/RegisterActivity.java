@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.presentation.fragments.RegisterFragment;
+import com.cerezaconsulting.pushay.presentation.presenters.RegisterPresenter;
 import com.cerezaconsulting.pushay.utils.ActivityUtils;
 
 /**
@@ -33,6 +34,7 @@ public class RegisterActivity extends BaseActivity {
         }
 
         // Create the presenter
-        //new ExamplePresenter(fragment,this);
+        new RegisterPresenter(fragment,this);
     }
+
 }

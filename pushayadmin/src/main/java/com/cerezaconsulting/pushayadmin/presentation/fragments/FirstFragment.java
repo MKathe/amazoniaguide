@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseFragment;
 import com.cerezaconsulting.pushayadmin.presentation.activities.LoginActivity;
+import com.cerezaconsulting.pushayadmin.presentation.activities.RegisterActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,6 +75,7 @@ public class FirstFragment extends BaseFragment {
                 nextActivity(getActivity(), null, LoginActivity.class, false);
                 break;
             case R.id.btn_register:
+                nextActivity(getActivity(), null, RegisterActivity.class, false);
                 break;
             case R.id.tv_download:
                 break;

@@ -6,11 +6,11 @@
         android:id="@+id/group1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_connect"
+            android:id="@+id/action_tickets"
             android:visible="true"
             android:title="Mis tickets" />
         <item
-            android:id="@+id/nav_profile"
+            android:id="@+id/action_help"
             android:title="Ayuda" />
 
     </group>
@@ -18,7 +18,7 @@
     <group
         android:id="@+id/group2">
         <item
-            android:id="@+id/nav_signout"
+            android:id="@+id/action_signout"
             android:title="Cerrar Sesión" />
     </group>
 </menu>

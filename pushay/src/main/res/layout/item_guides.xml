@@ -42,6 +42,8 @@
                     android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    fontPath ="fonts/Gotham-Medium.otf"
+
                     android:text="@string/name"/>
                 <TextView
                     android:id="@+id/tv_day"

@@ -10,14 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.cerezaconsulting.pushay.presentation.activities.LoginActivity">
+            android:name="com.cerezaconsulting.pushay.presentation.activities.LoadActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.cerezaconsulting.pushay.presentation.activities.LoginActivity">
+        </activity>
         <activity android:name="com.cerezaconsulting.pushay.presentation.activities.RegisterActivity">
+        </activity>
+        <activity android:name="com.cerezaconsulting.pushay.presentation.activities.CountriesActivity">
         </activity>
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>

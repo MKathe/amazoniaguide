@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.core.BaseFragment;
+import com.cerezaconsulting.pushay.presentation.activities.CountriesActivity;
 import com.cerezaconsulting.pushay.presentation.activities.LoginActivity;
 import com.cerezaconsulting.pushay.presentation.activities.RegisterActivity;
 import com.cerezaconsulting.pushay.presentation.contracts.LoginContract;
@@ -22,7 +23,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
 import java.util.Arrays;
 
@@ -146,7 +146,9 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
         switch (view.getId()) {
             case R.id.btn_login:
                // mPresenter.loginUser(etEmail.getText().toString(), etPassword.getText().toString());
-               showMessage("Conexión presenter");
+               // showMessage("Conexión presenter");
+                nextActivity(getActivity(), null, CountriesActivity.class, false);
+
                 break;
             case R.id.login_button:
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));

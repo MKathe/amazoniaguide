@@ -11,10 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.cerezaconsulting.pushayadmin.presentation.activities.LoadActivity">
-
-        </activity>
-
-        <activity android:name="com.cerezaconsulting.pushayadmin.presentation.activities.FirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +18,30 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.cerezaconsulting.pushayadmin.presentation.activities.FirstActivity">
+
+        </activity>
+
         <activity android:name="com.cerezaconsulting.pushayadmin.presentation.activities.LoginActivity">
+
+        </activity>
+
+        <activity android:name="com.cerezaconsulting.pushayadmin.presentation.activities.RegisterActivity">
+
+        </activity>
+
+        <activity android:label=""
+            android:name="com.cerezaconsulting.pushayadmin.presentation.activities.TravelActivity">
+
+        </activity>
+
+        <activity
+            android:name="com.cerezaconsulting.pushayadmin.presentation.activities.SchedulesActivity">
+
+        </activity>
+
+        <activity
+            android:name="com.cerezaconsulting.pushayadmin.presentation.activities.ProfileActivity">
 
         </activity>
 

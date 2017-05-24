@@ -19,7 +19,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/xxxlarge_text"
-                android:text="Obtener una cuenta"
                 android:layout_marginBottom="15dp"
                 android:textColor="@color/colorPrimary"
                 android:gravity="center"/>
@@ -27,7 +26,6 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="300dp"
                 android:layout_gravity="center_horizontal"
-                android:textColorHint="@color/white"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/et_name"
@@ -35,8 +33,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:hint="@string/name"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/white"
                     android:inputType="textCapWords"
                     android:imeOptions="actionNext"
                     android:padding="10dp" />
@@ -44,7 +40,6 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="300dp"
                 android:layout_gravity="center_horizontal"
-                android:textColorHint="@color/white"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/et_birth"
@@ -52,8 +47,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:hint="@string/birth"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/white"
                     android:inputType="date"
                     android:imeOptions="actionNext"
                     android:padding="10dp" />
@@ -61,7 +54,6 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="300dp"
                 android:layout_gravity="center_horizontal"
-                android:textColorHint="@color/white"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/et_email"
@@ -69,8 +61,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:hint="@string/email"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/white"
                     android:inputType="textEmailAddress"
                     android:imeOptions="actionNext"
                     android:padding="10dp" />
@@ -78,7 +68,6 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="300dp"
                 android:layout_gravity="center_horizontal"
-                android:textColorHint="@color/white"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/et_celphone"
@@ -86,12 +75,37 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:hint="@string/cellphone"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/white"
                     android:inputType="number"
                     android:imeOptions="actionDone"
                     android:padding="10dp" />
             </android.support.design.widget.TextInputLayout>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <RadioButton
+                    android:id="@+id/btn_man"
+                    android:layout_width="140dp"
+                    android:layout_height="35dp"
+                    android:gravity="center"
+                    android:background="@drawable/radio_button_group"
+                    android:button="@null"
+                    android:text="@string/male" />
+                <RadioButton
+                    android:id="@+id/btn_woman"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="140dp"
+                    android:layout_height="35dp"
+                    android:gravity="center"
+                    android:background="@drawable/radio_button_group"
+                    android:button="@null"
+                    android:text="@string/female"/>
+
+
+            </RadioGroup>
 
 
             <Button
