@@ -16,6 +16,7 @@ import com.cerezaconsulting.pushay.core.BaseFragment;
 import com.cerezaconsulting.pushay.presentation.activities.CountriesActivity;
 import com.cerezaconsulting.pushay.presentation.activities.LoginActivity;
 import com.cerezaconsulting.pushay.presentation.activities.RegisterActivity;
+import com.cerezaconsulting.pushay.presentation.activities.TicketsActivity;
 import com.cerezaconsulting.pushay.presentation.contracts.LoginContract;
 import com.cerezaconsulting.pushay.utils.ProgressDialogCustom;
 import com.facebook.CallbackManager;
@@ -40,6 +41,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
 
 
     CallbackManager mCallbackManager;
+
     @BindView(R.id.et_email)
     EditText etEmail;
     @BindView(R.id.et_password)
@@ -147,7 +149,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
             case R.id.btn_login:
                // mPresenter.loginUser(etEmail.getText().toString(), etPassword.getText().toString());
                // showMessage("Conexión presenter");
-                nextActivity(getActivity(), null, CountriesActivity.class, false);
+                nextActivity(getActivity(), null, TicketsActivity.class, false);
 
                 break;
             case R.id.login_button:

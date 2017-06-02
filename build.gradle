@@ -56,6 +56,8 @@ ext {
     expandableRecycleViewVersion = "3.0.0-RC1"
     guavaVersion = '18.0'
     interceptorVersion = '3.2.0'
+    zxingVersion = '1.9'
+
 
     //import all support design libraries
     supportDesignLibraries =[
@@ -119,6 +121,8 @@ ext {
             permissions :  "pub.devrel:easypermissions:${permissonVersion}",
             saaripar :  "com.mobsandgeeks:android-saripaar:${saripaarVersion}",
             multidex : "com.android.support:multidex:${multidexVersion}",
-            guava : "com.google.guava:guava:${guavaVersion}"
+            guava : "com.google.guava:guava:${guavaVersion}",
+            qrScanner : "me.dm7.barcodescanner:zxing:${zxingVersion}"
+
     ]
 }

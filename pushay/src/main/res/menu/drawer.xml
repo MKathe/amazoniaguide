@@ -6,12 +6,16 @@
         android:id="@+id/group1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/action_tickets"
+            android:id="@+id/action_profile"
             android:visible="true"
-            android:title="Mis tickets" />
+            android:title="Mi perfil" />
+        <item
+            android:id="@+id/action_buy"
+            android:visible="true"
+            android:title="Realizar Compra" />
         <item
             android:id="@+id/action_help"
-            android:title="Ayuda" />
+            android:title="Cómo funciona" />
 
     </group>
 

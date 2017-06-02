@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">PushayAdmin</string>
+    <string name="perm_camera">Se necesitan permisos para la cámara</string>
 
     //First strings
     <string name="sign_in">Iniciar Sesión</string>
@@ -50,6 +51,9 @@
     <string name="decription_package">descripción</string>
     <string name="validate_travel">Validar viaje</string>
     <string name="selected_travel">Seleccionar lugar</string>
+    <string name="validate">Valida el destino</string>
+    <string name="confirmed_travel">Su viaje se ha \nvalidado correctamente</string>
+
 
 
 </resources>

@@ -28,6 +28,8 @@
     y finalizar tu paseo guiado</string>
     <string name="thanks">¡Qué disfrutes tu viaje!</string>
 
+    //Buy Ticket
+    <string name="buy_package">¿Qué paquete deseas adquirir?</string>
 
     <string name="facebook_app_id">1413332452059501</string>
 

@@ -29,6 +29,7 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
                     android:text="@string/name" />
 
             </LinearLayout>
@@ -49,6 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Destino"
+                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="10dp"
                 android:textSize="@dimen/xlarge_text" />
 
@@ -72,6 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Guía"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/xlarge_text" />
 
                     <TextView
@@ -91,6 +94,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Día"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/xlarge_text" />
 
                     <TextView
@@ -107,7 +111,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Tipo de servicio"
+                android:text="Paquete adquirido"
+                android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/xlarge_text" />
 
             <LinearLayout
@@ -141,6 +146,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:textSize="@dimen/xxlarge_text"
+                android:textColor="@color/colorPrimary"
                 android:text="@string/thanks"/>
 
 

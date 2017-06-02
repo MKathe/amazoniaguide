@@ -47,10 +47,10 @@ public class CountriesPresenter implements CountriesContract.Presenter, PlaceIte
 
         ArrayList<PlacesEntity> list = new ArrayList<>();
         list.add(new PlacesEntity(1,"Lugar","Lugar"));
-        list.add(new PlacesEntity(2,"aoisjdoand","asnfpasna"));
-        list.add(new PlacesEntity(3,"aoisjdoand","asnfpasna"));
-        list.add(new PlacesEntity(4,"aoisjdoand","asnfpasna"));
-        list.add(new PlacesEntity(5,"aoisjdoand","asnfpasna"));
+        list.add(new PlacesEntity(2,"Lugar","Lugar"));
+        list.add(new PlacesEntity(3,"Lugar","Lugar"));
+        list.add(new PlacesEntity(4,"Lugar","Lugar"));
+        list.add(new PlacesEntity(5,"Lugar","Lugar"));
         mView.getCountries(list);
 
 

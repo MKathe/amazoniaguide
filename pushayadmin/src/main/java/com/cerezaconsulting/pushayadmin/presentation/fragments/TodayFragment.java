@@ -21,7 +21,7 @@ import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.TodayAdapter;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.TodayContract;
-import com.cerezaconsulting.pushayadmin.presentation.dialogs.ConfirmedDialog;
+import com.cerezaconsulting.pushayadmin.presentation.dialogs.TravelDetailsDialog;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.TodayPresenter;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 
@@ -109,7 +109,6 @@ public class TodayFragment extends BaseFragment implements TodayContract.View {
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvList.setLayoutManager(mLayoutManager);
-
         mAdapter = new TodayAdapter(new ArrayList<ReservationEntity>() , getContext(), (PlaceItem) mPresenter);
         rvList.setAdapter(mAdapter);
 
@@ -141,9 +140,8 @@ public class TodayFragment extends BaseFragment implements TodayContract.View {
     @Override
     public void showDetailsTravel(ReservationEntity reservationEntity) {
         Bundle bundle = new Bundle();
-        bundle.putInt("num", reservationEntity.getNum_coupons());
         bundle.putSerializable("travel", reservationEntity);
-        ConfirmedDialog travelDetailsDialog = new ConfirmedDialog(getContext(), bundle);
+        TravelDetailsDialog travelDetailsDialog = new TravelDetailsDialog(getContext(), bundle);
         travelDetailsDialog.show();
     }
 

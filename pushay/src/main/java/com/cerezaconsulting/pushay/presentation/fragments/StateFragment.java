@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,20 +38,17 @@ import butterknife.Unbinder;
 public class StateFragment extends BaseFragment implements CountriesContract.View {
 
 
-    @BindView(R.id.rv_select_place)
-    RecyclerView rvSelectPlace;
-    @BindView(R.id.noPlacesIcon)
-    ImageView noPlacesIcon;
-    @BindView(R.id.noPLacesMain)
-    TextView noPLacesMain;
-    @BindView(R.id.noPlaces)
-    LinearLayout noPlaces;
-    @BindView(R.id.btn_continue)
-    Button btnContinue;
+    @BindView(R.id.rv_list)
+    RecyclerView rvList;
+    @BindView(R.id.noListIcon)
+    ImageView noListIcon;
+    @BindView(R.id.noListMain)
+    TextView noListMain;
+    @BindView(R.id.noList)
+    LinearLayout noList;
     @BindView(R.id.refresh_layout)
     ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
-
     private CountriesAdapter mAdapter;
     private GridLayoutManager mLayoutManager;
     private CountriesContract.Presenter mPresenter;
@@ -81,7 +77,7 @@ public class StateFragment extends BaseFragment implements CountriesContract.Vie
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_country_cities, container, false);
+        View root = inflater.inflate(R.layout.fragment_list, container, false);
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
                 (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(
@@ -90,12 +86,12 @@ public class StateFragment extends BaseFragment implements CountriesContract.Vie
                 ContextCompat.getColor(getActivity(), R.color.black)
         );
         // Set the scrolling view in the custom SwipeRefreshLayout.
-        swipeRefreshLayout.setScrollUpChild(rvSelectPlace);
+        swipeRefreshLayout.setScrollUpChild(swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 //mPresenter.start();
-               // mPresenter.loadOrdersFromPage(1);
+                // mPresenter.loadOrdersFromPage(1);
             }
         });
 
@@ -109,28 +105,30 @@ public class StateFragment extends BaseFragment implements CountriesContract.Vie
         super.onViewCreated(view, savedInstanceState);
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
         mLayoutManager = new GridLayoutManager(getContext(), 2);
-        rvSelectPlace.setLayoutManager(mLayoutManager);
+        rvList.setLayoutManager(mLayoutManager);
 
-        mAdapter = new CountriesAdapter(new ArrayList<PlacesEntity>() , getContext(), (PlaceItem) mPresenter);
-        rvSelectPlace.setAdapter(mAdapter);
+        mAdapter = new CountriesAdapter(new ArrayList<PlacesEntity>(), getContext(), (PlaceItem) mPresenter);
+        rvList.setAdapter(mAdapter);
     }
 
     @Override
     public void getCountries(ArrayList<PlacesEntity> list) {
         mAdapter.setItems(list);
 
-        if (list !=null){
-            noPlaces.setVisibility((list.size()>0) ? View.GONE : View.VISIBLE);
+        if (list != null) {
+            noList.setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
         }
-        rvSelectPlace.addOnScrollListener(new RecyclerViewScrollListener() {
+        rvList.addOnScrollListener(new RecyclerViewScrollListener() {
             @Override
             public void onScrollUp() {
 
             }
+
             @Override
             public void onScrollDown() {
 
             }
+
             @Override
             public void onLoadMore() {
                 mPresenter.loadfromNextPage();
