@@ -153,6 +153,9 @@ public class TravelActivity extends BaseActivity {
                             case R.id.action_programming:
                                 next(TravelActivity.this,null, SchedulesActivity.class, false);
                                 break;
+                            case R.id.action_help:
+                                next(TravelActivity.this,null, SlideActivity.class, false);
+                              break;
                             case R.id.action_info:
                              /*  Intent intent_connect = new Intent(getBaseContext(), ProfileActivity.class);
                                 startActivityForResult(intent_connect,200);
@@ -224,6 +227,5 @@ public class TravelActivity extends BaseActivity {
             super.onBackPressed();
         }
     }
-
 
 }

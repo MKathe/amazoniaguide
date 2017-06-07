@@ -41,7 +41,7 @@ ext {
     butterknifeVersion = '8.5.1'
     calligraphyVersion = '2.2.0'
     materiallishProgressVersion = '1.7'
-    viewPageIndicatorVersion = '2.4.1.1@aar'
+    viewPageIndicatorVersion = '2.4.1'
     glideVersion = '3.7.0'
     multidexVersion='1.0.0'
     saripaarVersion = '2.0.3'
@@ -122,7 +122,9 @@ ext {
             saaripar :  "com.mobsandgeeks:android-saripaar:${saripaarVersion}",
             multidex : "com.android.support:multidex:${multidexVersion}",
             guava : "com.google.guava:guava:${guavaVersion}",
-            qrScanner : "me.dm7.barcodescanner:zxing:${zxingVersion}"
+            qrScanner : "me.dm7.barcodescanner:zxing:${zxingVersion}",
+            pagerindicator: "com.github.JakeWharton:ViewPagerIndicator:${viewPageIndicatorVersion}"
+
 
     ]
 }

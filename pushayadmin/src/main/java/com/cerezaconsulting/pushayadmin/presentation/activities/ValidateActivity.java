@@ -6,9 +6,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
-import com.cerezaconsulting.pushayadmin.presentation.fragments.RegisterFragment;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.ValidateFragment;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.RegisterPresenter;
 import com.cerezaconsulting.pushayadmin.utils.ActivityUtils;
 
 import butterknife.BindView;

@@ -76,4 +76,5 @@ dependencies {
     compile imagesLoader.glide
     compile helpLibraries.qrScanner
     compile helpLibraries.permissions
+    compile helpLibraries.pagerindicator
 }

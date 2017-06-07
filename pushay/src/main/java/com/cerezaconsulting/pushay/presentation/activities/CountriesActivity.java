@@ -20,10 +20,10 @@ public class CountriesActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_back);
         ButterKnife.bind(this);
 
-        toolbar.setTitle("Perfil");
+        toolbar.setTitle("ELige el País");
 
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();

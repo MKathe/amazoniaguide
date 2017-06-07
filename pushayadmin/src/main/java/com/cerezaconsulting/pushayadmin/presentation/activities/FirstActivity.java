@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.FirstFragment;
-import com.cerezaconsulting.pushayadmin.presentation.fragments.LoginFragment;
 import com.cerezaconsulting.pushayadmin.utils.ActivityUtils;
 
 /**

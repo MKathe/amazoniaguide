@@ -69,6 +69,7 @@ dependencies {
 
     compile helpLibraries.guava
     compile helpLibraries.calligraphy
+    compile helpLibraries.pagerindicator
 
     compile imagesLoader.glide
     compile facebookCore.facebook

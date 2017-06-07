@@ -16,7 +16,7 @@ public class LoadActivity extends BaseActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acticity_loader);
+        setContentView(R.layout.activity_loader);
         if (savedInstanceState == null)
             initialProcess();
     }

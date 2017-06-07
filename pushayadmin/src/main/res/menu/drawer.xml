@@ -12,6 +12,9 @@
             android:id="@+id/action_programming"
             android:title="Programar horarios" />
         <item
+            android:id="@+id/action_help"
+            android:title="Cómo funciona" />
+        <item
             android:id="@+id/action_info"
             android:title="Acerca de" />
 

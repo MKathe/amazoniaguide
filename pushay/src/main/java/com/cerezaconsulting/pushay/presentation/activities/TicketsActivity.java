@@ -110,7 +110,7 @@ public class TicketsActivity extends BaseActivity{
                                 next(TicketsActivity.this,null, CountriesActivity.class, false);
                                 break;
                             case R.id.action_help:
-                                // next(OrdersActivity.this,null, ListMenuActivity.class, false);
+                                next(TicketsActivity.this,null, SlideActivity.class, false);
                                 break;
                             case R.id.action_signout:
 

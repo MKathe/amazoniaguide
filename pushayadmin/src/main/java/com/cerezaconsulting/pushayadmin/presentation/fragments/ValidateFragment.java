@@ -8,14 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseFragment;
-import com.cerezaconsulting.pushayadmin.presentation.activities.TravelActivity;
 import com.cerezaconsulting.pushayadmin.presentation.dialogs.ConfirmedDialog;
-import com.cerezaconsulting.pushayadmin.utils.ActivityUtils;
 import com.google.zxing.Result;
 
 import java.util.List;

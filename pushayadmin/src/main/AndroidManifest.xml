@@ -22,37 +22,28 @@
         </activity>
 
         <activity android:name="com.cerezaconsulting.pushayadmin.presentation.activities.FirstActivity">
-
         </activity>
 
         <activity android:name="com.cerezaconsulting.pushayadmin.presentation.activities.LoginActivity">
-
         </activity>
-
         <activity android:name="com.cerezaconsulting.pushayadmin.presentation.activities.RegisterActivity">
-
         </activity>
-
         <activity android:label=""
             android:name="com.cerezaconsulting.pushayadmin.presentation.activities.TravelActivity">
-
         </activity>
-
         <activity
             android:name="com.cerezaconsulting.pushayadmin.presentation.activities.SchedulesActivity">
-
         </activity>
-
         <activity
             android:name="com.cerezaconsulting.pushayadmin.presentation.activities.ProfileActivity">
-
         </activity>
-
         <activity
             android:name="com.cerezaconsulting.pushayadmin.presentation.activities.ValidateActivity">
+        </activity>
+        <activity
+            android:name="com.cerezaconsulting.pushayadmin.presentation.activities.SlideActivity">
 
         </activity>
-
     </application>
 
 </manifest>

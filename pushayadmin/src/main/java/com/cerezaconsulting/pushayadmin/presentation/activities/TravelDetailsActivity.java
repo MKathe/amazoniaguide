@@ -5,7 +5,6 @@ import android.support.v7.widget.Toolbar;
 
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
-import com.cerezaconsulting.pushayadmin.utils.ActivityUtils;
 
 /**
  * Created by katherine on 24/05/17.

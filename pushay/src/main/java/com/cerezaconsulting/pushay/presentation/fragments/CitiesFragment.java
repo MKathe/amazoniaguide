@@ -184,8 +184,4 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
 
 
     }
-
-    @OnClick(R.id.btn_continue)
-    public void onViewClicked() {
-    }
 }

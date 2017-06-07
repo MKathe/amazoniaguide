@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,22 +12,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.core.BaseFragment;
 import com.cerezaconsulting.pushay.core.RecyclerViewScrollListener;
 import com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout;
-import com.cerezaconsulting.pushay.data.entities.PlacesEntity;
 import com.cerezaconsulting.pushay.data.entities.TicketEntity;
-import com.cerezaconsulting.pushay.presentation.activities.TicketsActivity;
 import com.cerezaconsulting.pushay.presentation.activities.TicketsDetailActivity;
-import com.cerezaconsulting.pushay.presentation.adapters.CountriesAdapter;
 import com.cerezaconsulting.pushay.presentation.adapters.TicketsAdapter;
-import com.cerezaconsulting.pushay.presentation.contracts.CountriesContract;
 import com.cerezaconsulting.pushay.presentation.contracts.TicketsContract;
-import com.cerezaconsulting.pushay.presentation.presenters.commons.PlaceItem;
 import com.cerezaconsulting.pushay.presentation.presenters.commons.TicketItem;
 import com.cerezaconsulting.pushay.utils.ProgressDialogCustom;
 
@@ -44,18 +37,18 @@ import butterknife.Unbinder;
 
 public class TicketsFragment extends BaseFragment implements TicketsContract.View {
 
-    @BindView(R.id.rv_tickets)
-    RecyclerView rvTickets;
-    @BindView(R.id.noTicketsIcon)
-    ImageView noTicketsIcon;
-    @BindView(R.id.noTicketsMain)
-    TextView noTicketsMain;
-    @BindView(R.id.noTickets)
-    LinearLayout noTickets;
+
+    @BindView(R.id.rv_list)
+    RecyclerView rvList;
+    @BindView(R.id.noListIcon)
+    ImageView noListIcon;
+    @BindView(R.id.noListMain)
+    TextView noListMain;
+    @BindView(R.id.noList)
+    LinearLayout noList;
     @BindView(R.id.refresh_layout)
     ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
-
     private TicketsAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private TicketsContract.Presenter mPresenter;
@@ -84,7 +77,7 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_tickets, container, false);
+        View root = inflater.inflate(R.layout.fragment_list, container, false);
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
                 (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(
@@ -93,7 +86,7 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
                 ContextCompat.getColor(getActivity(), R.color.black)
         );
         // Set the scrolling view in the custom SwipeRefreshLayout.
-        swipeRefreshLayout.setScrollUpChild(rvTickets);
+        swipeRefreshLayout.setScrollUpChild(rvList);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -101,6 +94,7 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
                 // mPresenter.loadOrdersFromPage(1);
             }
         });
+
         unbinder = ButterKnife.bind(this, root);
         return root;
     }
@@ -110,27 +104,29 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
         super.onViewCreated(view, savedInstanceState);
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
         mLayoutManager = new LinearLayoutManager(getContext());
-        rvTickets.setLayoutManager(mLayoutManager);
+        rvList.setLayoutManager(mLayoutManager);
         mAdapter = new TicketsAdapter(new ArrayList<TicketEntity>(), getContext(), (TicketItem) mPresenter);
-        rvTickets.setAdapter(mAdapter);
+        rvList.setAdapter(mAdapter);
     }
 
     @Override
     public void getTickets(ArrayList<TicketEntity> list) {
         mAdapter.setItems(list);
 
-        if (list !=null){
-            noTickets.setVisibility((list.size()>0) ? View.GONE : View.VISIBLE);
+        if (list != null) {
+            noList.setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
         }
-        rvTickets.addOnScrollListener(new RecyclerViewScrollListener() {
+        rvList.addOnScrollListener(new RecyclerViewScrollListener() {
             @Override
             public void onScrollUp() {
 
             }
+
             @Override
             public void onScrollDown() {
 
             }
+
             @Override
             public void onLoadMore() {
                 mPresenter.loadfromNextPage();
@@ -142,7 +138,7 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
     public void showDetailsTickets(TicketEntity reservationEntity) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("reservation", reservationEntity);
-        next(getActivity(),bundle, TicketsDetailActivity.class, false);
+        next(getActivity(), bundle, TicketsDetailActivity.class, false);
     }
 
     @Override
@@ -152,7 +148,7 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
 
     @Override
     public void setPresenter(TicketsContract.Presenter mPresenter) {
-        this.mPresenter=mPresenter;
+        this.mPresenter = mPresenter;
     }
 
     @Override
@@ -186,5 +182,6 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+
     }
 }

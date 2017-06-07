@@ -181,9 +181,4 @@ public class StateFragment extends BaseFragment implements CountriesContract.Vie
 
 
     }
-
-    @OnClick(R.id.btn_continue)
-    public void onViewClicked() {
-
-    }
 }
