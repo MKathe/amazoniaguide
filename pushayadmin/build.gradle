@@ -32,18 +32,25 @@ android {
     }
     productFlavors {
         prod {
-            minSdkVersion 18
-            targetSdkVersion 25
-            applicationId = "com.cerezaconsulting.pushayadmin"
-            buildConfigField 'String', 'BASE', '"http://glup.kodevianstudio.com/api/"'
+            buildConfigField 'String', 'BASE', '"http://pushay.cerezaconsulting.com/api/"'
+            //signingConfig signingConfigs.config
+
         }
         mock {
-            minSdkVersion 18
-            targetSdkVersion 25
-            applicationId = "com.cerezaconsulting.pushayadmin.test"
-            buildConfigField 'String', 'BASE', '"http://glupnew.kodevianstudio.com/api/"'
+            buildConfigField 'String', 'BASE', '"http://pushay.cerezaconsulting.com/api/"'
+            applicationIdSuffix = ".test"
+            //signingConfig signingConfigs.config
+
         }
     }
+    // Remove mockRelease as it's not needed.
+    android.variantFilter { variant ->
+        if (variant.buildType.name == 'release'
+                && variant.getFlavors().get(0).name == 'mock') {
+            variant.setIgnore(true);
+        }
+    }
+
 }
 
 dependencies {
@@ -77,4 +84,6 @@ dependencies {
     compile helpLibraries.qrScanner
     compile helpLibraries.permissions
     compile helpLibraries.pagerindicator
+    compile helpLibraries.saripaar
+    compile helpLibraries.eventBus
 }

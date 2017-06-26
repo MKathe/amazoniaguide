@@ -23,12 +23,13 @@
                 android:src="@drawable/photo_guide" />
 
             <TextView
+                android:layout_marginTop="10dp"
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/im_profile"
                 android:gravity="center"
-                android:text="@string/name"
+                android:text="@string/firstname"
                 android:textSize="@dimen/large_text" />
 
             <TextView
@@ -112,22 +113,53 @@
             </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/tv_personal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ly_payment_history"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="20dp"
-                android:text="Personal"
-                android:textColor="@color/colorPrimary" />
+
 
             <LinearLayout
+                android:id="@+id/ly_personal_edit"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ly_payment_history"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_personal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="Personal"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorPrimary" />
+
+                <RelativeLayout
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:id="@+id/img_edit"
+                    android:padding="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_mode_edit"
+                        android:tint="@color/colorAccent" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
                 android:id="@+id/ly_personal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_personal"
-                android:orientation="horizontal">
+                android:layout_below="@+id/ly_personal_edit"
+                android:orientation="horizontal"
+                android:focusableInTouchMode="true">
 
                 <ImageView
                     android:id="@+id/im_name"
@@ -146,19 +178,10 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="Nombre"
+                    android:layout_marginRight="10dp"
                     android:focusable="false"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/normal_text" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_mode_edit"
-
-                    android:tint="@color/colorAccent" />
             </LinearLayout>
 
             <LinearLayout
@@ -166,12 +189,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ly_personal"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:focusableInTouchMode="true">
 
                 <ImageView
                     android:id="@+id/im_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
@@ -185,17 +209,10 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="Correo"
+                    android:focusable="false"
+                    android:layout_marginRight="10dp"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/normal_text" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_mode_edit"
-                    android:tint="@color/colorAccent" />
             </LinearLayout>
 
             <LinearLayout
@@ -204,12 +221,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ly_email"
                 android:orientation="horizontal"
-                android:paddingRight="35dp">
+                android:focusableInTouchMode="true">
 
                 <ImageView
                     android:id="@+id/im_cel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
@@ -223,36 +240,44 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="Teléfono"
+                    android:focusable="false"
+                    android:layout_marginRight="10dp"
                     android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/normal_text" />
+                    android:textSize="@dimen/normal_text"/>
 
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/btn_suscribe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ly_cel"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/ic_add_circle" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:layout_below="@id/ly_cel">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/xlarge_text"
-                    android:text="Obtener Pushay Plus" />
-            </LinearLayout>
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_add_circle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/xlarge_text"
+                        android:text="Obtener Pushay Plus" />
+                </LinearLayout>
+            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

@@ -66,8 +66,8 @@ public class TravelDetailsDialog extends AlertDialog {
 
         reservationEntity = (ReservationEntity) bundle.getSerializable("travel");
         tvUserName.setText(reservationEntity.getUserEntity().getFullName());
-        tvDescriptTravel.setText(reservationEntity.getScheludes().getDestinyTravelEntity().getDescription());
-        tvNameDetailTravel.setText(reservationEntity.getScheludes().getDestinyTravelEntity().getName());
+        tvDescriptTravel.setText(reservationEntity.getScheludes().getDestiny().getDescription());
+        tvNameDetailTravel.setText(reservationEntity.getScheludes().getDestiny().getName());
         tvCount.setText("Cantidad: "+reservationEntity.getNum_coupons());
 
     }

@@ -15,7 +15,8 @@
 
 
     //Register strings
-    <string name="name">Nombres y Apellidos</string>
+    <string name="firstname">Nombres</string>
+    <string name="lasttname">Apellidos</string>
     <string name="birth">Fecha de nacimiento</string>
     <string name="cellphone">Celular</string>
     <string name="male">Hombre</string>
@@ -54,6 +55,10 @@
     <string name="validate">Valida el destino</string>
     <string name="confirmed_travel">Su viaje se ha \nvalidado correctamente</string>
 
+    //Dialog Register User
+    <string name="title_register">Hola! </string>
+    <string name="title_2">Gracias por registrarte como guía en Pushay </string>
+    <string name="confirm">Te estaremos contactando en los próximos días para validar tus datos</string>
 
 
 </resources>

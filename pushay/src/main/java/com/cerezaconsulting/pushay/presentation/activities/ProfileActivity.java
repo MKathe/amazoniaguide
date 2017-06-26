@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.presentation.fragments.ProfileFragment;
+import com.cerezaconsulting.pushay.presentation.presenters.ProfilePresenter;
 import com.cerezaconsulting.pushay.utils.ActivityUtils;
 
 import butterknife.BindView;
@@ -45,7 +46,7 @@ public class ProfileActivity extends BaseActivity {
                     fragment, R.id.body);
         }
 
-        //new SchedulePresenter(fragment,this);
+        new ProfilePresenter(fragment,this);
     }
 
     @Override

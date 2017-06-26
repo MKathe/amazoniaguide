@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission-sdk-23 android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -21,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.cerezaconsulting.pushayadmin.presentation.activities.FirstActivity">
+        <activity android:name="com.cerezaconsulting.pushayadmin.presentation.activities.LandingActivity">
         </activity>
 
         <activity android:name="com.cerezaconsulting.pushayadmin.presentation.activities.LoginActivity">

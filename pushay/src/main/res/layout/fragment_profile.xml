@@ -77,23 +77,51 @@
                     android:tint="@color/gray" />
             </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/tv_personal"
+            <LinearLayout
+                android:id="@+id/ly_personal_edit"
                 android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ly_travel_history"
-                android:layout_marginTop="20dp"
-                android:paddingLeft="20dp"
-                android:text="Personal"
-                android:textColor="@color/colorPrimary" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_personal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="Personal"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorPrimary" />
+
+                <RelativeLayout
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:id="@+id/img_edit"
+                    android:padding="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_mode_edit"
+                        android:tint="@color/gray"/>
+                </RelativeLayout>
+
+            </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="5dp"
                 android:id="@+id/ly_personal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_personal"
-                android:orientation="horizontal">
+                android:layout_below="@+id/ly_personal_edit"
+                android:orientation="horizontal"
+                android:focusableInTouchMode="true">
 
                 <ImageView
                     android:id="@+id/im_name"
@@ -112,19 +140,10 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="Nombre"
-                    android:focusable="false"
-                    android:textColor="@color/gray"/>
-
-                <ImageView
-                    android:id="@+id/edit_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_mode_edit"
-
-                    android:tint="@color/gray" />
+                    android:focusable="false"
+                    android:textColor="@color/gray_regular"
+                    android:textSize="@dimen/normal_text" />
             </LinearLayout>
 
             <LinearLayout
@@ -132,12 +151,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ly_personal"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:focusableInTouchMode="true">
 
                 <ImageView
                     android:id="@+id/im_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
@@ -151,17 +171,10 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="Correo"
-                    android:textColor="@color/gray" />
-
-                <ImageView
-                    android:id="@+id/edit_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
+                    android:focusable="false"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_action_edit"
-                    android:tint="@color/gray" />
+                    android:textColor="@color/gray_regular"
+                    android:textSize="@dimen/normal_text" />
             </LinearLayout>
 
             <LinearLayout
@@ -170,16 +183,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ly_email"
                 android:orientation="horizontal"
-                android:paddingRight="35dp">
+                android:focusableInTouchMode="true">
 
                 <ImageView
                     android:id="@+id/im_cel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_local_phone"
+                    android:src="@drawable/ic_phone"
                     android:tint="@color/colorPrimary" />
 
                 <EditText
@@ -187,8 +200,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:text="Teléfono"
-                    android:textColor="@color/gray" />
+                    android:focusable="false"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/gray_regular"
+                    android:textSize="@dimen/normal_text"/>
 
             </LinearLayout>
 

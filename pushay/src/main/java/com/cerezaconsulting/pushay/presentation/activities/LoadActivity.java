@@ -25,7 +25,7 @@ public class LoadActivity extends BaseActivity{
         SessionManager mSessionManager = new SessionManager(getApplicationContext());
         if(mSessionManager.isLogin()){
 
-            next(this,null, CountriesActivity.class, true);
+            next(this,null, TicketsActivity.class, true);
         }else{
             next(this,null, LoginActivity.class, true);
         }

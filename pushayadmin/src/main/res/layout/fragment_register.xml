@@ -14,43 +14,6 @@
             android:focusableInTouchMode="true"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/xxxlarge_text"
-                android:layout_marginBottom="15dp"
-                android:textColor="@color/colorPrimary"
-                android:gravity="center"/>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="300dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/et_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="@string/name"
-                    android:inputType="textCapWords"
-                    android:imeOptions="actionNext"
-                    android:padding="10dp" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="300dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/et_birth"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="@string/birth"
-                    android:inputType="date"
-                    android:imeOptions="actionNext"
-                    android:padding="10dp" />
-            </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="300dp"
                 android:layout_gravity="center_horizontal"
@@ -70,7 +33,50 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content">
                 <EditText
-                    android:id="@+id/et_celphone"
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:hint="@string/password"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionNext"
+                    android:padding="10dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_firstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:hint="@string/firstname"
+                    android:inputType="textCapWords"
+                    android:imeOptions="actionNext"
+                    android:padding="10dp" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:hint="@string/lasttname"
+                    android:inputType="textCapWords"
+                    android:imeOptions="actionNext"
+                    android:padding="10dp" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_cellphone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -104,9 +110,7 @@
                     android:button="@null"
                     android:text="@string/female"/>
 
-
             </RadioGroup>
-
 
             <Button
                 android:id="@+id/btn_create"

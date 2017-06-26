@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.LoginFragment;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.LoginPresenter;
 import com.cerezaconsulting.pushayadmin.utils.ActivityUtils;
 
 /**
@@ -13,6 +14,7 @@ import com.cerezaconsulting.pushayadmin.utils.ActivityUtils;
  */
 
 public class LoginActivity extends BaseActivity {
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +32,6 @@ public class LoginActivity extends BaseActivity {
         }
 
         // Create the presenter
-       // new LoginPresenter(fragment,this);
+        new LoginPresenter(fragment,this);
     }
 }

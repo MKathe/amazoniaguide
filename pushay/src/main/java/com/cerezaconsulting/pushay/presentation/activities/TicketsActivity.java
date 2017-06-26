@@ -22,11 +22,16 @@ import com.cerezaconsulting.pushay.presentation.presenters.CountriesPresenter;
 import com.cerezaconsulting.pushay.presentation.presenters.TicketsPresenter;
 import com.cerezaconsulting.pushay.utils.ActivityUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 /**
  * Created by katherine on 3/05/17.
  */
 
 public class TicketsActivity extends BaseActivity{
+
     DrawerLayout mDrawer;
     NavigationView navigationView;
     SessionManager mSessionManager;
@@ -78,7 +83,7 @@ public class TicketsActivity extends BaseActivity{
 
         tv_username = (TextView) header.findViewById(R.id.tv_fullnanme);
         tv_email = (TextView) header.findViewById(R.id.tv_email);
-
+        EventBus.getDefault().register(this);
         initHeader();
 
         fragment = (TicketsFragment) getSupportFragmentManager()
@@ -91,6 +96,15 @@ public class TicketsActivity extends BaseActivity{
                     fragment, R.id.body);
         }
         new TicketsPresenter(fragment, this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdateProfile(UserEntity userEntity) {
+        if(userEntity!=null){
+            tv_username.setText(userEntity.getFullName());
+            tv_email.setText(userEntity.getEmail());
+        }
+
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -112,8 +126,10 @@ public class TicketsActivity extends BaseActivity{
                             case R.id.action_help:
                                 next(TicketsActivity.this,null, SlideActivity.class, false);
                                 break;
+                            case R.id.action_info:
+                                //next(TicketsActivity.this,null, SlideActivity.class, false);
+                                break;
                             case R.id.action_signout:
-
                                 CloseSession();
                                 break;
 
@@ -141,7 +157,12 @@ public class TicketsActivity extends BaseActivity{
         if (mUser != null) {
 
             tv_username.setText(mUser.getFullName());
-            System.out.println("NOMBRE "+mUser.getFullName());
+            tv_username.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    next(TicketsActivity.this, null, ProfileActivity.class, false);
+                }
+            });
             tv_email.setText(mUser.getEmail());
 
         }
@@ -163,5 +184,11 @@ public class TicketsActivity extends BaseActivity{
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

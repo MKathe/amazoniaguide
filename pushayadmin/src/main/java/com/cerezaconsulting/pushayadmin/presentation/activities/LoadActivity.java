@@ -27,7 +27,7 @@ public class LoadActivity extends BaseActivity {
 
             next(this,null, TravelActivity.class, true);
         }else{
-            next(this,null, FirstActivity.class, true);
+            next(this,null, LandingActivity.class, true);
         }
     }
 }

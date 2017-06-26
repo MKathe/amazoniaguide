@@ -28,9 +28,9 @@ public interface TodayContract {
 
         void loadOrdersFromPage(int page);
 
-        void loadfromNextPage();
+        void loadFromNextPage();
 
-        void loadList();
+        void loadList(String token, final int page);
 
 
     }

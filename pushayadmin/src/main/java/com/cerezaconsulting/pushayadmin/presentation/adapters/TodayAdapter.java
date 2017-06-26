@@ -63,7 +63,6 @@ public class TodayAdapter extends LoaderAdapter<ReservationEntity> implements On
     public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
         ReservationEntity reservationEntities = getmItems().get(position);
         ((ViewHolder) holder).tvName.setText(reservationEntities.getUserEntity().getFullName());
-        ((ViewHolder) holder).tvPackage.setText(reservationEntities.getScheludes().getDestinyTravelEntity().getDescription());
     }
 
     @Override

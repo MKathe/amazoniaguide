@@ -62,8 +62,7 @@ public class TodayFragment extends BaseFragment implements TodayContract.View {
     @Override
     public void onResume() {
         super.onResume();
-         mPresenter.start();
-        mPresenter.loadList();
+        // mPresenter.start();
     }
 
     public static TodayFragment newInstance() {
@@ -132,7 +131,7 @@ public class TodayFragment extends BaseFragment implements TodayContract.View {
             }
             @Override
             public void onLoadMore() {
-                mPresenter.loadfromNextPage();
+                mPresenter.loadFromNextPage();
             }
         });
     }

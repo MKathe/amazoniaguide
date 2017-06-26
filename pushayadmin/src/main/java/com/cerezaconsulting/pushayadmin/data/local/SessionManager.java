@@ -53,8 +53,6 @@ public class SessionManager {
         editor.commit();
     }
 
-
-
     public String getUserToken() {
         if (isLogin()) {
             return preferences.getString(USER_TOKEN, "");
@@ -76,5 +74,4 @@ public class SessionManager {
         String userData = preferences.getString(USER_JSON, null);
         return new Gson().fromJson(userData, UserEntity.class);
     }
-
 }

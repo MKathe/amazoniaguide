@@ -1,5 +1,6 @@
 package com.cerezaconsulting.pushay.presentation.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -184,4 +185,5 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
         unbinder.unbind();
 
     }
+
 }

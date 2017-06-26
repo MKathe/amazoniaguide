@@ -14,6 +14,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 
 /**
  * Created by katherine on 10/05/17.
@@ -22,12 +24,14 @@ import retrofit2.Response;
 public class LoginPresenter implements LoginContract.Presenter {
 
     private final LoginContract.View mView;
+    private Context context;
     private final SessionManager mSessionManager;
 
-    public LoginPresenter(@NonNull LoginContract.View mView, Context context) {
-        this.mView = mView;
-        this.mSessionManager = new SessionManager(context);
+    public LoginPresenter(@NonNull LoginContract.View mView, @NonNull Context context) {
+        this.context = checkNotNull(context, "context cannot be null!");
+        this.mView = checkNotNull(mView, "newsView cannot be null!");
         this.mView.setPresenter(this);
+        mSessionManager = new SessionManager(context);
 
     }
 
@@ -44,11 +48,11 @@ public class LoginPresenter implements LoginContract.Presenter {
                     return;
                 }
                 if (response.isSuccessful()) {
-                    getPerfil(response.body());
+                    getProfile(response.body());
 
                 } else {
                     mView.setLoadingIndicator(false);
-                    mView.showMessage("login fallido");
+                    mView.errorLogin("login fallido");
                 }
             }
 
@@ -58,36 +62,56 @@ public class LoginPresenter implements LoginContract.Presenter {
                     return;
                 }
                 mView.setLoadingIndicator(false);
-                mView.showErrorMessage("No se puede conectar al servidor");
+                mView.errorLogin("No se puede conectar al servidor");
             }
         });
     }
 
-    public void getPerfil(final AccessTokenEntity accessTokenEntity) {
+    @Override
+    public void getProfile(final AccessTokenEntity token) {
         LoginRequest loginService =
                 ServiceFactory.createService(LoginRequest.class);
-        Call<UserEntity> call = loginService.getUser("Token "+accessTokenEntity.getAccessToken());
+        Call<UserEntity> call = loginService.getUser("Token "+ token.getAccessToken());
         call.enqueue(new Callback<UserEntity>() {
             @Override
             public void onResponse(Call<UserEntity> call, Response<UserEntity> response) {
                 if (response.isSuccessful()) {
-                    mView.setLoadingIndicator(false);
-                    mSessionManager.openSession(accessTokenEntity);
-                    mSessionManager.setUser(response.body());
-                    mView.loginSucessful();
+                    if (!mView.isActive()) {
+                        return;
+                    }
+                    openSession(token, response.body());
 
                 } else {
+                    if (!mView.isActive()) {
+                        return;
+                    }
                     mView.setLoadingIndicator(false);
-                    mView.showMessage("Perfil fallido");
+                    mView.errorLogin("Ocurrió un error al cargar su perfil");
                 }
             }
 
             @Override
             public void onFailure(Call<UserEntity> call, Throwable t) {
+                if (!mView.isActive()) {
+                    return;
+                }
                 mView.setLoadingIndicator(false);
-                mView.showErrorMessage("No se puede conectar al servidor");
+                mView.errorLogin("Fallo al traer datos, comunicarse con su administrador");
             }
         });
+    }
+
+    @Override
+    public void openSession(AccessTokenEntity token, UserEntity userEntity) {
+        mSessionManager.openSession(token);
+        mSessionManager.setUser(userEntity);
+        mView.setLoadingIndicator(false);
+        mView.loginSuccessful(userEntity);
+    }
+
+    @Override
+    public void sendEmail(String email) {
+
     }
 
     @Override

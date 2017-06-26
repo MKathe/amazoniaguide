@@ -22,7 +22,7 @@ import butterknife.Unbinder;
  * Created by katherine on 12/05/17.
  */
 
-public class FirstFragment extends BaseFragment {
+public class LandingFragment extends BaseFragment {
 
     @BindView(R.id.btn_login)
     Button btnLogin;
@@ -32,11 +32,11 @@ public class FirstFragment extends BaseFragment {
     TextView tvDownload;
     Unbinder unbinder;
 
-    public FirstFragment() {
+    public LandingFragment() {
     }
 
-    public static FirstFragment newInstance() {
-        return new FirstFragment();
+    public static LandingFragment newInstance() {
+        return new LandingFragment();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class FirstFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_first, container, false);
+        View root = inflater.inflate(R.layout.fragment_landing, container, false);
         unbinder = ButterKnife.bind(this, root);
         return root;
     }

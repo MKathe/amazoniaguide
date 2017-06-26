@@ -12,6 +12,7 @@ public class UserEntity implements Serializable {
     private String first_name;
     private String last_name;
     private String cellphone;
+    private String gender;
     private String document_number;
     private String type_document;
     private boolean is_exclusive;
@@ -21,24 +22,32 @@ public class UserEntity implements Serializable {
     private boolean is_enable;
     private String birth_date;
     private String clasification;
+    private String password;
 
-    public UserEntity(String email, String first_name,
-                      String last_name, String cellphone, String document_number,
-                      String type_document, boolean is_exclusive, String picture, boolean is_guide,
-                      String code, boolean is_enable, String birth_date, String clasification) {
+    public UserEntity(String email, String password, String first_name, String last_name,
+                      String cellphone, String gender) {
         this.email = email;
+        this.password = password;
         this.first_name = first_name;
         this.last_name = last_name;
         this.cellphone = cellphone;
-        this.document_number = document_number;
-        this.type_document = type_document;
-        this.is_exclusive = is_exclusive;
-        this.picture = picture;
-        this.is_guide = is_guide;
-        this.code = code;
-        this.is_enable = is_enable;
-        this.birth_date = birth_date;
-        this.clasification = clasification;
+        this.gender = gender;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public boolean is_exclusive() {

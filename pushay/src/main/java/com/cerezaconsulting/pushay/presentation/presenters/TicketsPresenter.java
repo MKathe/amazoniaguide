@@ -54,28 +54,6 @@ public class TicketsPresenter implements TicketsContract.Presenter, TicketItem {
 
     @Override
     public void loadList() {
-        ArrayList<TicketEntity> list = new ArrayList<>();
-        list.add(new TicketEntity(new SchedulesEntity(new UserEntity("mk@gmail.com",
-                "kath", "caillahua", "123456789", "12345678","DNI",false,"foto",false,"qr",false,
-                "20/10/92","estrellitas"),new DayEntity(1,"Lunes"), new DestinyTravelEntity(new CityEntity(new CountryEntity("Ica","cover"),"Paracas"),"Paseo a Paracas","cover","viaje a paracas"),"S/120.00",5),"30/10/17",new UserEntity("mk@gmail.com",
-                "kath", "caillahua", "123456789", "12345678","DNI",false,"foto",false,"qr",false,
-                "20/10/92","estrellitas"),5,"qr_code",true));
-        list.add(new TicketEntity(new SchedulesEntity(new UserEntity("mk@gmail.com",
-                "kath", "caillahua", "123456789", "12345678","DNI",false,"foto",false,"qr",false,
-                "20/10/92","estrellitas"),new DayEntity(2,"Martes"), new DestinyTravelEntity(new CityEntity(new CountryEntity("Ica","cover"),"Paracas"),"Paseo a Paracas","cover","viaje a paracas"),"S/120.00",5),"30/10/17",new UserEntity("mk@gmail.com",
-                "kath", "caillahua", "123456789", "12345678","DNI",false,"foto",false,"qr",false,
-                "20/10/92","estrellitas"),3,"qr_code",true));
-        list.add(new TicketEntity(new SchedulesEntity(new UserEntity("mk@gmail.com",
-                "kath", "caillahua", "123456789", "12345678","DNI",false,"foto",false,"qr",false,
-                "20/10/92","estrellitas"),new DayEntity(3,"Jueves"), new DestinyTravelEntity(new CityEntity(new CountryEntity("Ica","cover"),"Paracas"),"Paseo a Paracas","cover","viaje a paracas"),"S/120.00",5),"30/10/17",new UserEntity("mk@gmail.com",
-                "kath", "caillahua", "123456789", "12345678","DNI",false,"foto",false,"qr",false,
-                "20/10/92","estrellitas"),4,"qr_code",true));
-        list.add(new TicketEntity(new SchedulesEntity(new UserEntity("mk@gmail.com",
-                "kath", "caillahua", "123456789", "12345678","DNI",false,"foto",false,"qr",false,
-                "20/10/92","estrellitas"),new DayEntity(4,"Sábado"), new DestinyTravelEntity(new CityEntity(new CountryEntity("Ica","cover"),"Paracas"),"Paseo a Paracas","cover","viaje a paracas"),"S/120.00",5),"30/10/17",new UserEntity("mk@gmail.com",
-                "kath", "caillahua", "123456789", "12345678","DNI",false,"foto",false,"qr",false,
-                "20/10/92","estrellitas"),1,"qr_code",true));
-        mView.getTickets(list);
     }
 
     @Override

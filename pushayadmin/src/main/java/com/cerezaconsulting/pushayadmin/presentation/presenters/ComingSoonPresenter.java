@@ -44,25 +44,7 @@ public class ComingSoonPresenter implements ComingSoonContract.Presenter, PlaceI
 
     @Override
     public void loadList() {
-        ArrayList<ReservationEntity> list = new ArrayList<>();
-        list.add(new ReservationEntity(new SchedulesEntity(
-                new UserEntity("mk@gmail.com",
-                        "kath", "caillahua", "123456789", "12345678","DNI",false,"foto",false,"qr",false,
-                        "20/10/92","estrellitas"),new DayEntity(2,"martes"),
-                new DestinyTravelEntity(new CityEntity(new CountryEntity("Ica","cover"),"Paracas"),"Paseo a Paracas","cover","viaje a paracas"),"20.00", 5),
-                "20/10/992",new UserEntity("mk@gmail.com",
-                "kath", "caillahua", "123456789", "12345678","DNI",false,"foto",false,"qr",false,
-                "20/10/92","estrellitas"), 2));
-        list.add(new ReservationEntity(new SchedulesEntity(
-                new UserEntity("mk@gmail.com",
-                        "kath", "caillahua", "123456789", "12345678","DNI",false,"foto",false,"qr",false,
-                        "20/10/92","estrellitas"),new DayEntity(2,"martes"),
-                new DestinyTravelEntity(new CityEntity(new CountryEntity("Ica","cover"),"Paracas"),"Paseo a Paracas","cover","viaje a paracas"),"20.00", 5),
-                "20/10/992",new UserEntity("mk@gmail.com",
-                "kath", "caillahua", "123456789", "12345678","DNI",false,"foto",false,"qr",false,
-                "20/10/92","estrellitas"), 2));
 
-        mView.getComingSoonList(list);
     }
 
     @Override

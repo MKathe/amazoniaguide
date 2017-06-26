@@ -7,25 +7,36 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.core.BaseFragment;
+import com.cerezaconsulting.pushay.data.entities.UserEntity;
 import com.cerezaconsulting.pushay.presentation.activities.CountriesActivity;
 import com.cerezaconsulting.pushay.presentation.activities.LoginActivity;
 import com.cerezaconsulting.pushay.presentation.activities.RegisterActivity;
 import com.cerezaconsulting.pushay.presentation.activities.TicketsActivity;
 import com.cerezaconsulting.pushay.presentation.contracts.LoginContract;
 import com.cerezaconsulting.pushay.utils.ProgressDialogCustom;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
 
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,15 +46,20 @@ import butterknife.Unbinder;
 /**
  * Created by junior on 27/08/16.
  */
-public class LoginFragment extends BaseFragment implements LoginContract.View,FacebookCallback<LoginResult> {
+public class LoginFragment extends BaseFragment implements LoginContract.View,FacebookCallback<LoginResult>, Validator.ValidationListener {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
 
     CallbackManager mCallbackManager;
 
+    @NotEmpty(message = " ")
+    @Email(message = "Email inválido")
     @BindView(R.id.et_email)
     EditText etEmail;
+
+    @NotEmpty(message = "Contraseña inválida")
+    @Password(message = "Debe contener mínimo 6 dígitos")
     @BindView(R.id.et_password)
     EditText etPassword;
     @BindView(R.id.btn_login)
@@ -57,6 +73,8 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
 
     private LoginContract.Presenter mPresenter;
     private ProgressDialogCustom mProgressDialogCustom;
+    private Validator validator;
+    private boolean isLoading = false;
 
 
     public LoginFragment() {
@@ -94,7 +112,8 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
-
+        validator = new Validator(this);
+        validator.setValidationListener(this);
     }
 
 
@@ -105,7 +124,16 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
 
     @Override
     public void setLoadingIndicator(boolean active) {
-
+        if (getView() == null) {
+            return;
+        }
+        if (active) {
+            mProgressDialogCustom.show();
+        } else {
+            if (mProgressDialogCustom.isShowing()) {
+                mProgressDialogCustom.dismiss();
+            }
+        }
     }
 
     @Override
@@ -120,8 +148,24 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
 
 
     @Override
-    public void loginSucessful() {
-        showMessage("Login realizado correctamente");
+    public void loginSuccessful(UserEntity userEntity) {
+        newActivityClearPreview(getActivity(), null, TicketsActivity.class);
+        showMessage("Login exitoso");
+    }
+
+    @Override
+    public void errorLogin(String msg) {
+        showErrorMessage(msg);
+    }
+
+    @Override
+    public void showDialogForgotPassword() {
+
+    }
+
+    @Override
+    public void showSendEmail(String email) {
+
     }
 
     @Override
@@ -141,16 +185,19 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
         if (resultCode == Activity.RESULT_OK) {
             mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
+
     }
 
     @OnClick({R.id.btn_login, R.id.login_button,R.id.et_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-               // mPresenter.loginUser(etEmail.getText().toString(), etPassword.getText().toString());
-               // showMessage("Conexión presenter");
-                nextActivity(getActivity(), null, TicketsActivity.class, false);
-
+                if(!isLoading){
+                    InputMethodManager input = (InputMethodManager) getActivity()
+                            .getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    input.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                    validator.validate();
+                }
                 break;
             case R.id.login_button:
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
@@ -165,8 +212,9 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
     public void onSuccess(LoginResult loginResult) {
         String access_token_facebook = loginResult.getAccessToken().getToken();
         if (access_token_facebook != null || !access_token_facebook.equals("")) {
-            // mPresenter.loginUserFacebook(access_token_facebook);
-            showMessage("Login con facebook correcto");
+            mPresenter.loginUserFacebook(access_token_facebook);
+            AccessToken.setCurrentAccessToken(loginResult.getAccessToken());
+
 
         } else {
             showErrorMessage("Algo sucedió mal al intentar loguearse");
@@ -181,5 +229,26 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
     @Override
     public void onError(FacebookException error) {
         showErrorMessage("Error al intentar loguearse");
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        mPresenter.loginUser(etEmail.getText().toString(), etPassword.getText().toString());
+        isLoading=true;
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getContext());
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(getContext(), "Por favor ingrese lo campos correctamente", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+
 package com.cerezaconsulting.pushay.presentation.fragments;
 
 import android.content.Context;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseFragment;
-import com.viewpagerindicator.CirclePageIndicator;
+import com.viewpagerindicator.LinePageIndicator;
 
 import java.util.ArrayList;
 
@@ -26,12 +27,13 @@ import butterknife.ButterKnife;
 /**
  * Created by TOTTUS on 21/06/2016.
  */
+
 public class SlideFragment extends BaseFragment {
 
     @BindView(R.id.pager)
     ViewPager pager;
     @BindView(R.id.titles)
-    CirclePageIndicator titles;
+    LinePageIndicator titles;
     private InitAdapter initAdapter;
 
     public static SlideFragment newInstance() {
@@ -92,7 +94,6 @@ public class SlideFragment extends BaseFragment {
             title.add("imagen 3");
 
         }
-
         public Object instantiateItem(final ViewGroup collection, final int position) {
             item = list.get(position);
             tit = title.get(position);
@@ -104,7 +105,6 @@ public class SlideFragment extends BaseFragment {
             collection.addView(view);
             return view;
         }
-
         @Override
         public int getCount() {
             return list.size();

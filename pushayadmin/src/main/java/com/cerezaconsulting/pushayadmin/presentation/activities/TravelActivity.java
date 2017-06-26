@@ -3,7 +3,9 @@ package com.cerezaconsulting.pushayadmin.presentation.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -20,14 +22,16 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.data.entities.UserEntity;
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.ComingSoonFragment;
-import com.cerezaconsulting.pushayadmin.presentation.fragments.RegisterFragment;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.TodayFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +48,7 @@ public class TravelActivity extends BaseActivity {
     private ViewPager viewPager;
 
     public TextView tv_username;
+    public TextView tv_mail;
     public ImageView profile_image;
     public UserEntity mUser;
    // private CountriesFragment fragment;
@@ -87,22 +92,31 @@ public class TravelActivity extends BaseActivity {
         mDrawer.setDrawerListener(mDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
         mDrawerToggle.syncState();
         View header = navigationView.getHeaderView(0);
 
         tv_username = (TextView) header.findViewById(R.id.tv_fullnanme);
         profile_image = (ImageView) header.findViewById(R.id.imageView);
+        tv_mail = (TextView) header.findViewById(R.id.tv_email);
         //  startService(new Intent(this, GeolocationService.class));
-
+        EventBus.getDefault().register(this);
         initHeader();
    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdateProfile(UserEntity userEntity) {
+        if(userEntity!=null){
+            tv_username.setText(userEntity.getFullName());
+            tv_mail.setText(userEntity.getEmail());
+        }
+
+    }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new TodayFragment(), "Hoy");
         adapter.addFragment(new ComingSoonFragment(), "Próximamente");
-
         viewPager.setAdapter(adapter);
     }
 
@@ -148,7 +162,7 @@ public class TravelActivity extends BaseActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.action_my_profile:
-                                next(TravelActivity.this,null, ProfileActivity.class, false);
+                                next(TravelActivity.this, null, ProfileActivity.class, false);
                                 break;
                             case R.id.action_programming:
                                 next(TravelActivity.this,null, SchedulesActivity.class, false);
@@ -174,10 +188,9 @@ public class TravelActivity extends BaseActivity {
                 });
     }
 
-
     private void CloseSession(){
         mSessionManager.closeSession();
-       // newActivityClearPreview(this,null,LoadActivity.class);
+        newActivityClearPreview(this, null, LoadActivity.class);
     }
 
     @Override
@@ -198,13 +211,19 @@ public class TravelActivity extends BaseActivity {
         if (mUser != null) {
 
             tv_username.setText(mUser.getFullName());
+            tv_username.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    next(TravelActivity.this, null, ProfileActivity.class, false);
+                }
+            });
+            tv_mail.setText(mUser.getEmail());
+
             /*if (mUser.getPhoto() != null) {
                 GlideUtils.loadImageCircleTransform(profile_image, mUser.getPhoto(), this);
 
             }*/
         }
-
-
     }
 
 
@@ -228,4 +247,9 @@ public class TravelActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

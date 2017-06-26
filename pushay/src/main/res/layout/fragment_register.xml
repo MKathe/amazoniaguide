@@ -30,40 +30,6 @@
                 android:textColorHint="@color/white"
                 android:layout_height="wrap_content">
                 <EditText
-                    android:id="@+id/et_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="@string/name"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/white"
-                    android:inputType="textCapWords"
-                    android:imeOptions="actionNext"
-                    android:padding="10dp" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="300dp"
-                android:layout_gravity="center_horizontal"
-                android:textColorHint="@color/white"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/et_birth"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="@string/birth"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/white"
-                    android:inputType="date"
-                    android:imeOptions="actionNext"
-                    android:padding="10dp" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="300dp"
-                android:layout_gravity="center_horizontal"
-                android:textColorHint="@color/white"
-                android:layout_height="wrap_content">
-                <EditText
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,7 +47,59 @@
                 android:textColorHint="@color/white"
                 android:layout_height="wrap_content">
                 <EditText
-                    android:id="@+id/et_celphone"
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:hint="@string/password"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionNext"
+                    android:padding="10dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_gravity="center_horizontal"
+                android:textColorHint="@color/white"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_firstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:hint="@string/firstname"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:inputType="textCapWords"
+                    android:imeOptions="actionNext"
+                    android:padding="10dp" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_gravity="center_horizontal"
+                android:textColorHint="@color/white"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:hint="@string/lastname"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:inputType="textCapWords"
+                    android:imeOptions="actionNext"
+                    android:padding="10dp" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="300dp"
+                android:layout_gravity="center_horizontal"
+                android:textColorHint="@color/white"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_cellphone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"

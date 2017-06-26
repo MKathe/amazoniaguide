@@ -16,10 +16,14 @@ import retrofit2.http.POST;
 
 public interface LoginRequest {
     @FormUrlEncoded
-    @POST()
+    @POST("login/")
     Call<AccessTokenEntity> login(@Field("email") String email, @Field("password") String password);
 
-    @GET()
+    @GET("user/retrieve/")
     Call<UserEntity> getUser(@Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @POST("login/mobile/facebook/")
+    Call<AccessTokenEntity> loginUserFacebook(@Field("access_token") String tokenFace);
 
 }

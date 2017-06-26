@@ -16,10 +16,10 @@ import retrofit2.http.POST;
 
 public interface LoginRequest {
     @FormUrlEncoded
-    @POST()
+    @POST("login-guide/")
     Call<AccessTokenEntity> login(@Field("email") String email, @Field("password") String password);
 
-    @GET()
+    @GET("userguide/retrieve/")
     Call<UserEntity> getUser(@Header("Authorization") String token);
 
 }

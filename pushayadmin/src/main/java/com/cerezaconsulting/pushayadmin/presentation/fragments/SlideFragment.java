@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseFragment;
-import com.viewpagerindicator.CirclePageIndicator;
+import com.viewpagerindicator.LinePageIndicator;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class SlideFragment extends BaseFragment {
     @BindView(R.id.pager)
     ViewPager pager;
     @BindView(R.id.titles)
-    CirclePageIndicator titles;
+    LinePageIndicator titles;
     private InitAdapter initAdapter;
 
     public static SlideFragment newInstance() {

@@ -29,18 +29,23 @@ android {
     }
     productFlavors {
         prod {
-            minSdkVersion 18
-            targetSdkVersion 25
-            applicationId = "com.cerezaconsulting.pushay"
-            buildConfigField 'String', 'BASE', '"http://glup.kodevianstudio.com/api/"'
+            buildConfigField 'String', 'BASE', '"http://pushay.cerezaconsulting.com/api/"'
+
         }
         mock {
-            minSdkVersion 18
-            targetSdkVersion 25
-            applicationId = "com.cerezaconsulting.pushay.test"
-            buildConfigField 'String', 'BASE', '"http://glupnew.kodevianstudio.com/api/"'
+            buildConfigField 'String', 'BASE', '"http://pushay.cerezaconsulting.com/api/"'
+            applicationIdSuffix = ".test"
         }
     }
+// Remove mockRelease as it's not needed.
+    android.variantFilter { variant ->
+        if (variant.buildType.name == 'release'
+                && variant.getFlavors().get(0).name == 'mock') {
+            variant.setIgnore(true);
+        }
+    }
+
+
 }
 
 dependencies {
@@ -70,6 +75,8 @@ dependencies {
     compile helpLibraries.guava
     compile helpLibraries.calligraphy
     compile helpLibraries.pagerindicator
+    compile helpLibraries.saripaar
+    compile helpLibraries.eventBus
 
     compile imagesLoader.glide
     compile facebookCore.facebook

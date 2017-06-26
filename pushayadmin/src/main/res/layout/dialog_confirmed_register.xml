@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:textColor="@color/black"
+            android:textSize="@dimen/xxlarge_text"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:text="@string/title_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/xxlarge_text"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:text="@string/firstname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:textSize="@dimen/large_text"
+        android:gravity="center"
+        android:text="@string/title_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:textSize="@dimen/large_text"
+        android:text="@string/confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_acept"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="30dp"
+        android:text="ACEPTAR"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"/>
+    </LinearLayout>
