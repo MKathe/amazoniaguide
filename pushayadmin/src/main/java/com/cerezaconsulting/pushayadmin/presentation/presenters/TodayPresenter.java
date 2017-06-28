@@ -71,7 +71,7 @@ public class TodayPresenter implements TodayContract.Presenter, PlaceItem{
     public void loadList(String token, final int page) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
-        Call<TrackHolderEntity<ReservationEntity>> reservation = listRequest.getCountry();
+        Call<TrackHolderEntity<ReservationEntity>> reservation = listRequest.getReservation();
         reservation.enqueue(new Callback<TrackHolderEntity<ReservationEntity>>() {
             @Override
             public void onResponse(Call<TrackHolderEntity<ReservationEntity>> call, Response<TrackHolderEntity<ReservationEntity>> response) {

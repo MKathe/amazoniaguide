@@ -29,6 +29,8 @@ import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
+import com.cerezaconsulting.pushayadmin.presentation.activities.CountriesActivity;
+import com.cerezaconsulting.pushayadmin.presentation.activities.RegisterSchedulesActivity;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.ScheduleAdapter;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.SchedulesSecondAdapter;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.TodayAdapter;
@@ -191,6 +193,7 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
                 listSchedulesRL.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_get_in:
+                next(getActivity(),null, CountriesActivity.class,false);
                 break;
         }
     }

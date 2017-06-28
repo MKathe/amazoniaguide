@@ -1,5 +1,7 @@
 package com.cerezaconsulting.pushayadmin.data.remote.request;
 
+import com.cerezaconsulting.pushayadmin.data.entities.CityEntity;
+import com.cerezaconsulting.pushayadmin.data.entities.CountryEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.trackholder.TrackHolderEntity;
@@ -7,6 +9,8 @@ import com.cerezaconsulting.pushayadmin.data.entities.trackholder.TrackHolderEnt
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -16,8 +20,11 @@ import retrofit2.http.Query;
 
 public interface ListRequest {
     @GET("listcountry/")
-    Call<TrackHolderEntity<ReservationEntity>> getCountry();
+    Call<TrackHolderEntity<CountryEntity>> getCountry();
 
+
+    @GET("listcitybycountries/{pk}/")
+    Call<TrackHolderEntity<CityEntity>> getCities(@Path("pk") int id);
 
     @GET("listreservation/")
     Call<TrackHolderEntity<ReservationEntity>> getReservation();
