@@ -30,6 +30,7 @@ import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.ScheduleAdapter;
+import com.cerezaconsulting.pushayadmin.presentation.adapters.SchedulesSecondAdapter;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.TodayAdapter;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.ScheduleContract;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.SchedulesPresenter;
@@ -76,9 +77,13 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
     RecyclerView rvList;
     private ScheduleContract.Presenter mPresenter;
 
-    private ScheduleAdapter mAdapter;
+    //private ScheduleAdapter mAdapter;
+    private SchedulesSecondAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private SessionManager mSessionManager;
+    private SchedulesEntity mondayEntity, tuesdayEntity, wednesdayEntity,
+            thursdayEntity, fridayEntity, saturdayEntity, sundayEntity;
+    private boolean buttonState;
     //private ProgressDialogCustom mProgressDialogCustom;
 
     public ScheduleFragment() {
@@ -100,38 +105,10 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSessionManager = new SessionManager(getContext());
-        mPresenter = new SchedulesPresenter(this,getContext());
+        mPresenter = new SchedulesPresenter(this, getContext());
 
 
     }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_save, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.btn_save:
-                Toast.makeText(getContext(), "Guardar Horario", Toast.LENGTH_SHORT).show();
-               /* AlertUtils.getInstance().showAlert(getContext(), "Guardar horarios del día "+getDaySelected(daySelected), "Recuerde que al guardar los horarios estos serán fijos, no podrá cambiarlos a menos que uses la opción de horarios especiales",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                mPresenter.saveScheduleFromDay(mHealthClinicEntitySelected.getId(),
-                                        mScheduleDaySelected);
-                            }
-                        });*/
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 
     @Nullable
     @Override
@@ -139,23 +116,6 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_schedules, container, false);
         unbinder = ButterKnife.bind(this, root);
-        final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
-                (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
-        swipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(getActivity(), R.color.black),
-                ContextCompat.getColor(getActivity(), R.color.dark_gray),
-                ContextCompat.getColor(getActivity(), R.color.black)
-        );
-        // Set the scrolling view in the custom SwipeRefreshLayout.
-        swipeRefreshLayout.setScrollUpChild(rvList);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //mPresenter.start();
-                // mPresenter.loadOrdersFromPage(1);
-            }
-        });
-
         monday.setChecked(true);
         setHasOptionsMenu(true);
 
@@ -173,10 +133,10 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
                     tvClose.setText("No trabajo este día");
                     tvClose.setTextColor(getResources().getColor(R.color.red));
                     listSchedulesRL.setVisibility(View.GONE);
-
                 }
             }
         });
+        btnGetIn.setVisibility(View.GONE);
 
         return root;
     }
@@ -187,7 +147,8 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvList.setLayoutManager(mLayoutManager);
-        mAdapter = new ScheduleAdapter(new ArrayList<SchedulesEntity>(), getContext());
+        mAdapter = new SchedulesSecondAdapter(new SchedulesEntity(), getContext(), (PlaceItem) mPresenter);
+        //mAdapter = new ScheduleAdapter(new ArrayList<SchedulesEntity>() , getContext());
         rvList.setAdapter(mAdapter);
 
     }
@@ -204,18 +165,26 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.monday:
+                disableOrEnableDay(mondayEntity);
+
                 break;
             case R.id.tuesday:
+                disableOrEnableDay(tuesdayEntity);
                 break;
             case R.id.wednesday:
+                disableOrEnableDay(wednesdayEntity);
                 break;
             case R.id.thursday:
+                disableOrEnableDay(thursdayEntity);
                 break;
             case R.id.friday:
+                disableOrEnableDay(fridayEntity);
                 break;
             case R.id.saturday:
+                disableOrEnableDay(saturdayEntity);
                 break;
             case R.id.sunday:
+                disableOrEnableDay(sundayEntity);
                 break;
             case R.id.switch_disable:
                 switchDisable.setChecked(true);
@@ -226,26 +195,59 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
         }
     }
 
+    private void disableOrEnableDay(SchedulesEntity schedulesEntity){
+        if (schedulesEntity ==null){
+            switchDisable.setChecked(false);
+            mAdapter.setPlaceItem(null);
+            btnGetIn.setVisibility(View.VISIBLE);
+        }else{
+            switchDisable.setChecked(true);
+            mAdapter.setPlaceItem(schedulesEntity);
+            btnGetIn.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void getSchedules(ArrayList<SchedulesEntity> list) {
-        mAdapter.setItems(list);
+        //mAdapter.setItems(list);
+        if (list != null) {
+            switchDisable.setChecked(true);
+            listSchedulesRL.setVisibility(View.VISIBLE);
+            getSchedulesByDay(list);
+            onViewClicked(monday);
+        } else {
+        }
+    }
 
-        if (list !=null){
-            listSchedulesRL.setVisibility(View.GONE);        }
-        rvList.addOnScrollListener(new RecyclerViewScrollListener() {
-            @Override
-            public void onScrollUp() {
+    private void getSchedulesByDay(ArrayList<SchedulesEntity> list) {
+        for (int i = 0; i < list.size(); i++) {
+            switch (list.get(i).getDay().getId()) {
+                case 1:
+                    mondayEntity = list.get(i);
+                    break;
+                case 2:
+                    tuesdayEntity = list.get(i);
+                    break;
+                case 3:
+                    wednesdayEntity = list.get(i);
+                    break;
+                case 4:
+                    thursdayEntity = list.get(i);
+                    break;
+                case 5:
+                    fridayEntity = list.get(i);
+                    break;
+                case 6:
+                    saturdayEntity = list.get(i);
+                    break;
+                case 7:
+                    sundayEntity = list.get(i);
+                    break;
+                default:
+                    //mondayEntity = list.get(i);
+            }
+        }
 
-            }
-            @Override
-            public void onScrollDown() {
-
-            }
-            @Override
-            public void onLoadMore() {
-                mPresenter.loadFromNextPage();
-            }
-        });
     }
 
     @Override
@@ -255,7 +257,7 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
 
     @Override
     public void setPresenter(ScheduleContract.Presenter mPresenter) {
-    this.mPresenter = mPresenter;
+        this.mPresenter = mPresenter;
     }
 
     @Override
@@ -263,16 +265,6 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
         if (getView() == null) {
             return;
         }
-        final SwipeRefreshLayout srl =
-                (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
-
-        // Make sure setRefreshing() is called after the layout is done with everything else.
-        srl.post(new Runnable() {
-            @Override
-            public void run() {
-                srl.setRefreshing(active);
-            }
-        });
     }
 
     @Override

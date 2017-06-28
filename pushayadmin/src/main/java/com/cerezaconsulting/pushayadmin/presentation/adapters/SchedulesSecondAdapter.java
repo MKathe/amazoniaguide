@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cerezaconsulting.pushayadmin.R;
-import com.cerezaconsulting.pushayadmin.core.LoaderAdapter;
 import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.listener.OnClickListListener;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
@@ -21,52 +20,62 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by katherine on 23/06/17.
+ * Created by katherine on 26/06/17.
  */
 
-public class ScheduleAdapter extends LoaderAdapter<SchedulesEntity> implements OnClickListListener {
+public class SchedulesSecondAdapter extends RecyclerView.Adapter<SchedulesSecondAdapter.ViewHolder> implements OnClickListListener {
 
+
+    private ArrayList<SchedulesEntity> list;
+    private SchedulesEntity item;
+    private ArrayList<Boolean> status;
     private Context context;
     private PlaceItem placeItem;
 
-    public ScheduleAdapter(ArrayList<SchedulesEntity> schedulesEntities, Context context,
-                           PlaceItem placeItem) {
-        super(context);
-        setItems(schedulesEntities);
+    public SchedulesSecondAdapter(ArrayList<SchedulesEntity> list, Context context, PlaceItem placeItem) {
+        this.list = list;
+        //setStatus();
         this.context = context;
         this.placeItem = placeItem;
     }
 
-    public ScheduleAdapter(ArrayList<SchedulesEntity> schedulesEntities, Context context) {
-        super(context);
-        setItems(schedulesEntities);
+    public SchedulesSecondAdapter(SchedulesEntity item, Context context, PlaceItem placeItem) {
+        this.list =  new ArrayList<>();
+        this.item = item;
         this.context = context;
-    }
-
-    public ArrayList<SchedulesEntity> getItems() {
-        return (ArrayList<SchedulesEntity>) getmItems();
+        this.placeItem = placeItem;
     }
 
     @Override
-    public long getYourItemId(int position) {
-        return getmItems().get(position).getId_schedules();
-
-    }
-
-    @Override
-    public RecyclerView.ViewHolder getYourItemViewHolder(ViewGroup parent) {
+    public SchedulesSecondAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_place_schedules, parent, false);
         return new ViewHolder(root, this);
     }
 
     @Override
-    public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
-        SchedulesEntity schedulesEntity = getmItems().get(position);
+    public void onBindViewHolder(SchedulesSecondAdapter.ViewHolder holder, int position) {
+        SchedulesEntity  schedulesEntity =  list.get(position);
 
-        ((ViewHolder) holder).tvNamePlace.setText(schedulesEntity.getDestiny().getName());
-        ((ViewHolder) holder).tvPrice.setText(schedulesEntity.getPriceNormal());
-        ((ViewHolder) holder).tvQuantity.setText(schedulesEntity.getMaxUser());
+        if(schedulesEntity==null){
+            return;
+        }
+        holder.tvNamePlace.setText(schedulesEntity.getName());
+        holder.tvPrice.setText(schedulesEntity.getPriceNormal());
+        holder.tvQuantity.setText(schedulesEntity.getMaxUser());
+    }
 
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+    public void setPlaceItem(SchedulesEntity schedulesEntity){
+
+        this.list.clear();
+        if (schedulesEntity != null) {
+            this.list.add(schedulesEntity);
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -99,4 +108,5 @@ public class ScheduleAdapter extends LoaderAdapter<SchedulesEntity> implements O
             onClickListListener.onClick(getAdapterPosition());
         }
     }
+
 }

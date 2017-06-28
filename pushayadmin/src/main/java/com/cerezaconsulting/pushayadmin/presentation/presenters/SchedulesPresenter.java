@@ -2,6 +2,7 @@ package com.cerezaconsulting.pushayadmin.presentation.presenters;
 
 import android.content.Context;
 
+import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.trackholder.TrackHolderEntity;
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
@@ -9,6 +10,7 @@ import com.cerezaconsulting.pushayadmin.data.remote.ServiceFactory;
 import com.cerezaconsulting.pushayadmin.data.remote.request.ListRequest;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.RegisterContract;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.ScheduleContract;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,7 +23,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by katherine on 23/06/17.
  */
 
-public class SchedulesPresenter implements ScheduleContract.Presenter {
+public class SchedulesPresenter implements ScheduleContract.Presenter, PlaceItem {
     private ScheduleContract.View mView;
     private Context context;
     private SessionManager mSessionManager;
@@ -52,7 +54,7 @@ public class SchedulesPresenter implements ScheduleContract.Presenter {
     public void loadList(String token, final int page) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
-        Call<TrackHolderEntity<SchedulesEntity>> orders = listRequest.getSchedules("Token " + token, page,"lunes");
+        Call<TrackHolderEntity<SchedulesEntity>> orders = listRequest.getSchedules("Token " + token, page);
         orders.enqueue(new Callback<TrackHolderEntity<SchedulesEntity>>() {
             @Override
             public void onResponse(Call<TrackHolderEntity<SchedulesEntity>> call, Response<TrackHolderEntity<SchedulesEntity>> response) {
@@ -92,5 +94,15 @@ public class SchedulesPresenter implements ScheduleContract.Presenter {
             loadOrdersFromPage(1);
 
         }
+    }
+
+    @Override
+    public void clickItem(ReservationEntity reservationEntity) {
+
+    }
+
+    @Override
+    public void deleteItem(ReservationEntity reservationEntity, int position) {
+
     }
 }

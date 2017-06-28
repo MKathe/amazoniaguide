@@ -24,6 +24,5 @@ public interface ListRequest {
 
     @GET("myschedulebyday/")
     Call<TrackHolderEntity<SchedulesEntity>> getSchedules(@Header("Authorization") String token,
-                                                          @Query("page") int numberPage,
-                                                          @Query("search") String day);
+                                                          @Query("page") int numberPage);
 }

@@ -96,4 +96,5 @@ public class TodayAdapter extends LoaderAdapter<ReservationEntity> implements On
             onClickListListener.onClick(getAdapterPosition());
         }
     }
+
 }
