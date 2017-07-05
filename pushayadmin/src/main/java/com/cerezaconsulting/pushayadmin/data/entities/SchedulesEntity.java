@@ -8,21 +8,25 @@ import java.io.Serializable;
 
 public class SchedulesEntity implements Serializable {
 
-    private int id_schedules;
+    private int id;
     private UserEntity guide;
     private DayEntity day;
-    private String daytravel_name;
+    private String day_name;
     private DestinyTravelEntity destiny;
-    private String name;
+    private String destiny_name;
     private float price_normal;
     private int max_user;
 
-    public int getId_schedules() {
-        return id_schedules;
+    public int getId() {
+        return id;
     }
 
-    public void setId_schedules(int id_schedules) {
-        this.id_schedules = id_schedules;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public float getPrice_normal() {
+        return price_normal;
     }
 
     public UserEntity getGuide() {
@@ -41,12 +45,12 @@ public class SchedulesEntity implements Serializable {
         this.day = day;
     }
 
-    public String getDaytravel_name() {
-        return daytravel_name;
+    public String getDay_name() {
+        return day_name;
     }
 
-    public void setDaytravel_name(String daytravel_name) {
-        this.daytravel_name = daytravel_name;
+    public void setDay_name(String day_name) {
+        this.day_name = day_name;
     }
 
     public DestinyTravelEntity getDestiny() {
@@ -57,12 +61,12 @@ public class SchedulesEntity implements Serializable {
         this.destiny = destiny;
     }
 
-    public String getName() {
-        return name;
+    public String getDestiny_name() {
+        return destiny_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDestiny_name(String destiny_name) {
+        this.destiny_name = destiny_name;
     }
 
     public float isPrice_normal() {

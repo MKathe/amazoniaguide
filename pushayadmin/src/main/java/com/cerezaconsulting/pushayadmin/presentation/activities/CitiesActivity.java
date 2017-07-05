@@ -7,9 +7,7 @@ import android.support.v7.widget.Toolbar;
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.CitiesFragment;
-import com.cerezaconsulting.pushayadmin.presentation.fragments.CountriesFragment;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.CitiesPresenter;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.CountriesPresenter;
 import com.cerezaconsulting.pushayadmin.utils.ActivityUtils;
 
 import butterknife.BindView;
@@ -40,14 +38,13 @@ public class CitiesActivity extends BaseActivity {
                 .findFragmentById(R.id.body);
 
         if (fragment == null) {
-            fragment = CitiesFragment.newInstance();
+            fragment = CitiesFragment.newInstance(getIntent().getExtras());
 
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     fragment, R.id.body);
         }
-        //new CitiesPresenter(fragment,this);
+        new CitiesPresenter(fragment,this);
     }
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

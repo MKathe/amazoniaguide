@@ -38,7 +38,7 @@ public class CountriesActivity extends BaseActivity {
                 .findFragmentById(R.id.body);
 
         if (fragment == null) {
-            fragment = CountriesFragment.newInstance();
+            fragment = CountriesFragment.newInstance(getIntent().getExtras());
 
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     fragment, R.id.body);

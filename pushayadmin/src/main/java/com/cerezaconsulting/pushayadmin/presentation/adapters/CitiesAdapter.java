@@ -51,7 +51,7 @@ public class CitiesAdapter extends LoaderAdapter<CityEntity> implements OnClickL
 
     @Override
     public long getYourItemId(int position) {
-        return getmItems().get(position).getId_city();
+        return getmItems().get(position).getId();
     }
 
     @Override

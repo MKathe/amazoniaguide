@@ -19,6 +19,7 @@ import com.cerezaconsulting.pushayadmin.data.entities.UserEntity;
 import com.cerezaconsulting.pushayadmin.presentation.activities.LoginActivity;
 import com.cerezaconsulting.pushayadmin.presentation.activities.TravelActivity;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.LoginContract;
+import com.cerezaconsulting.pushayadmin.presentation.dialogs.DialogForgotPassword;
 import com.cerezaconsulting.pushayadmin.utils.ProgressDialogCustom;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -53,6 +54,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Va
     Unbinder unbinder;
 
     private LoginContract.Presenter mPresenter;
+    private DialogForgotPassword dialogForgotPassword;
     private ProgressDialogCustom mProgressDialogCustom;
     private Validator validator;
 
@@ -78,6 +80,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Va
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, root);
+        dialogForgotPassword = new DialogForgotPassword(getContext(), this);
         return root;
     }
 
@@ -113,12 +116,13 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Va
 
     @Override
     public void showDialogForgotPassword() {
-
+        dialogForgotPassword.show();
     }
 
     @Override
     public void showSendEmail(String email) {
-
+        mPresenter.sendEmail(email);
+        dialogForgotPassword.dismiss();
     }
 
     @Override
@@ -171,7 +175,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Va
                 break;
             case R.id.tv_forgot_pass:
                 //nextActivity(getActivity(), null, RegisterActivity.class, false);
-                showMessage("Conexión olvidar contraseña");
+                showDialogForgotPassword();
                 break;
         }
     }

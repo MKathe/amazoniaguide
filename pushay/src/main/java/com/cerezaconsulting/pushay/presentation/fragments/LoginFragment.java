@@ -17,11 +17,11 @@ import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.core.BaseFragment;
 import com.cerezaconsulting.pushay.data.entities.UserEntity;
-import com.cerezaconsulting.pushay.presentation.activities.CountriesActivity;
 import com.cerezaconsulting.pushay.presentation.activities.LoginActivity;
 import com.cerezaconsulting.pushay.presentation.activities.RegisterActivity;
 import com.cerezaconsulting.pushay.presentation.activities.TicketsActivity;
 import com.cerezaconsulting.pushay.presentation.contracts.LoginContract;
+import com.cerezaconsulting.pushay.presentation.dialogs.DialogForgotPassword;
 import com.cerezaconsulting.pushay.utils.ProgressDialogCustom;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -46,7 +46,7 @@ import butterknife.Unbinder;
 /**
  * Created by junior on 27/08/16.
  */
-public class LoginFragment extends BaseFragment implements LoginContract.View,FacebookCallback<LoginResult>, Validator.ValidationListener {
+public class LoginFragment extends BaseFragment implements LoginContract.View, FacebookCallback<LoginResult>, Validator.ValidationListener {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
@@ -69,10 +69,13 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
     Unbinder unbinder;
     @BindView(R.id.et_register)
     TextView etRegister;
+    @BindView(R.id.tv_forgot_pass)
+    TextView tvForgotPass;
 
 
     private LoginContract.Presenter mPresenter;
     private ProgressDialogCustom mProgressDialogCustom;
+    private DialogForgotPassword dialogForgotPassword;
     private Validator validator;
     private boolean isLoading = false;
 
@@ -89,7 +92,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCallbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(mCallbackManager,this);
+        LoginManager.getInstance().registerCallback(mCallbackManager, this);
     }
 
     @Override
@@ -105,6 +108,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, root);
+        dialogForgotPassword = new DialogForgotPassword(getContext(), this);
         return root;
     }
 
@@ -160,12 +164,13 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
 
     @Override
     public void showDialogForgotPassword() {
-
+        dialogForgotPassword.show();
     }
 
     @Override
     public void showSendEmail(String email) {
-
+        mPresenter.sendEmail(email);
+        dialogForgotPassword.dismiss();
     }
 
     @Override
@@ -188,11 +193,11 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
 
     }
 
-    @OnClick({R.id.btn_login, R.id.login_button,R.id.et_register})
+    @OnClick({R.id.btn_login, R.id.login_button, R.id.et_register, R.id.tv_forgot_pass})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                if(!isLoading){
+                if (!isLoading) {
                     InputMethodManager input = (InputMethodManager) getActivity()
                             .getSystemService(Activity.INPUT_METHOD_SERVICE);
                     input.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
@@ -204,6 +209,9 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
                 break;
             case R.id.et_register:
                 nextActivity(getActivity(), null, RegisterActivity.class, false);
+                break;
+            case R.id.tv_forgot_pass:
+                showDialogForgotPassword();
                 break;
         }
     }
@@ -234,7 +242,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Fa
     @Override
     public void onValidationSucceeded() {
         mPresenter.loginUser(etEmail.getText().toString(), etPassword.getText().toString());
-        isLoading=true;
+        isLoading = true;
 
     }
 

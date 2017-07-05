@@ -47,7 +47,7 @@ public class CitiesPresenter implements CitiesContract.Presenter, CitiesItem {
 
     @Override
     public void clickItem(CityEntity cityEntity) {
-
+        mView.clickItemCities(cityEntity);
     }
 
     @Override
@@ -69,10 +69,6 @@ public class CitiesPresenter implements CitiesContract.Presenter, CitiesItem {
                 }
                 if (response.isSuccessful()) {
 
-                    if (response.body().getNext() != null) {
-                    } else {
-                        currentPage = -1;
-                    }
                     mView.getCities(response.body().getResults());
 
                 } else {

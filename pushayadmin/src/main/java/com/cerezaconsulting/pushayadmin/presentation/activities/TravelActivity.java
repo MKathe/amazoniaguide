@@ -165,7 +165,9 @@ public class TravelActivity extends BaseActivity {
                                 next(TravelActivity.this, null, ProfileActivity.class, false);
                                 break;
                             case R.id.action_programming:
-                                next(TravelActivity.this,null, SchedulesActivity.class, false);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("daySelected", "Lunes");
+                                next(TravelActivity.this,bundle, SchedulesActivity.class, false);
                                 break;
                             case R.id.action_help:
                                 next(TravelActivity.this,null, SlideActivity.class, false);

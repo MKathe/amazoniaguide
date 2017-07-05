@@ -45,10 +45,13 @@
             android:name="com.cerezaconsulting.pushayadmin.presentation.activities.SlideActivity">
         </activity>
 
-        <activity android:name=".presentation.activities.RegisterSchedulesActivity">
+        <activity android:name=".presentation.activities.CountriesActivity">
         </activity>
 
-        <activity android:name=".presentation.activities.CountriesActivity">
+        <activity android:name=".presentation.activities.CitiesActivity">
+        </activity>
+
+        <activity android:name=".presentation.activities.DestinyActivity">
         </activity>
     </application>
 

@@ -1,5 +1,7 @@
 package com.cerezaconsulting.pushayadmin.presentation.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -12,23 +14,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.core.BaseFragment;
-import com.cerezaconsulting.pushayadmin.core.RecyclerViewScrollListener;
 import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
 import com.cerezaconsulting.pushayadmin.data.entities.CityEntity;
-
-import com.cerezaconsulting.pushayadmin.data.entities.CountryEntity;
-import com.cerezaconsulting.pushayadmin.presentation.activities.CitiesActivity;
-import com.cerezaconsulting.pushayadmin.presentation.activities.DestinyActivity;
-import com.cerezaconsulting.pushayadmin.presentation.adapters.CitiesAdapter;
-
-import com.cerezaconsulting.pushayadmin.presentation.contracts.CitiesContract;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.CountriesContract;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.CitiesItem;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.CountriesItem;
+import com.cerezaconsulting.pushayadmin.data.entities.DestinyTravelEntity;
+import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
+import com.cerezaconsulting.pushayadmin.presentation.activities.SchedulesActivity;
+import com.cerezaconsulting.pushayadmin.presentation.adapters.DestinyAdapter;
+import com.cerezaconsulting.pushayadmin.presentation.contracts.DestinyContract;
+import com.cerezaconsulting.pushayadmin.presentation.dialogs.DialogCreateSchedules;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.DestinyItem;
 import com.cerezaconsulting.pushayadmin.utils.ProgressDialogCustom;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import butterknife.Unbinder;
  * Created by katherine on 28/06/17.
  */
 
-public class CitiesFragment extends BaseFragment implements CitiesContract.View {
+public class DestinyFragment extends BaseFragment implements DestinyContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
@@ -52,14 +51,16 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
     @BindView(R.id.noPlaces)
     LinearLayout noPlaces;
     Unbinder unbinder;
-    private CountryEntity countryEntity;
-    private String daySelected;
-    private CitiesAdapter mAdapter;
-    private GridLayoutManager mLayoutManager;
-    private CitiesContract.Presenter mPresenter;
-    private ProgressDialogCustom mProgressDialogCustom;
 
-    public CitiesFragment() {
+    private String daySelected;
+    private CityEntity cityEntity;
+    private DestinyAdapter mAdapter;
+    private GridLayoutManager mLayoutManager;
+    private DestinyContract.Presenter mPresenter;
+    private ProgressDialogCustom mProgressDialogCustom;
+    private DialogCreateSchedules dialogCreateSchedules;
+
+    public DestinyFragment() {
         // Requires empty public constructor
     }
 
@@ -70,8 +71,8 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
 
     }
 
-    public static CitiesFragment newInstance(Bundle bundle) {
-        CitiesFragment fragment = new CitiesFragment();
+    public static DestinyFragment newInstance(Bundle bundle) {
+        DestinyFragment fragment = new DestinyFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -79,16 +80,16 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        countryEntity = (CountryEntity) getArguments().getSerializable("countryEntity");
-        daySelected = getArguments().getString("daySelected");
+        cityEntity = (CityEntity) getArguments().getSerializable("cityEntity");
+        daySelected = (String) getArguments().getSerializable("daySelected");
         //idCountry =  (int) getArguments().getSerializable("id_country");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_simple_list, container, false);
-        mPresenter.getCities(countryEntity.getId());
+        View root = inflater.inflate(R.layout.fragment_list, container, false);
+        mPresenter.listDestiny(cityEntity.getId());
         unbinder = ButterKnife.bind(this, root);
         return root;
     }
@@ -100,28 +101,40 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         rvList.setLayoutManager(mLayoutManager);
-
-        mAdapter = new CitiesAdapter(new ArrayList<CityEntity>(), getContext(), (CitiesItem) mPresenter);
+        mAdapter = new DestinyAdapter(new ArrayList<DestinyTravelEntity>(), getContext(), (DestinyItem) mPresenter);
         rvList.setAdapter(mAdapter);
     }
 
+
     @Override
-    public void getCities(final ArrayList<CityEntity> list) {
+    public void getDestiny(ArrayList<DestinyTravelEntity> list) {
         mAdapter.setItems(list);
         if (list !=null){
             noPlaces.setVisibility((list.size()>0) ? View.GONE : View.VISIBLE);
         }
-
     }
 
     @Override
-    public void clickItemCities(CityEntity cityEntity) {
-
+    public void clickItemDestiny(DestinyTravelEntity destinyTravelEntity) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("cityEntity", cityEntity);
+        bundle.putSerializable("destinyEntity", destinyTravelEntity);
         bundle.putString("daySelected", daySelected);
-        next(getActivity(),bundle, DestinyActivity.class,false);
+        dialogCreateSchedules = new DialogCreateSchedules(getContext(), this, bundle);
+        dialogCreateSchedules.show();
+    }
+
+    @Override
+    public void sendCreateSchedules(SchedulesEntity schedulesEntity) {
+        mPresenter.createSchedules(schedulesEntity);
+    }
+
+    @Override
+    public void createScheduleSuccesful(String msg) {
+        Bundle bundle = new Bundle();
+        bundle.putString("daySelected", daySelected);
+        dialogCreateSchedules.dismiss();
         getActivity().finish();
+        next(getActivity(), bundle, SchedulesActivity.class, false);
     }
 
     @Override
@@ -131,7 +144,7 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
 
 
     @Override
-    public void setPresenter(CitiesContract.Presenter mPresenter) {
+    public void setPresenter(DestinyContract.Presenter mPresenter) {
         this.mPresenter = mPresenter;
     }
 
@@ -156,7 +169,6 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-
     }
 
 }

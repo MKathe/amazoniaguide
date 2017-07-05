@@ -7,6 +7,7 @@
     //login strings
     <string name="email">Correo Electrónico</string>
     <string name="password">Contraseña</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
 
     //Register strings
     <string name="name">Nombres y Apellidos</string>

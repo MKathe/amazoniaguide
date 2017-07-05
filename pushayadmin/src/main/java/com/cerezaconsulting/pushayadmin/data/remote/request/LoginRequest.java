@@ -22,4 +22,9 @@ public interface LoginRequest {
     @GET("userguide/retrieve/")
     Call<UserEntity> getUser(@Header("Authorization") String token);
 
+
+    @FormUrlEncoded
+    @POST("user/recovery/")
+    Call<UserEntity> recovery(@Field("email") String email);
+
 }

@@ -49,7 +49,7 @@ public class ScheduleAdapter extends LoaderAdapter<SchedulesEntity> implements O
 
     @Override
     public long getYourItemId(int position) {
-        return getmItems().get(position).getId_schedules();
+        return getmItems().get(position).getId();
 
     }
 

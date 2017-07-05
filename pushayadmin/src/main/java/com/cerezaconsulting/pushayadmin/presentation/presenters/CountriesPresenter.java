@@ -61,10 +61,6 @@ public class CountriesPresenter implements CountriesContract.Presenter, Countrie
                 }
                 if (response.isSuccessful()) {
 
-                    if (response.body().getNext() != null) {
-                    } else {
-                        currentPage = -1;
-                    }
                     mView.getCountries(response.body().getResults());
 
                 } else {
@@ -91,7 +87,7 @@ public class CountriesPresenter implements CountriesContract.Presenter, Countrie
 
     @Override
     public void clickItem(CountryEntity countryEntity) {
-
+        mView.clickItemCountry(countryEntity);
     }
 
     @Override

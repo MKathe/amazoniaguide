@@ -2,15 +2,10 @@ package com.cerezaconsulting.pushayadmin.presentation.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,21 +14,14 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.core.BaseFragment;
-import com.cerezaconsulting.pushayadmin.core.RecyclerViewScrollListener;
-import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
-import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.presentation.activities.CountriesActivity;
-import com.cerezaconsulting.pushayadmin.presentation.activities.RegisterSchedulesActivity;
-import com.cerezaconsulting.pushayadmin.presentation.adapters.ScheduleAdapter;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.SchedulesSecondAdapter;
-import com.cerezaconsulting.pushayadmin.presentation.adapters.TodayAdapter;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.ScheduleContract;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.SchedulesPresenter;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
@@ -77,16 +65,14 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
     Unbinder unbinder;
     @BindView(R.id.rvList)
     RecyclerView rvList;
-    private ScheduleContract.Presenter mPresenter;
 
-    //private ScheduleAdapter mAdapter;
+    private ScheduleContract.Presenter mPresenter;
     private SchedulesSecondAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private SessionManager mSessionManager;
     private SchedulesEntity mondayEntity, tuesdayEntity, wednesdayEntity,
             thursdayEntity, fridayEntity, saturdayEntity, sundayEntity;
-    private boolean buttonState;
-    //private ProgressDialogCustom mProgressDialogCustom;
+    private String daySelected;
 
     public ScheduleFragment() {
         // Requires empty public constructor
@@ -99,17 +85,17 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
     }
 
 
-    public static ScheduleFragment newInstance() {
-        return new ScheduleFragment();
+    public static ScheduleFragment newInstance(Bundle bundle) {
+        ScheduleFragment fragment = new ScheduleFragment();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSessionManager = new SessionManager(getContext());
-        mPresenter = new SchedulesPresenter(this, getContext());
-
-
+        daySelected = getArguments().getString("daySelected");
     }
 
     @Nullable
@@ -118,7 +104,6 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_schedules, container, false);
         unbinder = ButterKnife.bind(this, root);
-        monday.setChecked(true);
         setHasOptionsMenu(true);
 
         switchDisable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -152,6 +137,7 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
         mAdapter = new SchedulesSecondAdapter(new SchedulesEntity(), getContext(), (PlaceItem) mPresenter);
         //mAdapter = new ScheduleAdapter(new ArrayList<SchedulesEntity>() , getContext());
         rvList.setAdapter(mAdapter);
+        getDayButton();
 
     }
 
@@ -168,42 +154,84 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
         switch (view.getId()) {
             case R.id.monday:
                 disableOrEnableDay(mondayEntity);
-
+                daySelected = "Lunes";
                 break;
             case R.id.tuesday:
                 disableOrEnableDay(tuesdayEntity);
+                daySelected = "Martes";
                 break;
             case R.id.wednesday:
                 disableOrEnableDay(wednesdayEntity);
+                daySelected = "Miércoles";
                 break;
             case R.id.thursday:
                 disableOrEnableDay(thursdayEntity);
+                daySelected = "Jueves";
                 break;
             case R.id.friday:
                 disableOrEnableDay(fridayEntity);
+                daySelected = "Viernes";
                 break;
             case R.id.saturday:
                 disableOrEnableDay(saturdayEntity);
+                daySelected = "Sábado";
                 break;
             case R.id.sunday:
                 disableOrEnableDay(sundayEntity);
+                daySelected = "Domingo";
                 break;
             case R.id.switch_disable:
                 switchDisable.setChecked(true);
                 listSchedulesRL.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_get_in:
-                next(getActivity(),null, CountriesActivity.class,false);
+                Bundle bundle = new Bundle();
+                bundle.putString("daySelected", daySelected);
+                next(getActivity(), bundle, CountriesActivity.class, false);
+                getActivity().finish();
                 break;
         }
     }
 
-    private void disableOrEnableDay(SchedulesEntity schedulesEntity){
-        if (schedulesEntity ==null){
+    private void getDayButton() {
+        switch (daySelected) {
+            case "Lunes":
+                monday.setChecked(true);
+                onViewClicked(monday);
+                break;
+            case "Martes":
+                tuesday.setChecked(true);
+                onViewClicked(tuesday);
+                break;
+            case "Miércoles":
+                wednesday.setChecked(true);
+                onViewClicked(wednesday);
+                break;
+            case "Jueves":
+                thursday.setChecked(true);
+                onViewClicked(thursday);
+                break;
+            case "Viernes":
+                friday.setChecked(true);
+                onViewClicked(friday);
+                break;
+            case "Sábado":
+                saturday.setChecked(true);
+                onViewClicked(saturday);
+                break;
+            case "Domingo":
+                sunday.setChecked(true);
+                onViewClicked(sunday);
+                break;
+        }
+    }
+
+    private void disableOrEnableDay(SchedulesEntity schedulesEntity) {
+        if (schedulesEntity == null) {
             switchDisable.setChecked(false);
             mAdapter.setPlaceItem(null);
             btnGetIn.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             switchDisable.setChecked(true);
             mAdapter.setPlaceItem(schedulesEntity);
             btnGetIn.setVisibility(View.GONE);
@@ -212,12 +240,11 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
 
     @Override
     public void getSchedules(ArrayList<SchedulesEntity> list) {
-        //mAdapter.setItems(list);
         if (list != null) {
             switchDisable.setChecked(true);
             listSchedulesRL.setVisibility(View.VISIBLE);
             getSchedulesByDay(list);
-            onViewClicked(monday);
+            getDayButton();
         } else {
         }
     }

@@ -59,7 +59,7 @@ public class SchedulesSecondAdapter extends RecyclerView.Adapter<SchedulesSecond
         if(schedulesEntity==null){
             return;
         }
-        holder.tvNamePlace.setText(schedulesEntity.getName());
+        holder.tvNamePlace.setText(schedulesEntity.getDestiny_name());
         holder.tvPrice.setText(schedulesEntity.getPriceNormal());
         holder.tvQuantity.setText(schedulesEntity.getMaxUser());
     }

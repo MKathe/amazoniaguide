@@ -26,4 +26,8 @@ public interface LoginRequest {
     @POST("login/mobile/facebook/")
     Call<AccessTokenEntity> loginUserFacebook(@Field("access_token") String tokenFace);
 
+    @FormUrlEncoded
+    @POST("user/recovery/")
+    Call<UserEntity> recovery(@Field("email") String email);
+
 }

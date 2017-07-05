@@ -148,7 +148,37 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void sendEmail(String email) {
+        LoginRequest loginRequest =
+                ServiceFactory.createService(LoginRequest.class);
+        Call<UserEntity> call = loginRequest.recovery(email);
+        call.enqueue(new Callback<UserEntity>() {
+            @Override
+            public void onResponse(Call<UserEntity> call, Response<UserEntity> response) {
+                if (response.isSuccessful()) {
+                    if (!mView.isActive()) {
+                        return;
+                    }
+                    mView.showMessage("Se envió un correo con instrucciones");
+                } else {
+                    if (!mView.isActive()) {
+                        return;
+                    }
+                    mView.setLoadingIndicator(false);
+                    mView.showErrorMessage("Ocurrió un error al enviar el correo a su dirección");
+                }
+            }
 
+            @Override
+            public void onFailure(Call<UserEntity> call, Throwable t) {
+                if (!mView.isActive()) {
+                    return;
+                }
+                mView.setLoadingIndicator(false);
+                mView.showErrorMessage("Fallo al traer datos, comunicarse con su administrador");
+            }
+
+
+        });
     }
 
     @Override

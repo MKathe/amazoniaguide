@@ -48,11 +48,10 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
     TextView noPLacesMain;
     @BindView(R.id.noPlaces)
     LinearLayout noPlaces;
-    @BindView(R.id.refresh_layout)
-    ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
 
     private CountriesAdapter mAdapter;
+    private String daySelected;
     private GridLayoutManager mLayoutManager;
     private CountriesContract.Presenter mPresenter;
     private ProgressDialogCustom mProgressDialogCustom;
@@ -68,9 +67,10 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
 
     }
 
-    public static CountriesFragment newInstance() {
-        return new CountriesFragment();
-    }
+    public static CountriesFragment newInstance(Bundle bundle) {
+        CountriesFragment fragment = new CountriesFragment();
+        fragment.setArguments(bundle);
+        return fragment;    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,23 +82,7 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_list, container, false);
-        final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
-                (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
-        swipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(getActivity(), R.color.black),
-                ContextCompat.getColor(getActivity(), R.color.dark_gray),
-                ContextCompat.getColor(getActivity(), R.color.black)
-        );
-        // Set the scrolling view in the custom SwipeRefreshLayout.
-        swipeRefreshLayout.setScrollUpChild(rvList);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //mPresenter.start();
-                // mPresenter.loadOrdersFromPage(1);
-            }
-        });
-
+        daySelected = getArguments().getString("daySelected");
 
         unbinder = ButterKnife.bind(this, root);
         return root;
@@ -117,34 +101,20 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
 
     @Override
     public void getCountries(ArrayList<CountryEntity> list) {
+
         mAdapter.setItems(list);
-
-        if (list != null) {
-            noPlaces.setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
+        if (list !=null){
+            noPlaces.setVisibility((list.size()>0) ? View.GONE : View.VISIBLE);
         }
-        rvList.addOnScrollListener(new RecyclerViewScrollListener() {
-            @Override
-            public void onScrollUp() {
-
-            }
-
-            @Override
-            public void onScrollDown() {
-
-            }
-
-            @Override
-            public void onLoadMore() {
-                mPresenter.loadfromNextPage();
-            }
-        });
     }
 
     @Override
     public void clickItemCountry(CountryEntity countryEntity) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("countryEntity", countryEntity);
+        bundle.putString("daySelected", daySelected);
         next(getActivity(),bundle, CitiesActivity.class,false);
+        getActivity().finish();
     }
 
     @Override
@@ -162,16 +132,6 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
         if (getView() == null) {
             return;
         }
-        final SwipeRefreshLayout srl =
-                (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
-
-        // Make sure setRefreshing() is called after the layout is done with everything else.
-        srl.post(new Runnable() {
-            @Override
-            public void run() {
-                srl.setRefreshing(active);
-            }
-        });
     }
 
     @Override
