@@ -9,12 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.LoaderAdapter;
-import com.cerezaconsulting.pushay.data.entities.CountryEntity;
+import com.cerezaconsulting.pushay.data.entities.SchedulesEntity;
 import com.cerezaconsulting.pushay.presentation.adapters.listener.OnClickListListener;
-import com.cerezaconsulting.pushay.presentation.presenters.commons.CountriesItem;
+import com.cerezaconsulting.pushay.presentation.presenters.commons.SchedulesItem;
 
 import java.util.ArrayList;
 
@@ -22,30 +21,31 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by katherine on 15/05/17.
+ * Created by katherine on 31/05/17.
  */
 
-public class CountriesAdapter extends LoaderAdapter<CountryEntity> implements OnClickListListener {
+public class ListSchedulesAdapter extends LoaderAdapter<SchedulesEntity> implements OnClickListListener {
+
 
     private Context context;
-    private CountriesItem countriesItem;
+    private SchedulesItem schedulesItem;
 
-    public CountriesAdapter(ArrayList<CountryEntity> countryEntities, Context context, CountriesItem countriesItem) {
+    public ListSchedulesAdapter(ArrayList<SchedulesEntity> schedulesEntities, Context context, SchedulesItem schedulesItem) {
         super(context);
-        setItems(countryEntities);
+        setItems(schedulesEntities);
         this.context = context;
-        this.countriesItem = countriesItem;
+        this.schedulesItem = schedulesItem;
     }
 
-    public CountriesAdapter(ArrayList<CountryEntity> countryEntities, Context context) {
+    public ListSchedulesAdapter(ArrayList<SchedulesEntity> schedulesEntities, Context context) {
         super(context);
-        setItems(countryEntities);
+        setItems(schedulesEntities);
         this.context = context;
 
     }
 
-    public ArrayList<CountryEntity> getItems() {
-        return (ArrayList<CountryEntity>) getmItems();
+    public ArrayList<SchedulesEntity> getItems() {
+        return (ArrayList<SchedulesEntity>) getmItems();
     }
 
     @Override
@@ -55,32 +55,37 @@ public class CountriesAdapter extends LoaderAdapter<CountryEntity> implements On
 
     @Override
     public RecyclerView.ViewHolder getYourItemViewHolder(ViewGroup parent) {
-        View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_places, parent, false);
+        View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_guides, parent, false);
         return new ViewHolder(root, this);
     }
 
     @Override
     public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
-        CountryEntity countryEntity = getItems().get(position);
-        ((ViewHolder) holder).tvNamePlace.setText(countryEntity.getName());
+        SchedulesEntity schedulesEntity = getItems().get(position);
+        ((ViewHolder) holder).tvName.setText(schedulesEntity.getGuide().getFullName());
+        ((ViewHolder) holder).tvDay.setText(schedulesEntity.getDay_name());
     }
 
     @Override
     public void onClick(int position) {
 
-        CountryEntity countryEntity = getItems().get(position);
-        countriesItem.clickItem(countryEntity);
+        SchedulesEntity schedulesEntity = getItems().get(position);
+        schedulesItem.clickItem(schedulesEntity);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.iv_places)
-        ImageView ivPlaces;
-        @BindView(R.id.tv_name_place)
-        TextView tvNamePlace;
+
+        @BindView(R.id.imageView)
+        ImageView imageView;
+        @BindView(R.id.iv_status)
+        ImageView ivStatus;
+        @BindView(R.id.tv_name)
+        TextView tvName;
+        @BindView(R.id.tv_day)
+        TextView tvDay;
         @BindView(R.id.card_view)
         CardView cardView;
-
         private OnClickListListener onClickListListener;
 
         ViewHolder(View itemView, OnClickListListener onClickListListener) {

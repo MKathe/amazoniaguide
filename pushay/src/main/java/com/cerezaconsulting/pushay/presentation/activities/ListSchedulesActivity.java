@@ -4,21 +4,22 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
-
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.presentation.fragments.CitiesFragment;
+import com.cerezaconsulting.pushay.presentation.fragments.ListSchedulesFragment;
 import com.cerezaconsulting.pushay.presentation.presenters.CitiesPresenter;
+import com.cerezaconsulting.pushay.presentation.presenters.ListSchedulesPresenter;
 import com.cerezaconsulting.pushay.utils.ActivityUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by katherine on 28/06/17.
+ * Created by katherine on 5/07/17.
  */
 
-public class CitiesActivity extends BaseActivity {
+public class ListSchedulesActivity extends BaseActivity{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -35,16 +36,16 @@ public class CitiesActivity extends BaseActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
 
-        CitiesFragment fragment = (CitiesFragment) getSupportFragmentManager()
+        ListSchedulesFragment fragment = (ListSchedulesFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.body);
 
         if (fragment == null) {
-            fragment = CitiesFragment.newInstance(getIntent().getExtras());
+            fragment = ListSchedulesFragment.newInstance(getIntent().getExtras());
 
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     fragment, R.id.body);
         }
-        new CitiesPresenter(fragment,this);
+        new ListSchedulesPresenter(fragment,this);
     }
     @Override
     public boolean onSupportNavigateUp() {

@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.LoaderAdapter;
-import com.cerezaconsulting.pushay.data.entities.CountryEntity;
+import com.cerezaconsulting.pushay.data.entities.DestinyTravelEntity;
 import com.cerezaconsulting.pushay.presentation.adapters.listener.OnClickListListener;
-import com.cerezaconsulting.pushay.presentation.presenters.commons.CountriesItem;
+import com.cerezaconsulting.pushay.presentation.presenters.commons.DestinyItem;
 
 import java.util.ArrayList;
 
@@ -25,27 +25,27 @@ import butterknife.ButterKnife;
  * Created by katherine on 15/05/17.
  */
 
-public class CountriesAdapter extends LoaderAdapter<CountryEntity> implements OnClickListListener {
+public class DestinyAdapter extends LoaderAdapter<DestinyTravelEntity> implements OnClickListListener {
 
     private Context context;
-    private CountriesItem countriesItem;
+    private DestinyItem destinyItem;
 
-    public CountriesAdapter(ArrayList<CountryEntity> countryEntities, Context context, CountriesItem countriesItem) {
+    public DestinyAdapter(ArrayList<DestinyTravelEntity> destinyTravelEntities, Context context, DestinyItem destinyItem) {
         super(context);
-        setItems(countryEntities);
+        setItems(destinyTravelEntities);
         this.context = context;
-        this.countriesItem = countriesItem;
+        this.destinyItem = destinyItem;
     }
 
-    public CountriesAdapter(ArrayList<CountryEntity> countryEntities, Context context) {
+    public DestinyAdapter(ArrayList<DestinyTravelEntity> destinyTravelEntities, Context context) {
         super(context);
-        setItems(countryEntities);
+        setItems(destinyTravelEntities);
         this.context = context;
 
     }
 
-    public ArrayList<CountryEntity> getItems() {
-        return (ArrayList<CountryEntity>) getmItems();
+    public ArrayList<DestinyTravelEntity> getItems() {
+        return (ArrayList<DestinyTravelEntity>) getmItems();
     }
 
     @Override
@@ -61,15 +61,15 @@ public class CountriesAdapter extends LoaderAdapter<CountryEntity> implements On
 
     @Override
     public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
-        CountryEntity countryEntity = getItems().get(position);
-        ((ViewHolder) holder).tvNamePlace.setText(countryEntity.getName());
+        DestinyTravelEntity destinyTravelEntity = getItems().get(position);
+        ((ViewHolder) holder).tvNamePlace.setText(destinyTravelEntity.getName());
     }
 
     @Override
     public void onClick(int position) {
 
-        CountryEntity countryEntity = getItems().get(position);
-        countriesItem.clickItem(countryEntity);
+        DestinyTravelEntity destinyTravelEntity = getItems().get(position);
+        destinyItem.clickItem(destinyTravelEntity);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

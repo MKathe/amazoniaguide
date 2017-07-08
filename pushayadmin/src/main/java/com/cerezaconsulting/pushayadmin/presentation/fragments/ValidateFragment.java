@@ -120,7 +120,7 @@ public class ValidateFragment extends BaseFragment implements ZXingScannerView.R
     }
 
     private void confirmedDialog(){
-        ConfirmedDialog confirmedDialog = new ConfirmedDialog(getContext());
+        ConfirmedDialog confirmedDialog = new ConfirmedDialog(getContext(), null);
         confirmedDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {

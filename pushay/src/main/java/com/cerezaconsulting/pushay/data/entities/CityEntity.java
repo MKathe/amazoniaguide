@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class CityEntity implements Serializable {
-    private int id_city;
+    private int id;
     private CountryEntity countryEntity;
     private String name;
     private String cover;
@@ -28,14 +28,13 @@ public class CityEntity implements Serializable {
         this.countryEntity = countryEntity;
     }
 
-    public int getId_city() {
-        return id_city;
+    public int getId() {
+        return id;
     }
 
-    public void setId_city(int id_city) {
-        this.id_city = id_city;
+    public void setId(int id) {
+        this.id = id;
     }
-
 
     public String getName() {
         return name;

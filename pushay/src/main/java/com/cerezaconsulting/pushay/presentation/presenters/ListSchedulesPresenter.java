@@ -1,39 +1,39 @@
 package com.cerezaconsulting.pushay.presentation.presenters;
 
 import android.content.Context;
-
-import com.cerezaconsulting.pushay.data.entities.CountryEntity;
+import com.cerezaconsulting.pushay.data.entities.SchedulesEntity;
 import com.cerezaconsulting.pushay.data.entities.trackholder.TrackHolderEntity;
 import com.cerezaconsulting.pushay.data.local.SessionManager;
 import com.cerezaconsulting.pushay.data.remote.ServiceFactory;
 import com.cerezaconsulting.pushay.data.remote.request.ListRequest;
-import com.cerezaconsulting.pushay.presentation.contracts.CountriesContract;
-import com.cerezaconsulting.pushay.presentation.presenters.commons.CountriesItem;
+import com.cerezaconsulting.pushay.presentation.contracts.ListSchedulesContract;
+import com.cerezaconsulting.pushay.presentation.presenters.commons.SchedulesItem;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Created by katherine on 28/06/17.
+ * Created by katherine on 31/05/17.
  */
 
-public class CountriesPresenter implements CountriesContract.Presenter, CountriesItem {
+public class ListSchedulesPresenter implements ListSchedulesContract.Presenter, SchedulesItem {
 
-    private CountriesContract.View mView;
+    private final ListSchedulesContract.View mView;
+    private final SessionManager mSessionManager;
     private Context context;
-    private SessionManager mSessionManager;
     private boolean firstLoad = false;
     private int currentPage = 1;
 
-    public CountriesPresenter(CountriesContract.View mView, Context context) {
-        this.context = checkNotNull(context, "context cannot be null!");
-        this.mView = checkNotNull(mView, "view cannot be null!");
+    public ListSchedulesPresenter(ListSchedulesContract.View mView, Context context) {
+        this.mView = mView;
+        this.mSessionManager = new SessionManager(context);
         this.mView.setPresenter(this);
-        this.mSessionManager = new SessionManager(this.context);
+
     }
+
+
     @Override
     public void loadOrdersFromPage(int page) {
 
@@ -41,23 +41,24 @@ public class CountriesPresenter implements CountriesContract.Presenter, Countrie
 
     @Override
     public void loadfromNextPage() {
+
     }
 
     @Override
-    public void getPlaces() {
+    public void loadList(int id) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
-        Call<TrackHolderEntity<CountryEntity>> orders = listRequest.getCountry();
-        orders.enqueue(new Callback<TrackHolderEntity<CountryEntity>>() {
+        Call<TrackHolderEntity<SchedulesEntity>> orders = listRequest.getListSchedules(id);
+        orders.enqueue(new Callback<TrackHolderEntity<SchedulesEntity>>() {
             @Override
-            public void onResponse(Call<TrackHolderEntity<CountryEntity>> call, Response<TrackHolderEntity<CountryEntity>> response) {
+            public void onResponse(Call<TrackHolderEntity<SchedulesEntity>> call, Response<TrackHolderEntity<SchedulesEntity>> response) {
                 mView.setLoadingIndicator(false);
                 if (!mView.isActive()) {
                     return;
                 }
                 if (response.isSuccessful()) {
 
-                    mView.getCountries(response.body().getResults());
+                    mView.getListSchedulesByDay(response.body().getResults());
 
                 } else {
                     mView.showErrorMessage("Error al obtener las órdenes");
@@ -65,7 +66,7 @@ public class CountriesPresenter implements CountriesContract.Presenter, Countrie
             }
 
             @Override
-            public void onFailure(Call<TrackHolderEntity<CountryEntity>> call, Throwable t) {
+            public void onFailure(Call<TrackHolderEntity<SchedulesEntity>> call, Throwable t) {
                 if (!mView.isActive()) {
                     return;
                 }
@@ -77,17 +78,16 @@ public class CountriesPresenter implements CountriesContract.Presenter, Countrie
 
     @Override
     public void start() {
-        getPlaces();
-    }
 
-
-    @Override
-    public void clickItem(CountryEntity countryEntity) {
-        mView.clickItemCountry(countryEntity);
     }
 
     @Override
-    public void deleteItem(CountryEntity countryEntity, int position) {
+    public void clickItem(SchedulesEntity schedulesEntity) {
+
+    }
+
+    @Override
+    public void deleteItem(SchedulesEntity schedulesEntity, int position) {
 
     }
 }

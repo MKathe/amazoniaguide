@@ -2,8 +2,6 @@ package com.cerezaconsulting.pushay.presentation.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,15 +11,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.core.BaseFragment;
-import com.cerezaconsulting.pushay.core.RecyclerViewScrollListener;
-import com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout;
-import com.cerezaconsulting.pushay.data.entities.PlacesEntity;
+import com.cerezaconsulting.pushay.data.entities.CountryEntity;
+import com.cerezaconsulting.pushay.presentation.activities.CitiesActivity;
 import com.cerezaconsulting.pushay.presentation.adapters.CountriesAdapter;
 import com.cerezaconsulting.pushay.presentation.contracts.CountriesContract;
-import com.cerezaconsulting.pushay.presentation.presenters.commons.PlaceItem;
+import com.cerezaconsulting.pushay.presentation.presenters.commons.CountriesItem;
 import com.cerezaconsulting.pushay.utils.ProgressDialogCustom;
 
 import java.util.ArrayList;
@@ -31,23 +29,22 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by katherine on 12/05/17.
+ * Created by katherine on 28/06/17.
  */
 
 public class CountriesFragment extends BaseFragment implements CountriesContract.View {
 
-
     @BindView(R.id.rv_list)
     RecyclerView rvList;
-    @BindView(R.id.noListIcon)
-    ImageView noListIcon;
-    @BindView(R.id.noListMain)
-    TextView noListMain;
-    @BindView(R.id.noList)
-    LinearLayout noList;
-    @BindView(R.id.refresh_layout)
-    ScrollChildSwipeRefreshLayout refreshLayout;
+    ;
+    @BindView(R.id.noPlacesIcon)
+    ImageView noPlacesIcon;
+    @BindView(R.id.noPLacesMain)
+    TextView noPLacesMain;
+    @BindView(R.id.noPlaces)
+    LinearLayout noPlaces;
     Unbinder unbinder;
+
     private CountriesAdapter mAdapter;
     private GridLayoutManager mLayoutManager;
     private CountriesContract.Presenter mPresenter;
@@ -60,41 +57,26 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
     @Override
     public void onResume() {
         super.onResume();
-        //mPresenter.start();
-        mPresenter.getPlaces();
+        mPresenter.start();
+
     }
 
-    public static CountriesFragment newInstance() {
-        return new CountriesFragment();
+    public static CountriesFragment newInstance(Bundle bundle) {
+        CountriesFragment fragment = new CountriesFragment();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_list, container, false);
-        final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
-                (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
-        swipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(getActivity(), R.color.black),
-                ContextCompat.getColor(getActivity(), R.color.dark_gray),
-                ContextCompat.getColor(getActivity(), R.color.black)
-        );
-        // Set the scrolling view in the custom SwipeRefreshLayout.
-        swipeRefreshLayout.setScrollUpChild(rvList);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //mPresenter.start();
-                // mPresenter.loadOrdersFromPage(1);
-            }
-        });
-
-
+        View root = inflater.inflate(R.layout.fragment_simple_list, container, false);
         unbinder = ButterKnife.bind(this, root);
         return root;
     }
@@ -105,34 +87,25 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         rvList.setLayoutManager(mLayoutManager);
-
-        mAdapter = new CountriesAdapter(new ArrayList<PlacesEntity>(), getContext(), (PlaceItem) mPresenter);
+        mAdapter = new CountriesAdapter(new ArrayList<CountryEntity>(), getContext(), (CountriesItem) mPresenter);
         rvList.setAdapter(mAdapter);
     }
 
     @Override
-    public void getCountries(ArrayList<PlacesEntity> list) {
+    public void getCountries(ArrayList<CountryEntity> list) {
+
         mAdapter.setItems(list);
-
-        if (list != null) {
-            noList.setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
+        if (list !=null){
+            noPlaces.setVisibility((list.size()>0) ? View.GONE : View.VISIBLE);
         }
-        rvList.addOnScrollListener(new RecyclerViewScrollListener() {
-            @Override
-            public void onScrollUp() {
+    }
 
-            }
-
-            @Override
-            public void onScrollDown() {
-
-            }
-
-            @Override
-            public void onLoadMore() {
-                mPresenter.loadfromNextPage();
-            }
-        });
+    @Override
+    public void clickItemCountry(CountryEntity countryEntity) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("countryEntity", countryEntity);
+        next(getActivity(),bundle, CitiesActivity.class,false);
+        getActivity().finish();
     }
 
     @Override
@@ -150,16 +123,14 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
         if (getView() == null) {
             return;
         }
-        final SwipeRefreshLayout srl =
-                (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
-
-        // Make sure setRefreshing() is called after the layout is done with everything else.
-        srl.post(new Runnable() {
-            @Override
-            public void run() {
-                srl.setRefreshing(active);
+        if (active) {
+            mProgressDialogCustom.show();
+        } else {
+            if (mProgressDialogCustom.isShowing()) {
+                mProgressDialogCustom.dismiss();
             }
-        });
+        }
+
     }
 
     @Override
@@ -176,7 +147,6 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-
     }
 
 }

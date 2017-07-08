@@ -2,7 +2,7 @@ package com.cerezaconsulting.pushay.presentation.contracts;
 
 import com.cerezaconsulting.pushay.core.BasePresenter;
 import com.cerezaconsulting.pushay.core.BaseView;
-import com.cerezaconsulting.pushay.data.entities.TicketEntity;
+import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
 
 import java.util.ArrayList;
 
@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public interface TicketsContract {
     interface View extends BaseView<Presenter> {
 
-        void getTickets(ArrayList<TicketEntity> list);
+        void getTickets(ArrayList<ReservationEntity> list);
 
-        void showDetailsTickets(TicketEntity reservationEntity);
+        void showDetailsTickets(ReservationEntity reservationEntity);
 
         boolean isActive();
 

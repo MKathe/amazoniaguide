@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class DestinyTravelEntity implements Serializable {
-    private int id_destiny_travel;
+    private int id;
     private CityEntity city;
     private String name;
     private String cover;
@@ -23,12 +23,12 @@ public class DestinyTravelEntity implements Serializable {
         this.description = description;
     }
 
-    public int getId_destiny_travel() {
-        return id_destiny_travel;
+    public int getId() {
+        return id;
     }
 
-    public void setId_destiny_travel(int id_destiny_travel) {
-        this.id_destiny_travel = id_destiny_travel;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public CityEntity getCity() {

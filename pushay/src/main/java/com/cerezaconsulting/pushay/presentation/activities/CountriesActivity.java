@@ -1,17 +1,22 @@
 package com.cerezaconsulting.pushay.presentation.activities;
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
+
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.presentation.fragments.CountriesFragment;
-import com.cerezaconsulting.pushay.presentation.fragments.ProfileFragment;
 import com.cerezaconsulting.pushay.presentation.presenters.CountriesPresenter;
 import com.cerezaconsulting.pushay.utils.ActivityUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+/**
+ * Created by katherine on 28/06/17.
+ */
 
 public class CountriesActivity extends BaseActivity {
     @BindView(R.id.toolbar)
@@ -23,7 +28,7 @@ public class CountriesActivity extends BaseActivity {
         setContentView(R.layout.activity_back);
         ButterKnife.bind(this);
 
-        toolbar.setTitle("ELige el País");
+        toolbar.setTitle("Elige el País");
 
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
@@ -34,7 +39,7 @@ public class CountriesActivity extends BaseActivity {
                 .findFragmentById(R.id.body);
 
         if (fragment == null) {
-            fragment = CountriesFragment.newInstance();
+            fragment = CountriesFragment.newInstance(getIntent().getExtras());
 
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     fragment, R.id.body);
@@ -48,5 +53,5 @@ public class CountriesActivity extends BaseActivity {
         onBackPressed();
         return true;
     }
-
 }
+

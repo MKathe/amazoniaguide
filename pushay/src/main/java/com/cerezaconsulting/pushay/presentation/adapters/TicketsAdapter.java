@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.LoaderAdapter;
-import com.cerezaconsulting.pushay.data.entities.TicketEntity;
+import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushay.presentation.adapters.listener.OnClickListListener;
 import com.cerezaconsulting.pushay.presentation.presenters.commons.TicketItem;
 
@@ -24,28 +24,28 @@ import butterknife.ButterKnife;
  * Created by katherine on 31/05/17.
  */
 
-public class TicketsAdapter extends LoaderAdapter<TicketEntity> implements OnClickListListener {
+public class TicketsAdapter extends LoaderAdapter<ReservationEntity> implements OnClickListListener {
 
 
     private Context context;
     private TicketItem ticketItem;
 
-    public TicketsAdapter(ArrayList<TicketEntity> ticketEntities, Context context, TicketItem ticketItem) {
+    public TicketsAdapter(ArrayList<ReservationEntity> ticketEntities, Context context, TicketItem ticketItem) {
         super(context);
         setItems(ticketEntities);
         this.context = context;
         this.ticketItem = ticketItem;
     }
 
-    public TicketsAdapter(ArrayList<TicketEntity> ticketEntities, Context context) {
+    public TicketsAdapter(ArrayList<ReservationEntity> ticketEntities, Context context) {
         super(context);
         setItems(ticketEntities);
         this.context = context;
 
     }
 
-    public ArrayList<TicketEntity> getItems() {
-        return (ArrayList<TicketEntity>) getmItems();
+    public ArrayList<ReservationEntity> getItems() {
+        return (ArrayList<ReservationEntity>) getmItems();
     }
 
     @Override
@@ -61,16 +61,14 @@ public class TicketsAdapter extends LoaderAdapter<TicketEntity> implements OnCli
 
     @Override
     public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
-        TicketEntity ticketEntity = getItems().get(position);
-        ((ViewHolder) holder).tvNameCity.setText(ticketEntity.getScheludes().getDestinyTravelEntity().getCity().getName());
-        ((ViewHolder) holder).tvPackageName.setText(ticketEntity.getScheludes().getDestinyTravelEntity().getName());
+        ReservationEntity ticketEntity = getItems().get(position);
         ((ViewHolder) holder).tvDate.setText(ticketEntity.getDate());
     }
 
     @Override
     public void onClick(int position) {
 
-        TicketEntity ticketEntity = getItems().get(position);
+        ReservationEntity ticketEntity = getItems().get(position);
         ticketItem.clickItem(ticketEntity);
     }
 

@@ -2,13 +2,13 @@ package com.cerezaconsulting.pushay.presentation.presenters;
 
 import android.content.Context;
 
-import com.cerezaconsulting.pushay.data.entities.CountryEntity;
+import com.cerezaconsulting.pushay.data.entities.DestinyTravelEntity;
 import com.cerezaconsulting.pushay.data.entities.trackholder.TrackHolderEntity;
 import com.cerezaconsulting.pushay.data.local.SessionManager;
 import com.cerezaconsulting.pushay.data.remote.ServiceFactory;
 import com.cerezaconsulting.pushay.data.remote.request.ListRequest;
-import com.cerezaconsulting.pushay.presentation.contracts.CountriesContract;
-import com.cerezaconsulting.pushay.presentation.presenters.commons.CountriesItem;
+import com.cerezaconsulting.pushay.presentation.contracts.DestinyContract;
+import com.cerezaconsulting.pushay.presentation.presenters.commons.DestinyItem;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,47 +17,37 @@ import retrofit2.Response;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Created by katherine on 28/06/17.
+ * Created by katherine on 3/07/17.
  */
 
-public class CountriesPresenter implements CountriesContract.Presenter, CountriesItem {
+public class DestinyPresenter implements DestinyContract.Presenter, DestinyItem {
 
-    private CountriesContract.View mView;
+    private DestinyContract.View mView;
     private Context context;
     private SessionManager mSessionManager;
-    private boolean firstLoad = false;
-    private int currentPage = 1;
 
-    public CountriesPresenter(CountriesContract.View mView, Context context) {
+    public DestinyPresenter(DestinyContract.View mView, Context context) {
         this.context = checkNotNull(context, "context cannot be null!");
         this.mView = checkNotNull(mView, "view cannot be null!");
         this.mView.setPresenter(this);
         this.mSessionManager = new SessionManager(this.context);
     }
-    @Override
-    public void loadOrdersFromPage(int page) {
-
-    }
 
     @Override
-    public void loadfromNextPage() {
-    }
-
-    @Override
-    public void getPlaces() {
+    public void listDestiny(int id) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
-        Call<TrackHolderEntity<CountryEntity>> orders = listRequest.getCountry();
-        orders.enqueue(new Callback<TrackHolderEntity<CountryEntity>>() {
+        Call<TrackHolderEntity<DestinyTravelEntity>> orders = listRequest.getDestiny(id);
+        orders.enqueue(new Callback<TrackHolderEntity<DestinyTravelEntity>>() {
             @Override
-            public void onResponse(Call<TrackHolderEntity<CountryEntity>> call, Response<TrackHolderEntity<CountryEntity>> response) {
+            public void onResponse(Call<TrackHolderEntity<DestinyTravelEntity>> call, Response<TrackHolderEntity<DestinyTravelEntity>> response) {
                 mView.setLoadingIndicator(false);
                 if (!mView.isActive()) {
                     return;
                 }
                 if (response.isSuccessful()) {
 
-                    mView.getCountries(response.body().getResults());
+                    mView.getDestiny(response.body().getResults());
 
                 } else {
                     mView.showErrorMessage("Error al obtener las órdenes");
@@ -65,7 +55,7 @@ public class CountriesPresenter implements CountriesContract.Presenter, Countrie
             }
 
             @Override
-            public void onFailure(Call<TrackHolderEntity<CountryEntity>> call, Throwable t) {
+            public void onFailure(Call<TrackHolderEntity<DestinyTravelEntity>> call, Throwable t) {
                 if (!mView.isActive()) {
                     return;
                 }
@@ -75,19 +65,19 @@ public class CountriesPresenter implements CountriesContract.Presenter, Countrie
         });
     }
 
+
     @Override
     public void start() {
-        getPlaces();
-    }
 
-
-    @Override
-    public void clickItem(CountryEntity countryEntity) {
-        mView.clickItemCountry(countryEntity);
     }
 
     @Override
-    public void deleteItem(CountryEntity countryEntity, int position) {
+    public void clickItem(DestinyTravelEntity destinyTravelEntity) {
+        mView.clickItemDestiny(destinyTravelEntity);
+    }
+
+    @Override
+    public void deleteItem(DestinyTravelEntity destinyTravelEntity, int position) {
 
     }
 }

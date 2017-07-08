@@ -15,6 +15,13 @@ public interface ScheduleContract {
     interface View extends BaseView<Presenter> {
 
         void getSchedules(ArrayList<SchedulesEntity> list);
+        void clickEditSchedules(SchedulesEntity schedulesEntity);
+        void sendEditSchedules(SchedulesEntity schedulesEntity);
+        void editSuccessful(String daySelected, String msg);
+
+        void clickDeleteSchedules(SchedulesEntity schedulesEntity);
+        void deleteSchedules(SchedulesEntity schedulesEntity);
+        void deleteSuccessful(String msg);
         boolean isActive();
 
     }
@@ -24,6 +31,8 @@ public interface ScheduleContract {
         void loadOrdersFromPage(int page);
         void loadFromNextPage();
         void loadList(String token, final int page);
+        void edit(SchedulesEntity schedulesEntity);
+        void delete(int id);
 
     }
 }

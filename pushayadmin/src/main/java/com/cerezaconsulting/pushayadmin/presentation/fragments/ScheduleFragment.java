@@ -1,5 +1,7 @@
 package com.cerezaconsulting.pushayadmin.presentation.fragments;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,10 +23,14 @@ import com.cerezaconsulting.pushayadmin.core.BaseFragment;
 import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.presentation.activities.CountriesActivity;
+import com.cerezaconsulting.pushayadmin.presentation.activities.SchedulesActivity;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.SchedulesSecondAdapter;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.ScheduleContract;
+import com.cerezaconsulting.pushayadmin.presentation.dialogs.ConfirmedDialog;
+import com.cerezaconsulting.pushayadmin.presentation.dialogs.EditSchedulesDialog;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.SchedulesPresenter;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.SchedulesItem;
 
 import java.util.ArrayList;
 
@@ -73,6 +79,7 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
     private SchedulesEntity mondayEntity, tuesdayEntity, wednesdayEntity,
             thursdayEntity, fridayEntity, saturdayEntity, sundayEntity;
     private String daySelected;
+    private EditSchedulesDialog editSchedulesDialog;
 
     public ScheduleFragment() {
         // Requires empty public constructor
@@ -134,11 +141,9 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvList.setLayoutManager(mLayoutManager);
-        mAdapter = new SchedulesSecondAdapter(new SchedulesEntity(), getContext(), (PlaceItem) mPresenter);
-        //mAdapter = new ScheduleAdapter(new ArrayList<SchedulesEntity>() , getContext());
+        mAdapter = new SchedulesSecondAdapter(new SchedulesEntity(), getContext(), (SchedulesItem) mPresenter);
         rvList.setAdapter(mAdapter);
         getDayButton();
-
     }
 
     @Override
@@ -245,9 +250,60 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
             listSchedulesRL.setVisibility(View.VISIBLE);
             getSchedulesByDay(list);
             getDayButton();
-        } else {
         }
     }
+
+    @Override
+    public void clickEditSchedules(SchedulesEntity schedulesEntity) {
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("schedulesEntity", schedulesEntity);
+        editSchedulesDialog = new EditSchedulesDialog(getContext(),this,bundle);
+        editSchedulesDialog.show();
+    }
+
+    @Override
+    public void sendEditSchedules(SchedulesEntity schedulesEntity) {
+        mPresenter.edit(schedulesEntity);
+    }
+
+    @Override
+    public void editSuccessful(final String daySelected, String msg) {
+        Bundle bundle = new Bundle();
+        bundle.putString("msg", msg);
+        ConfirmedDialog confirmedDialog = new ConfirmedDialog(getContext(), bundle);
+        confirmedDialog.show();
+        confirmedDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                Intent refresh = new Intent(getContext(), SchedulesActivity.class);
+                refresh.putExtra("daySelected", daySelected );
+                startActivity(refresh);//Start the same Activity
+                getActivity().finish();
+            }
+        });
+
+
+
+
+    }
+
+
+    @Override
+    public void clickDeleteSchedules(SchedulesEntity schedulesEntity) {
+    }
+
+
+    @Override
+    public void deleteSchedules(SchedulesEntity schedulesEntity) {
+
+    }
+
+    @Override
+    public void deleteSuccessful(String msg) {
+
+    }
+
 
     private void getSchedulesByDay(ArrayList<SchedulesEntity> list) {
         for (int i = 0; i < list.size(); i++) {
@@ -274,7 +330,6 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
                     sundayEntity = list.get(i);
                     break;
                 default:
-                    //mondayEntity = list.get(i);
             }
         }
 
@@ -300,12 +355,10 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
     @Override
     public void showMessage(String message) {
         ((BaseActivity) getActivity()).showMessage(message);
-
     }
 
     @Override
     public void showErrorMessage(String message) {
         ((BaseActivity) getActivity()).showMessageError(message);
-
     }
 }

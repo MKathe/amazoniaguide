@@ -2,20 +2,21 @@ package com.cerezaconsulting.pushay.presentation.contracts;
 
 import com.cerezaconsulting.pushay.core.BasePresenter;
 import com.cerezaconsulting.pushay.core.BaseView;
-import com.cerezaconsulting.pushay.data.entities.CountryEntity;
+import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
+import com.cerezaconsulting.pushay.data.entities.SchedulesEntity;
 
 import java.util.ArrayList;
 
 /**
- * Created by katherine on 12/05/17.
+ * Created by katherine on 31/05/17.
  */
 
-public interface CountriesContract {
+public interface ListSchedulesContract {
     interface View extends BaseView<Presenter> {
 
-        void getCountries(ArrayList<CountryEntity> list);
+        void getListSchedulesByDay(ArrayList<SchedulesEntity> list);
 
-        void clickItemCountry(CountryEntity countryEntity);
+        void showDetailsTickets(SchedulesEntity schedulesEntity);
 
         boolean isActive();
 
@@ -29,7 +30,8 @@ public interface CountriesContract {
 
         void loadfromNextPage();
 
-        void getPlaces();
+        void loadList(int id);
+
 
     }
 }

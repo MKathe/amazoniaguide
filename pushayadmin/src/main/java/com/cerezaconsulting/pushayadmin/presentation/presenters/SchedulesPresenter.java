@@ -8,9 +8,11 @@ import com.cerezaconsulting.pushayadmin.data.entities.trackholder.TrackHolderEnt
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.data.remote.ServiceFactory;
 import com.cerezaconsulting.pushayadmin.data.remote.request.ListRequest;
+import com.cerezaconsulting.pushayadmin.data.remote.request.SchedulesRequest;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.RegisterContract;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.ScheduleContract;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.SchedulesItem;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +25,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by katherine on 23/06/17.
  */
 
-public class SchedulesPresenter implements ScheduleContract.Presenter, PlaceItem {
+public class SchedulesPresenter implements ScheduleContract.Presenter, SchedulesItem {
     private ScheduleContract.View mView;
     private Context context;
     private SessionManager mSessionManager;
@@ -88,6 +90,43 @@ public class SchedulesPresenter implements ScheduleContract.Presenter, PlaceItem
     }
 
     @Override
+    public void edit(final SchedulesEntity schedulesEntity) {
+        mView.setLoadingIndicator(true);
+        SchedulesRequest schedulesRequest = ServiceFactory.createService(SchedulesRequest.class);
+        Call<Void> orders = schedulesRequest.editSchedules("Token " + mSessionManager.getUserToken(),schedulesEntity.getId(),
+                schedulesEntity.getPrice_normal(),schedulesEntity.getMax_user());
+        orders.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                mView.setLoadingIndicator(false);
+                if (!mView.isActive()) {
+                    return;
+                }
+                if (response.isSuccessful()) {
+
+                    mView.editSuccessful(schedulesEntity.getDay_name(),"Su horario ha sido actualizado con éxito");
+                } else {
+                    mView.showErrorMessage("Error al editar el horario, inténtelo nuevamente");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                if (!mView.isActive()) {
+                    return;
+                }
+                mView.setLoadingIndicator(false);
+                mView.showErrorMessage("Error al conectar con el servidor");
+            }
+        });
+    }
+
+    @Override
+    public void delete(int id) {
+
+    }
+
+    @Override
     public void start() {
         if (!firstLoad) {
             firstLoad = true;
@@ -96,13 +135,14 @@ public class SchedulesPresenter implements ScheduleContract.Presenter, PlaceItem
         }
     }
 
-    @Override
-    public void clickItem(ReservationEntity reservationEntity) {
 
+    @Override
+    public void clickItem(SchedulesEntity schedulesEntity) {
+        mView.clickEditSchedules(schedulesEntity);
     }
 
     @Override
-    public void deleteItem(ReservationEntity reservationEntity, int position) {
-
+    public void deleteItem(SchedulesEntity schedulesEntity, int position) {
+        delete(position);
     }
 }

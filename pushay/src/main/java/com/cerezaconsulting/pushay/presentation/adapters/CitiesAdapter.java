@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.LoaderAdapter;
-import com.cerezaconsulting.pushay.data.entities.CountryEntity;
+import com.cerezaconsulting.pushay.data.entities.CityEntity;
 import com.cerezaconsulting.pushay.presentation.adapters.listener.OnClickListListener;
-import com.cerezaconsulting.pushay.presentation.presenters.commons.CountriesItem;
+import com.cerezaconsulting.pushay.presentation.presenters.commons.CitiesItem;
 
 import java.util.ArrayList;
 
@@ -25,27 +25,27 @@ import butterknife.ButterKnife;
  * Created by katherine on 15/05/17.
  */
 
-public class CountriesAdapter extends LoaderAdapter<CountryEntity> implements OnClickListListener {
+public class CitiesAdapter extends LoaderAdapter<CityEntity> implements OnClickListListener {
 
     private Context context;
-    private CountriesItem countriesItem;
+    private CitiesItem citiesItem;
 
-    public CountriesAdapter(ArrayList<CountryEntity> countryEntities, Context context, CountriesItem countriesItem) {
+    public CitiesAdapter(ArrayList<CityEntity> cityEntities, Context context, CitiesItem citiesItem) {
         super(context);
-        setItems(countryEntities);
+        setItems(cityEntities);
         this.context = context;
-        this.countriesItem = countriesItem;
+        this.citiesItem = citiesItem;
     }
 
-    public CountriesAdapter(ArrayList<CountryEntity> countryEntities, Context context) {
+    public CitiesAdapter(ArrayList<CityEntity> cityEntities, Context context) {
         super(context);
-        setItems(countryEntities);
+        setItems(cityEntities);
         this.context = context;
 
     }
 
-    public ArrayList<CountryEntity> getItems() {
-        return (ArrayList<CountryEntity>) getmItems();
+    public ArrayList<CityEntity> getItems() {
+        return (ArrayList<CityEntity>) getmItems();
     }
 
     @Override
@@ -61,15 +61,15 @@ public class CountriesAdapter extends LoaderAdapter<CountryEntity> implements On
 
     @Override
     public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
-        CountryEntity countryEntity = getItems().get(position);
-        ((ViewHolder) holder).tvNamePlace.setText(countryEntity.getName());
+        CityEntity cityEntity = getItems().get(position);
+        ((ViewHolder) holder).tvNamePlace.setText(cityEntity.getName());
     }
 
     @Override
     public void onClick(int position) {
 
-        CountryEntity countryEntity = getItems().get(position);
-        countriesItem.clickItem(countryEntity);
+        CityEntity cityEntity = getItems().get(position);
+        citiesItem.clickItem(cityEntity);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

@@ -1,24 +1,24 @@
-package com.cerezaconsulting.pushay.presentation.activities;
+package com.cerezaconsulting.pushayadmin.presentation.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
-
-import com.cerezaconsulting.pushay.R;
-import com.cerezaconsulting.pushay.core.BaseActivity;
-import com.cerezaconsulting.pushay.presentation.fragments.CitiesFragment;
-import com.cerezaconsulting.pushay.presentation.presenters.CitiesPresenter;
-import com.cerezaconsulting.pushay.utils.ActivityUtils;
+import com.cerezaconsulting.pushayadmin.R;
+import com.cerezaconsulting.pushayadmin.core.BaseActivity;
+import com.cerezaconsulting.pushayadmin.presentation.fragments.CitiesFragment;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.CitiesPresenter;
+import com.cerezaconsulting.pushayadmin.utils.ActivityUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by katherine on 28/06/17.
+ * Created by katherine on 7/07/17.
  */
 
-public class CitiesActivity extends BaseActivity {
+public class EditSchedulesActivity extends BaseActivity{
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -28,7 +28,7 @@ public class CitiesActivity extends BaseActivity {
         setContentView(R.layout.activity_back);
         ButterKnife.bind(this);
 
-        toolbar.setTitle("Elige la ciudad");
+        toolbar.setTitle("ELige la ciudad");
 
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();

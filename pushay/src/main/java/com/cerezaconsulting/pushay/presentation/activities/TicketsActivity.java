@@ -16,9 +16,7 @@ import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.data.entities.UserEntity;
 import com.cerezaconsulting.pushay.data.local.SessionManager;
-import com.cerezaconsulting.pushay.presentation.fragments.CountriesFragment;
 import com.cerezaconsulting.pushay.presentation.fragments.TicketsFragment;
-import com.cerezaconsulting.pushay.presentation.presenters.CountriesPresenter;
 import com.cerezaconsulting.pushay.presentation.presenters.TicketsPresenter;
 import com.cerezaconsulting.pushay.utils.ActivityUtils;
 

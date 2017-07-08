@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cerezaconsulting.pushay.R;
@@ -18,26 +19,30 @@ import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.core.BaseFragment;
 import com.cerezaconsulting.pushay.core.RecyclerViewScrollListener;
 import com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout;
-import com.cerezaconsulting.pushay.data.entities.PlacesEntity;
-import com.cerezaconsulting.pushay.presentation.adapters.CountriesAdapter;
-import com.cerezaconsulting.pushay.presentation.contracts.CountriesContract;
-import com.cerezaconsulting.pushay.presentation.presenters.commons.PlaceItem;
+import com.cerezaconsulting.pushay.data.entities.DestinyTravelEntity;
+import com.cerezaconsulting.pushay.data.entities.SchedulesEntity;
+import com.cerezaconsulting.pushay.presentation.activities.TicketsDetailActivity;
+import com.cerezaconsulting.pushay.presentation.adapters.ListSchedulesAdapter;
+import com.cerezaconsulting.pushay.presentation.contracts.ListSchedulesContract;
+import com.cerezaconsulting.pushay.presentation.presenters.commons.SchedulesItem;
 import com.cerezaconsulting.pushay.utils.ProgressDialogCustom;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * Created by katherine on 12/05/17.
+ * Created by katherine on 31/05/17.
  */
 
-public class StateFragment extends BaseFragment implements CountriesContract.View {
+public class ListSchedulesFragment extends BaseFragment implements ListSchedulesContract.View {
 
-
+    @BindView(R.id.sp_price)
+    Spinner spPrice;
+    @BindView(R.id.sp_stars)
+    Spinner spStars;
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     @BindView(R.id.noListIcon)
@@ -49,12 +54,13 @@ public class StateFragment extends BaseFragment implements CountriesContract.Vie
     @BindView(R.id.refresh_layout)
     ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
-    private CountriesAdapter mAdapter;
-    private GridLayoutManager mLayoutManager;
-    private CountriesContract.Presenter mPresenter;
+    private ListSchedulesAdapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
+    private ListSchedulesContract.Presenter mPresenter;
     private ProgressDialogCustom mProgressDialogCustom;
+    private DestinyTravelEntity destinyTravelEntity;
 
-    public StateFragment() {
+    public ListSchedulesFragment() {
         // Requires empty public constructor
     }
 
@@ -62,22 +68,27 @@ public class StateFragment extends BaseFragment implements CountriesContract.Vie
     public void onResume() {
         super.onResume();
         //mPresenter.start();
-        mPresenter.getPlaces();
+
     }
 
-    public static StateFragment newInstance() {
-        return new StateFragment();
+    public static ListSchedulesFragment newInstance(Bundle bundle) {
+        ListSchedulesFragment fragment = new ListSchedulesFragment();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        destinyTravelEntity = (DestinyTravelEntity) getArguments().getSerializable("destinyEntity");
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_list, container, false);
+        View root = inflater.inflate(R.layout.fragment_guides, container, false);
+        mPresenter.loadList(destinyTravelEntity.getId());
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
                 (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(
@@ -86,7 +97,7 @@ public class StateFragment extends BaseFragment implements CountriesContract.Vie
                 ContextCompat.getColor(getActivity(), R.color.black)
         );
         // Set the scrolling view in the custom SwipeRefreshLayout.
-        swipeRefreshLayout.setScrollUpChild(swipeRefreshLayout);
+        swipeRefreshLayout.setScrollUpChild(rvList);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -94,7 +105,6 @@ public class StateFragment extends BaseFragment implements CountriesContract.Vie
                 // mPresenter.loadOrdersFromPage(1);
             }
         });
-
 
         unbinder = ButterKnife.bind(this, root);
         return root;
@@ -104,15 +114,15 @@ public class StateFragment extends BaseFragment implements CountriesContract.Vie
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
-        mLayoutManager = new GridLayoutManager(getContext(), 2);
+        mLayoutManager = new LinearLayoutManager(getContext());
         rvList.setLayoutManager(mLayoutManager);
-
-        mAdapter = new CountriesAdapter(new ArrayList<PlacesEntity>(), getContext(), (PlaceItem) mPresenter);
+        mAdapter = new ListSchedulesAdapter(new ArrayList<SchedulesEntity>(), getContext(), (SchedulesItem) mPresenter);
         rvList.setAdapter(mAdapter);
     }
 
+
     @Override
-    public void getCountries(ArrayList<PlacesEntity> list) {
+    public void getListSchedulesByDay(ArrayList<SchedulesEntity> list) {
         mAdapter.setItems(list);
 
         if (list != null) {
@@ -137,12 +147,21 @@ public class StateFragment extends BaseFragment implements CountriesContract.Vie
     }
 
     @Override
+    public void showDetailsTickets(SchedulesEntity schedulesEntity) {
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("reservation", schedulesEntity);
+        next(getActivity(), bundle, TicketsDetailActivity.class, false);
+    }
+
+    @Override
     public boolean isActive() {
         return isAdded();
     }
 
+
     @Override
-    public void setPresenter(CountriesContract.Presenter mPresenter) {
+    public void setPresenter(ListSchedulesContract.Presenter mPresenter) {
         this.mPresenter = mPresenter;
     }
 
@@ -171,7 +190,6 @@ public class StateFragment extends BaseFragment implements CountriesContract.Vie
     @Override
     public void showErrorMessage(String message) {
         ((BaseActivity) getActivity()).showMessageError(message);
-
     }
 
     @Override
@@ -179,6 +197,6 @@ public class StateFragment extends BaseFragment implements CountriesContract.Vie
         super.onDestroyView();
         unbinder.unbind();
 
-
     }
+
 }

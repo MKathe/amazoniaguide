@@ -1,6 +1,5 @@
 package com.cerezaconsulting.pushay.presentation.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -19,7 +18,7 @@ import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.core.BaseFragment;
 import com.cerezaconsulting.pushay.core.RecyclerViewScrollListener;
 import com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout;
-import com.cerezaconsulting.pushay.data.entities.TicketEntity;
+import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushay.presentation.activities.TicketsDetailActivity;
 import com.cerezaconsulting.pushay.presentation.adapters.TicketsAdapter;
 import com.cerezaconsulting.pushay.presentation.contracts.TicketsContract;
@@ -106,12 +105,12 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
         mLayoutManager = new LinearLayoutManager(getContext());
         rvList.setLayoutManager(mLayoutManager);
-        mAdapter = new TicketsAdapter(new ArrayList<TicketEntity>(), getContext(), (TicketItem) mPresenter);
+        mAdapter = new TicketsAdapter(new ArrayList<ReservationEntity>(), getContext(), (TicketItem) mPresenter);
         rvList.setAdapter(mAdapter);
     }
 
     @Override
-    public void getTickets(ArrayList<TicketEntity> list) {
+    public void getTickets(ArrayList<ReservationEntity> list) {
         mAdapter.setItems(list);
 
         if (list != null) {
@@ -136,7 +135,7 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
     }
 
     @Override
-    public void showDetailsTickets(TicketEntity reservationEntity) {
+    public void showDetailsTickets(ReservationEntity reservationEntity) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("reservation", reservationEntity);
         next(getActivity(), bundle, TicketsDetailActivity.class, false);

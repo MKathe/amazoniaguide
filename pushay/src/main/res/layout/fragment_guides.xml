@@ -25,10 +25,51 @@
 
 </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_margin="20dp"
+    <com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp" />
+                <LinearLayout
+                    android:id="@+id/noList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/noListIcon"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ic_launcher" />
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/noListMain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/gray_regular"
+                        android:text="NO TIENES TICKETS" />
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.design.widget.CoordinatorLayout>
+    </com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout>
 
 </LinearLayout>

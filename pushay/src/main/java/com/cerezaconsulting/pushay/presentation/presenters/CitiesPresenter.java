@@ -2,13 +2,14 @@ package com.cerezaconsulting.pushay.presentation.presenters;
 
 import android.content.Context;
 
-import com.cerezaconsulting.pushay.data.entities.CountryEntity;
+
+import com.cerezaconsulting.pushay.data.entities.CityEntity;
 import com.cerezaconsulting.pushay.data.entities.trackholder.TrackHolderEntity;
 import com.cerezaconsulting.pushay.data.local.SessionManager;
 import com.cerezaconsulting.pushay.data.remote.ServiceFactory;
 import com.cerezaconsulting.pushay.data.remote.request.ListRequest;
-import com.cerezaconsulting.pushay.presentation.contracts.CountriesContract;
-import com.cerezaconsulting.pushay.presentation.presenters.commons.CountriesItem;
+import com.cerezaconsulting.pushay.presentation.contracts.CitiesContract;
+import com.cerezaconsulting.pushay.presentation.presenters.commons.CitiesItem;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,44 +21,53 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by katherine on 28/06/17.
  */
 
-public class CountriesPresenter implements CountriesContract.Presenter, CountriesItem {
+public class CitiesPresenter implements CitiesContract.Presenter, CitiesItem {
 
-    private CountriesContract.View mView;
+    private CitiesContract.View mView;
     private Context context;
     private SessionManager mSessionManager;
     private boolean firstLoad = false;
     private int currentPage = 1;
 
-    public CountriesPresenter(CountriesContract.View mView, Context context) {
+    public CitiesPresenter(CitiesContract.View mView, Context context) {
         this.context = checkNotNull(context, "context cannot be null!");
         this.mView = checkNotNull(mView, "view cannot be null!");
         this.mView.setPresenter(this);
         this.mSessionManager = new SessionManager(this.context);
     }
+
+
     @Override
-    public void loadOrdersFromPage(int page) {
+    public void start() {
+
+    }
+
+
+    @Override
+    public void clickItem(CityEntity cityEntity) {
+        mView.clickItemCities(cityEntity);
+    }
+
+    @Override
+    public void deleteItem(CityEntity cityEntity, int position) {
 
     }
 
     @Override
-    public void loadfromNextPage() {
-    }
-
-    @Override
-    public void getPlaces() {
+    public void getCities(int id) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
-        Call<TrackHolderEntity<CountryEntity>> orders = listRequest.getCountry();
-        orders.enqueue(new Callback<TrackHolderEntity<CountryEntity>>() {
+        Call<TrackHolderEntity<CityEntity>> orders = listRequest.getCities(id);
+        orders.enqueue(new Callback<TrackHolderEntity<CityEntity>>() {
             @Override
-            public void onResponse(Call<TrackHolderEntity<CountryEntity>> call, Response<TrackHolderEntity<CountryEntity>> response) {
+            public void onResponse(Call<TrackHolderEntity<CityEntity>> call, Response<TrackHolderEntity<CityEntity>> response) {
                 mView.setLoadingIndicator(false);
                 if (!mView.isActive()) {
                     return;
                 }
                 if (response.isSuccessful()) {
 
-                    mView.getCountries(response.body().getResults());
+                    mView.getCities(response.body().getResults());
 
                 } else {
                     mView.showErrorMessage("Error al obtener las órdenes");
@@ -65,7 +75,7 @@ public class CountriesPresenter implements CountriesContract.Presenter, Countrie
             }
 
             @Override
-            public void onFailure(Call<TrackHolderEntity<CountryEntity>> call, Throwable t) {
+            public void onFailure(Call<TrackHolderEntity<CityEntity>> call, Throwable t) {
                 if (!mView.isActive()) {
                     return;
                 }
@@ -73,21 +83,5 @@ public class CountriesPresenter implements CountriesContract.Presenter, Countrie
                 mView.showErrorMessage("Error al conectar con el servidor");
             }
         });
-    }
-
-    @Override
-    public void start() {
-        getPlaces();
-    }
-
-
-    @Override
-    public void clickItem(CountryEntity countryEntity) {
-        mView.clickItemCountry(countryEntity);
-    }
-
-    @Override
-    public void deleteItem(CountryEntity countryEntity, int position) {
-
     }
 }
