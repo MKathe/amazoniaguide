@@ -9,6 +9,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 /**
  * Created by katherine on 10/05/17.
@@ -26,5 +27,13 @@ public interface LoginRequest {
     @FormUrlEncoded
     @POST("user/recovery/")
     Call<UserEntity> recovery(@Field("email") String email);
+
+
+    @FormUrlEncoded
+    @PUT("user/change-password/")
+    Call<UserEntity> changePassword(@Header("Authorization") String token,
+                                    @Field("old_password") String old_password,
+                                    @Field("new_password") String new_password,
+                                    @Field("email") String email);
 
 }

@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:hint="@string/password"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
                     android:imeOptions="actionNext"
                     android:padding="10dp" />
             </android.support.design.widget.TextInputLayout>

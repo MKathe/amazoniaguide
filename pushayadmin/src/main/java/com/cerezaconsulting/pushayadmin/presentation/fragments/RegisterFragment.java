@@ -65,6 +65,7 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
 
 
     @NotEmpty(message = "Este campo no puede ser vacío",sequence = 7)
+    @Length(max = 12, message = "No puede exceder el número de dígitos", sequence = 8)
     @BindView(R.id.et_cellphone)
     EditText etCellphone;
 

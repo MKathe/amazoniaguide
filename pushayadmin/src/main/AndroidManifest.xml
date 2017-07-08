@@ -53,6 +53,9 @@
 
         <activity android:name=".presentation.activities.DestinyActivity">
         </activity>
+
+        <activity android:name=".presentation.activities.EditPasswordActivity">
+        </activity>
     </application>
 
 </manifest>

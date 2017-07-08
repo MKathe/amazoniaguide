@@ -10,8 +10,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.data.entities.UserEntity;
@@ -19,6 +21,7 @@ import com.cerezaconsulting.pushay.data.local.SessionManager;
 import com.cerezaconsulting.pushay.presentation.fragments.TicketsFragment;
 import com.cerezaconsulting.pushay.presentation.presenters.TicketsPresenter;
 import com.cerezaconsulting.pushay.utils.ActivityUtils;
+import com.cerezaconsulting.pushay.utils.CircleTransform;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,7 +31,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * Created by katherine on 3/05/17.
  */
 
-public class TicketsActivity extends BaseActivity{
+public class TicketsActivity extends BaseActivity {
 
     DrawerLayout mDrawer;
     NavigationView navigationView;
@@ -39,6 +42,7 @@ public class TicketsActivity extends BaseActivity{
     public TextView tv_username;
     public TextView tv_email;
     public UserEntity mUser;
+    public ImageView imageView;
     private TicketsFragment fragment;
 
     @Override
@@ -81,6 +85,7 @@ public class TicketsActivity extends BaseActivity{
 
         tv_username = (TextView) header.findViewById(R.id.tv_fullnanme);
         tv_email = (TextView) header.findViewById(R.id.tv_email);
+        imageView = (ImageView) header.findViewById(R.id.imageView);
         EventBus.getDefault().register(this);
         initHeader();
 
@@ -98,7 +103,7 @@ public class TicketsActivity extends BaseActivity{
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUpdateProfile(UserEntity userEntity) {
-        if(userEntity!=null){
+        if (userEntity != null) {
             tv_username.setText(userEntity.getFullName());
             tv_email.setText(userEntity.getEmail());
         }
@@ -116,13 +121,13 @@ public class TicketsActivity extends BaseActivity{
 
                         switch (menuItem.getItemId()) {
                             case R.id.action_profile:
-                                next(TicketsActivity.this,null, ProfileActivity.class, false);
+                                next(TicketsActivity.this, null, ProfileActivity.class, false);
                                 break;
                             case R.id.action_buy:
-                                next(TicketsActivity.this,null, CountriesActivity.class, false);
+                                next(TicketsActivity.this, null, CountriesActivity.class, false);
                                 break;
                             case R.id.action_help:
-                                next(TicketsActivity.this,null, SlideActivity.class, false);
+                                next(TicketsActivity.this, null, SlideActivity.class, false);
                                 break;
                             case R.id.action_info:
                                 //next(TicketsActivity.this,null, SlideActivity.class, false);
@@ -153,7 +158,6 @@ public class TicketsActivity extends BaseActivity{
 
         mUser = mSessionManager.getUserEntity();
         if (mUser != null) {
-
             tv_username.setText(mUser.getFullName());
             tv_username.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -162,6 +166,13 @@ public class TicketsActivity extends BaseActivity{
                 }
             });
             tv_email.setText(mUser.getEmail());
+
+            if (mUser.getPicture() != null) {
+                Glide.with(this)
+                        .load(mSessionManager.getUserEntity().getPicture())
+                        .transform(new CircleTransform(this))
+                        .into(imageView);
+            }
 
         }
     }

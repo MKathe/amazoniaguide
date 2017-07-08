@@ -12,13 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.core.BaseFragment;
 import com.cerezaconsulting.pushay.data.entities.UserEntity;
 import com.cerezaconsulting.pushay.data.local.SessionManager;
+import com.cerezaconsulting.pushay.presentation.activities.EditPasswordActivity;
 import com.cerezaconsulting.pushay.presentation.contracts.ProfileContract;
 import com.cerezaconsulting.pushay.presentation.dialogs.EditDialog;
+import com.cerezaconsulting.pushay.utils.CircleTransform;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -68,6 +71,8 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @BindView(R.id.ly_cel)
     LinearLayout lyCel;
     Unbinder unbinder;
+    @BindView(R.id.ly_account)
+    LinearLayout lyAccount;
 
     private SessionManager mSessionManager;
     private ProfileContract.Presenter mPresenter;
@@ -113,6 +118,10 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Glide.with(getContext())
+                .load(mSessionManager.getUserEntity().getPicture())
+                .transform(new CircleTransform(getContext()))
+                .into(imProfile);
         tvName.setText(mSessionManager.getUserEntity().getFullName());
         tvNameDetail.setText(mSessionManager.getUserEntity().getFullName());
         tvEmailDetail.setText(mSessionManager.getUserEntity().getEmail());
@@ -160,12 +169,12 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
 
     @Override
     public void setLoadingIndicator(boolean active) {
-        if (progressDialog != null){
+        if (progressDialog != null) {
 
-            if(active){
+            if (active) {
                 progressDialog.show();
-            }else{
-                if (progressDialog.isShowing()){
+            } else {
+                if (progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
             }
@@ -182,7 +191,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
         ((BaseActivity) getActivity()).showMessageError(message);
     }
 
-    @OnClick({R.id.ly_travel_history, R.id.img_edit})
+    @OnClick({R.id.ly_travel_history, R.id.img_edit,R.id.ly_account})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ly_travel_history:
@@ -190,8 +199,11 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
             case R.id.img_edit:
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("userEntity", mSessionManager.getUserEntity());
-                EditDialog editDialog = new EditDialog(getContext(),bundle,this);
+                EditDialog editDialog = new EditDialog(getContext(), bundle, this);
                 editDialog.show();
+                break;
+            case R.id.ly_account:
+                next(getActivity(),null, EditPasswordActivity.class, false);
                 break;
         }
     }

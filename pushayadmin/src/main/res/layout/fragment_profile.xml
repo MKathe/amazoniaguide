@@ -247,6 +247,55 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/tv_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ly_cel"
+                android:paddingLeft="20dp"
+                android:text="Cuenta"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimary" />
+
+            <LinearLayout
+                android:id="@+id/ly_account"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/tv_account"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_update"
+                    android:tint="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/change_pass" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_keyboard_arrow_right"
+                    android:tint="@color/gray" />
+            </LinearLayout>
+
+
+
             <RelativeLayout
                 android:id="@+id/btn_suscribe"
                 android:layout_width="match_parent"
@@ -254,7 +303,7 @@
                 android:layout_marginTop="10dp"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
-                android:layout_below="@id/ly_cel">
+                android:layout_below="@id/ly_account">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

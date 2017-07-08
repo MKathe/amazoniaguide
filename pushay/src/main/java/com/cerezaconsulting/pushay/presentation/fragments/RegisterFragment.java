@@ -67,6 +67,7 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
 
 
     @NotEmpty(message = "Este campo no puede ser vacío",sequence = 7)
+    @Length(max = 12, message = "No puede exceder la cantidad de dígitos", sequence = 8)
     @BindView(R.id.et_cellphone)
     EditText etCellphone;
 
@@ -219,7 +220,7 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
     public void onValidationSucceeded() {
         userEntity = new UserEntity(etEmail.getText().toString(),
                 etPassword.getText().toString(),etFirstname.getText().toString(),
-                etLastname.getText().toString(), etPassword.getText().toString(),gender);
+                etLastname.getText().toString(), etCellphone.getText().toString(),gender);
         mPresenter.registerUser(userEntity);
         isLoading=true;
 

@@ -22,12 +22,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.data.entities.UserEntity;
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.ComingSoonFragment;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.TodayFragment;
+import com.cerezaconsulting.pushayadmin.utils.CircleTransform;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -221,10 +224,13 @@ public class TravelActivity extends BaseActivity {
             });
             tv_mail.setText(mUser.getEmail());
 
-            /*if (mUser.getPhoto() != null) {
-                GlideUtils.loadImageCircleTransform(profile_image, mUser.getPhoto(), this);
+            if (mUser.getPicture() != null) {
+                    Glide.with(this)
+                    .load(mSessionManager.getUserEntity().getPicture())
+                    .transform(new CircleTransform(this))
+                    .into(profile_image);
 
-            }*/
+            }
         }
     }
 

@@ -1,7 +1,6 @@
 package com.cerezaconsulting.pushayadmin.presentation.fragments;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -17,12 +16,11 @@ import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.core.BaseFragment;
-import com.cerezaconsulting.pushayadmin.data.entities.AccessTokenEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.UserEntity;
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
+import com.cerezaconsulting.pushayadmin.presentation.activities.EditPasswordActivity;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.ProfileContract;
 import com.cerezaconsulting.pushayadmin.presentation.dialogs.EditDialog;
-import com.cerezaconsulting.pushayadmin.utils.ActivityUtils;
 import com.cerezaconsulting.pushayadmin.utils.CircleTransform;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,7 +35,7 @@ import butterknife.Unbinder;
  * Created by katherine on 19/05/17.
  */
 
-public class ProfileFragment extends BaseFragment implements ProfileContract.View{
+public class ProfileFragment extends BaseFragment implements ProfileContract.View {
     @BindView(R.id.im_profile)
     ImageView imProfile;
     @BindView(R.id.tv_name)
@@ -75,6 +73,8 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @BindView(R.id.btn_suscribe)
     RelativeLayout btnSuscribe;
     Unbinder unbinder;
+    @BindView(R.id.ly_account)
+    LinearLayout lyAccount;
 
     private SessionManager mSessionManager;
     private ProfileContract.Presenter mPresenter;
@@ -99,11 +99,11 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
 
     }
 
-        @Override
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSessionManager = new SessionManager(getContext());
-            EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
 
     }
 
@@ -138,7 +138,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
 
     }
 
-    @OnClick({R.id.ly_travel_history, R.id.ly_payment_history, R.id.img_edit, R.id.btn_suscribe})
+    @OnClick({R.id.ly_travel_history, R.id.ly_payment_history, R.id.img_edit, R.id.btn_suscribe,R.id.ly_account})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ly_travel_history:
@@ -148,10 +148,13 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
             case R.id.img_edit:
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("userEntity", mSessionManager.getUserEntity());
-                EditDialog editDialog = new EditDialog(getContext(),bundle,this);
+                EditDialog editDialog = new EditDialog(getContext(), bundle, this);
                 editDialog.show();
                 break;
             case R.id.btn_suscribe:
+                break;
+            case R.id.ly_account:
+                next(getActivity(),null, EditPasswordActivity.class,false);
                 break;
         }
     }
@@ -184,17 +187,17 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
 
     @Override
     public void setPresenter(ProfileContract.Presenter mPresenter) {
-    this.mPresenter = mPresenter;
+        this.mPresenter = mPresenter;
     }
 
     @Override
     public void setLoadingIndicator(boolean active) {
-        if (progressDialog != null){
+        if (progressDialog != null) {
 
-            if(active){
+            if (active) {
                 progressDialog.show();
-            }else{
-                if (progressDialog.isShowing()){
+            } else {
+                if (progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
             }

@@ -19,6 +19,12 @@
     <string name="female">Mujer</string>
     <string name="create">Crear cuenta</string>
 
+    //Change Password strings
+    <string name="old_password">Contraseña actual</string>
+    <string name="new_password">Nueva contraseña</string>
+    <string name="new_password_again">Repita su nueva contraseña</string>
+    <string name="change_pass">Cambiar contraseña</string>
+
     //Selected place
     <string name="selected">Selecciona el día que quieres \nir a este lugar con tu guía</string>
     <string name="selected_date">dd/mm/aaaa</string>
