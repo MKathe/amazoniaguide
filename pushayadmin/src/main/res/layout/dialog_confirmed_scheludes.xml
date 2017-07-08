@@ -4,6 +4,7 @@
         android:layout_margin="20dp"
         android:layout_height="match_parent">
         <ImageView
+            android:layout_marginTop="10dp"
             android:id="@+id/im_close"
             android:layout_width="wrap_content"
             android:layout_gravity="right"

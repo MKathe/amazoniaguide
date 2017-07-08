@@ -34,8 +34,8 @@ public interface SchedulesRequest {
                              @Field("price_normal") float price_normal,
                              @Field("max_user") int max_user);
 
-    @FormUrlEncoded
-    @DELETE("delete/{pk}/schedule")
+
+    @DELETE("delete/{pk}/schedule/")
     Call<Void> deleteSchedules(@Header("Authorization") String token,
                                @Path("pk") int id);
 }

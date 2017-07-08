@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.core.BaseFragment;
@@ -21,6 +22,8 @@ import com.cerezaconsulting.pushayadmin.data.entities.UserEntity;
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.ProfileContract;
 import com.cerezaconsulting.pushayadmin.presentation.dialogs.EditDialog;
+import com.cerezaconsulting.pushayadmin.utils.ActivityUtils;
+import com.cerezaconsulting.pushayadmin.utils.CircleTransform;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -116,7 +119,10 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Glide.with(getContext())
+                .load(mSessionManager.getUserEntity().getPicture())
+                .transform(new CircleTransform(getContext()))
+                .into(imProfile);
         tvName.setText(mSessionManager.getUserEntity().getFullName());
         tvNameDetail.setText(mSessionManager.getUserEntity().getFullName());
         tvEmailDetail.setText(mSessionManager.getUserEntity().getEmail());

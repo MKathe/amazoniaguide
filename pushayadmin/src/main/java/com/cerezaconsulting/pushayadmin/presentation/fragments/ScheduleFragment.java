@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
@@ -76,7 +77,7 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
     private SchedulesSecondAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private SessionManager mSessionManager;
-    private SchedulesEntity mondayEntity, tuesdayEntity, wednesdayEntity,
+    private SchedulesEntity schedulesEntity, mondayEntity, tuesdayEntity, wednesdayEntity,
             thursdayEntity, fridayEntity, saturdayEntity, sundayEntity;
     private String daySelected;
     private EditSchedulesDialog editSchedulesDialog;
@@ -108,7 +109,7 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_schedules, container, false);
         unbinder = ButterKnife.bind(this, root);
         setHasOptionsMenu(true);
@@ -124,7 +125,7 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
 
 
                 } else {
-                    tvClose.setText("No trabajo este día");
+                    tvClose.setText("No trabajo hoy");
                     tvClose.setTextColor(getResources().getColor(R.color.red));
                     listSchedulesRL.setVisibility(View.GONE);
                 }
@@ -188,6 +189,7 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
             case R.id.switch_disable:
                 switchDisable.setChecked(true);
                 listSchedulesRL.setVisibility(View.VISIBLE);
+
                 break;
             case R.id.btn_get_in:
                 Bundle bundle = new Bundle();
@@ -258,7 +260,7 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("schedulesEntity", schedulesEntity);
-        editSchedulesDialog = new EditSchedulesDialog(getContext(),this,bundle);
+        editSchedulesDialog = new EditSchedulesDialog(getContext(), this, bundle);
         editSchedulesDialog.show();
     }
 
@@ -277,20 +279,33 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
             @Override
             public void onDismiss(DialogInterface dialog) {
                 Intent refresh = new Intent(getContext(), SchedulesActivity.class);
-                refresh.putExtra("daySelected", daySelected );
+                refresh.putExtra("daySelected", daySelected);
                 startActivity(refresh);//Start the same Activity
                 getActivity().finish();
             }
         });
 
-
-
-
     }
 
 
     @Override
-    public void clickDeleteSchedules(SchedulesEntity schedulesEntity) {
+    public void clickDeleteSchedules(final SchedulesEntity schedulesEntity) {
+
+        AlertDialog.Builder alertdialog = new AlertDialog.Builder(getContext());
+        alertdialog.setTitle("¡ATENCIÓN!");
+        alertdialog.setMessage("¿Está seguro que desea eliminar este horario?");
+        alertdialog.setCancelable(false);
+        alertdialog.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface alertdialog, int id) {
+                mPresenter.delete(schedulesEntity);
+            }
+        });
+        alertdialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface alertdialog, int id) {
+                alertdialog.dismiss();
+            }
+        });
+        alertdialog.show();
     }
 
 
@@ -300,7 +315,20 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
     }
 
     @Override
-    public void deleteSuccessful(String msg) {
+    public void deleteSuccessful(final String daySelected, String msg) {
+        Bundle bundle = new Bundle();
+        bundle.putString("msg", msg);
+        ConfirmedDialog confirmedDialog = new ConfirmedDialog(getContext(), bundle);
+        confirmedDialog.show();
+        confirmedDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                Intent refresh = new Intent(getContext(), SchedulesActivity.class);
+                refresh.putExtra("daySelected", daySelected);
+                startActivity(refresh);//Start the same Activity
+                getActivity().finish();
+            }
+        });
 
     }
 

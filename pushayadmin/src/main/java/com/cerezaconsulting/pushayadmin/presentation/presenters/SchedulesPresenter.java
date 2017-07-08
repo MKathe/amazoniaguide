@@ -122,8 +122,34 @@ public class SchedulesPresenter implements ScheduleContract.Presenter, Schedules
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(final SchedulesEntity schedulesEntity) {
+        mView.setLoadingIndicator(true);
+        SchedulesRequest schedulesRequest = ServiceFactory.createService(SchedulesRequest.class);
+        Call<Void> orders = schedulesRequest.deleteSchedules("Token " + mSessionManager.getUserToken(), schedulesEntity.getId());
+        orders.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                mView.setLoadingIndicator(false);
+                if (!mView.isActive()) {
+                    return;
+                }
+                if (response.isSuccessful()) {
 
+                    mView.deleteSuccessful(schedulesEntity.getDay().getName(),"Su horario ha sido eliminado con éxito");
+                } else {
+                    mView.showErrorMessage("Error al eliminar el horario, inténtelo nuevamente");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                if (!mView.isActive()) {
+                    return;
+                }
+                mView.setLoadingIndicator(false);
+                mView.showErrorMessage("Error al conectar con el servidor");
+            }
+        });
     }
 
     @Override
@@ -143,6 +169,6 @@ public class SchedulesPresenter implements ScheduleContract.Presenter, Schedules
 
     @Override
     public void deleteItem(SchedulesEntity schedulesEntity, int position) {
-        delete(position);
+        mView.clickDeleteSchedules(schedulesEntity);
     }
 }

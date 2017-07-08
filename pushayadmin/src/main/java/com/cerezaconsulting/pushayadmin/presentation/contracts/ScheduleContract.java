@@ -21,7 +21,7 @@ public interface ScheduleContract {
 
         void clickDeleteSchedules(SchedulesEntity schedulesEntity);
         void deleteSchedules(SchedulesEntity schedulesEntity);
-        void deleteSuccessful(String msg);
+        void deleteSuccessful(String daySelected,String msg);
         boolean isActive();
 
     }
@@ -32,7 +32,7 @@ public interface ScheduleContract {
         void loadFromNextPage();
         void loadList(String token, final int page);
         void edit(SchedulesEntity schedulesEntity);
-        void delete(int id);
+        void delete(SchedulesEntity schedulesEntity);
 
     }
 }

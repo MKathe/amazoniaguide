@@ -11,9 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cerezaconsulting.pushayadmin.R;
-import com.cerezaconsulting.pushayadmin.data.entities.DestinyTravelEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.DestinyContract;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.ScheduleContract;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -45,6 +43,8 @@ public class EditSchedulesDialog extends AlertDialog implements Validator.Valida
     EditText tvPrice;
     @BindView(R.id.btn_get_in)
     Button btnGetIn;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private ScheduleContract.View viewContract;
     private Validator validator;
@@ -56,15 +56,17 @@ public class EditSchedulesDialog extends AlertDialog implements Validator.Valida
         this.viewContract = checkNotNull(viewContract, "view cannot be null!");
         LayoutInflater inflater = LayoutInflater.from(getContext());
         final View view = inflater.inflate(R.layout.dialog_create_schedules, null);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         setView(view);
+
+        tvTitle.setText("EDITA TU HORARIO");
+        btnGetIn.setText("EDITAR");
         validator = new Validator(this);
         validator.setValidationListener(this);
 
         schedulesEntity = (SchedulesEntity) bundle.getSerializable("schedulesEntity");
         tvDestiny.setText(schedulesEntity.getDestiny().getName());
         tvDaySelected.setText(schedulesEntity.getDay().getName());
-
 
 
     }
@@ -96,7 +98,7 @@ public class EditSchedulesDialog extends AlertDialog implements Validator.Valida
         newSchedulesEntity.setDay_name(schedulesEntity.getDay().getName());
         newSchedulesEntity.setMax_user(Integer.parseInt(tvQuantity.getText().toString()));
         newSchedulesEntity.setPrice_normal(Float.valueOf(tvPrice.getText().toString()));
-        return  newSchedulesEntity;
+        return newSchedulesEntity;
     }
 
     @OnClick(R.id.btn_get_in)
