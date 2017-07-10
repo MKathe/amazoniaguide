@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:screenOrientation="portrait"
             android:name="com.cerezaconsulting.pushay.presentation.activities.LoadActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,27 +20,49 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.cerezaconsulting.pushay.presentation.activities.LoginActivity"/>
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.cerezaconsulting.pushay.presentation.activities.LoginActivity"/>
 
-        <activity android:name="com.cerezaconsulting.pushay.presentation.activities.RegisterActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.cerezaconsulting.pushay.presentation.activities.RegisterActivity">
         </activity>
-        <activity android:name="com.cerezaconsulting.pushay.presentation.activities.TicketsActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.cerezaconsulting.pushay.presentation.activities.TicketsActivity">
         </activity>
-        <activity android:name="com.cerezaconsulting.pushay.presentation.activities.ProfileActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.cerezaconsulting.pushay.presentation.activities.ProfileActivity">
         </activity>
-        <activity android:name="com.cerezaconsulting.pushay.presentation.activities.TicketsDetailActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.cerezaconsulting.pushay.presentation.activities.TicketsDetailActivity">
         </activity>
-        <activity android:name="com.cerezaconsulting.pushay.presentation.activities.SlideActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name="com.cerezaconsulting.pushay.presentation.activities.SlideActivity">
         </activity>
-        <activity android:name=".presentation.activities.CountriesActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".presentation.activities.CountriesActivity">
         </activity>
-        <activity android:name=".presentation.activities.CitiesActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".presentation.activities.CitiesActivity">
         </activity>
-        <activity android:name=".presentation.activities.DestinyActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".presentation.activities.DestinyActivity">
         </activity>
-        <activity android:name=".presentation.activities.ListSchedulesActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".presentation.activities.ListSchedulesActivity">
         </activity>
-        <activity android:name=".presentation.activities.EditPasswordActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".presentation.activities.EditPasswordActivity">
         </activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>

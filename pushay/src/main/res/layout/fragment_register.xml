@@ -16,6 +16,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/xxxlarge_text"
@@ -27,13 +28,14 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="300dp"
                 android:layout_gravity="center_horizontal"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/gray"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:textColorHint="@color/gray"
                     android:hint="@string/email"
                     android:textColor="@color/white"
                     android:backgroundTint="@color/white"
@@ -44,13 +46,14 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="300dp"
                 android:layout_gravity="center_horizontal"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/gray"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:textColorHint="@color/gray"
                     android:hint="@string/password"
                     android:textColor="@color/white"
                     android:backgroundTint="@color/white"
@@ -62,10 +65,11 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="300dp"
                 android:layout_gravity="center_horizontal"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/gray"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/et_firstname"
+                    android:textColorHint="@color/gray"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -79,7 +83,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="300dp"
                 android:layout_gravity="center_horizontal"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/gray"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/et_lastname"
@@ -87,6 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:hint="@string/lastname"
+                    android:textColorHint="@color/gray"
                     android:textColor="@color/white"
                     android:backgroundTint="@color/white"
                     android:inputType="textCapWords"
@@ -96,7 +101,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="300dp"
                 android:layout_gravity="center_horizontal"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/gray"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/et_cellphone"
@@ -142,6 +147,7 @@
 
 
             <Button
+
                 android:id="@+id/btn_create"
                 android:layout_width="300dp"
                 android:layout_height="35dp"
@@ -149,7 +155,8 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/button_square_border"
                 android:text="@string/create"
-                android:textColor="@color/white" />
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
         </LinearLayout>
     </ScrollView>
 
