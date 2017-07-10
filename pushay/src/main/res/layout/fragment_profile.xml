@@ -61,10 +61,23 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ly_image_profile"
                 android:gravity="center"
+                fontPath="fonts/Gotham-Medium.otf"
+                android:textColor="@color/black"
                 android:text="@string/name"
                 android:textSize="@dimen/large_text" />
 
+
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/tv_name"
+                android:background="@color/dark_gray"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"></View>
             <TextView
+
+                fontPath="fonts/Gotham-Medium.otf"
                 android:id="@+id/tv_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,6 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
+                    android:textColor="@color/black"
                     android:layout_weight="1"
                     android:text="Mis viajes" />
 
@@ -108,6 +122,14 @@
                     android:src="@drawable/ic_keyboard_arrow_right"
                     android:tint="@color/gray" />
             </LinearLayout>
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/ly_travel_history"
+                android:background="@color/dark_gray"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"></View>
 
             <LinearLayout
                 android:id="@+id/ly_personal_edit"
@@ -118,6 +140,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    fontPath="fonts/Gotham-Medium.otf"
                     android:id="@+id/tv_personal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -240,8 +263,19 @@
                     android:textSize="@dimen/normal_text"/>
 
             </LinearLayout>
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/ly_cel"
+                android:background="@color/dark_gray"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"></View>
 
             <TextView
+
+                fontPath="fonts/Gotham-Medium.otf"
                 android:id="@+id/tv_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -250,7 +284,7 @@
                 android:text="Cuenta"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="25dp"
                 android:textColor="@color/colorPrimary" />
 
             <LinearLayout
@@ -277,6 +311,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp"
+                    android:textColor="@color/black"
                     android:layout_weight="1"
                     android:text="@string/change_pass" />
 

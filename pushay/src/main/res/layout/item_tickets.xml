@@ -36,18 +36,27 @@
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical">
                 <TextView
+                    android:ellipsize="end"
+                    fontPath="fonts/Gotham-Medium.otf"
                     android:id="@+id/tv_name_city"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
+                    android:gravity="left"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/name"/>
                 <TextView
                     android:id="@+id/tv_descript_city"
+                    android:gravity="left"
+                    android:maxLines="1"
+                    android:textSize="13dp"
+                    android:textColor="@color/dark_gray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/decript_guide"/>
                 <TextView
                     android:id="@+id/tv_date"
+                    android:textSize="13dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/selected_date"/>
@@ -56,16 +65,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
+                        android:textSize="13dp"
                         android:id="@+id/tv_package_name"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="FUll day"/>
+                        android:layout_height="wrap_content"/>
                     <TextView
+                        android:textStyle="italic"
+                        android:textSize="13dp"
                         android:id="@+id/tv_package_date"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="0dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="(9:00am - 6:00pm)"/>
+                        android:text="9:00am - 6:00pm"/>
 
                 </LinearLayout>
             </LinearLayout>
