@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.LoaderAdapter;
 import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushay.presentation.adapters.listener.OnClickListListener;
 import com.cerezaconsulting.pushay.presentation.presenters.commons.TicketItem;
+import com.cerezaconsulting.pushay.utils.CircleTransform;
 
 import java.util.ArrayList;
 
@@ -50,7 +52,7 @@ public class TicketsAdapter extends LoaderAdapter<ReservationEntity> implements 
 
     @Override
     public long getYourItemId(int position) {
-        return getmItems().get(position).getId_reservation();
+        return getmItems().get(position).getId();
     }
 
     @Override
@@ -62,7 +64,12 @@ public class TicketsAdapter extends LoaderAdapter<ReservationEntity> implements 
     @Override
     public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
         ReservationEntity ticketEntity = getItems().get(position);
-        ((ViewHolder) holder).tvDate.setText(ticketEntity.getDate());
+        ((ViewHolder) holder).tvDate.setText(ticketEntity.getDay());
+        ((ViewHolder) holder).tvNameCity.setText(ticketEntity.getSchedules().getDestiny().getName());
+        Glide.with(context)
+                .load(ticketEntity.getSchedules().getDestiny().getImage_1())
+                .transform(new CircleTransform(context))
+                .into(((ViewHolder) holder).imPerfil);
     }
 
     @Override

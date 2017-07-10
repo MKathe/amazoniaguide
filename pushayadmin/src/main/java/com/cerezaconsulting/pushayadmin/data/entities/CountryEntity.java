@@ -10,6 +10,7 @@ public class CountryEntity implements Serializable {
     private int id;
     private String name;
     private String cover;
+    private String country_cover;
     private String image_1;
     private String image_2;
     private String image_3;

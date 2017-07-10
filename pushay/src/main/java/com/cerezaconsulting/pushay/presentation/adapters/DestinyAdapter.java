@@ -10,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.LoaderAdapter;
 import com.cerezaconsulting.pushay.data.entities.DestinyTravelEntity;
 import com.cerezaconsulting.pushay.presentation.adapters.listener.OnClickListListener;
 import com.cerezaconsulting.pushay.presentation.presenters.commons.DestinyItem;
+import com.cerezaconsulting.pushay.utils.CircleTransform;
 
 import java.util.ArrayList;
 
@@ -63,6 +65,10 @@ public class DestinyAdapter extends LoaderAdapter<DestinyTravelEntity> implement
     public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
         DestinyTravelEntity destinyTravelEntity = getItems().get(position);
         ((ViewHolder) holder).tvNamePlace.setText(destinyTravelEntity.getName());
+        Glide.with(context)
+                .load(destinyTravelEntity.getImage_1())
+                .transform(new CircleTransform(context))
+                .into(((ViewHolder) holder).ivPlaces);
     }
 
     @Override
@@ -78,8 +84,6 @@ public class DestinyAdapter extends LoaderAdapter<DestinyTravelEntity> implement
         ImageView ivPlaces;
         @BindView(R.id.tv_name_place)
         TextView tvNamePlace;
-        @BindView(R.id.card_view)
-        CardView cardView;
 
         private OnClickListListener onClickListListener;
 

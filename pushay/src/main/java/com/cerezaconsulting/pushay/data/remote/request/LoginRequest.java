@@ -1,9 +1,12 @@
 package com.cerezaconsulting.pushay.data.remote.request;
 
 import com.cerezaconsulting.pushay.data.entities.AccessTokenEntity;
+import com.cerezaconsulting.pushay.data.entities.UploadResponse;
 import com.cerezaconsulting.pushay.data.entities.UserEntity;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -39,5 +42,10 @@ public interface LoginRequest {
                                     @Field("old_password") String old_password,
                                     @Field("new_password") String new_password,
                                     @Field("email") String email);
+
+    @PUT("user/{id}/photo/")
+    Call<UploadResponse> updatePhoto(@Header("Authorization") String token,
+                                     @Path("id") int id,
+                                     @Body RequestBody body);
 
 }

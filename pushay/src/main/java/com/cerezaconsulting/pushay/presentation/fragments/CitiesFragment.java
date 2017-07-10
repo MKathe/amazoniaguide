@@ -84,7 +84,7 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
+        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Obteniendo ciudades...");
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         rvList.setLayoutManager(mLayoutManager);
         mAdapter = new CitiesAdapter(new ArrayList<CityEntity>(), getContext(), (CitiesItem) mPresenter);
@@ -106,7 +106,6 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
         Bundle bundle = new Bundle();
         bundle.putSerializable("cityEntity", cityEntity);
         next(getActivity(),bundle, DestinyActivity.class,false);
-        getActivity().finish();
     }
 
     @Override
@@ -125,11 +124,14 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
         if (getView() == null) {
             return;
         }
-        if (active) {
-            mProgressDialogCustom.show();
-        } else {
-            if (mProgressDialogCustom.isShowing()) {
-                mProgressDialogCustom.dismiss();
+        if (mProgressDialogCustom != null) {
+
+            if (active) {
+                mProgressDialogCustom.show();
+            } else {
+                if (mProgressDialogCustom.isShowing()) {
+                    mProgressDialogCustom.dismiss();
+                }
             }
         }
 

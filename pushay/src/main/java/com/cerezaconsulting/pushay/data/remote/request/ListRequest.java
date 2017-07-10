@@ -4,6 +4,7 @@ package com.cerezaconsulting.pushay.data.remote.request;
 import com.cerezaconsulting.pushay.data.entities.CityEntity;
 import com.cerezaconsulting.pushay.data.entities.CountryEntity;
 import com.cerezaconsulting.pushay.data.entities.DestinyTravelEntity;
+import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushay.data.entities.SchedulesEntity;
 import com.cerezaconsulting.pushay.data.entities.trackholder.TrackHolderEntity;
 
@@ -31,11 +32,8 @@ public interface ListRequest {
 
     @GET("listschedulebydestinies/{pk}/")
     Call<TrackHolderEntity<SchedulesEntity>> getListSchedules(@Path("pk") int id);
-/*
-    @GET("listreservation/")
-    Call<TrackHolderEntity<ReservationEntity>> getReservation();*/
 
-    @GET("myschedulebyday/")
-    Call<TrackHolderEntity<SchedulesEntity>> getSchedules(@Header("Authorization") String token,
-                                                          @Query("page") int numberPage);
+    @GET("myreservation/")
+    Call<TrackHolderEntity<ReservationEntity>> getReservation(@Header("Authorization") String token);
+
 }

@@ -1,6 +1,11 @@
+
 package com.cerezaconsulting.pushay.data.entities;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by katherine on 15/05/17.
@@ -10,28 +15,46 @@ public class ReservationEntity implements Serializable{
 
         //RESERVATION ENTITY
 
-    private int id_reservation;
-    private SchedulesEntity scheludes;
+    private int id;
+    private String name;
+    private SchedulesEntity schedules;
     private String date;
     private UserEntity userEntity;
     private int num_coupons;
     private boolean is_confirm;
     private String status;
+    private Boolean payment_status;
 
-    public int getId_reservation() {
-        return id_reservation;
+    public String getName() {
+        return name;
     }
 
-    public void setId_reservation(int id_reservation) {
-        this.id_reservation = id_reservation;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public SchedulesEntity getScheludes() {
-        return scheludes;
+    public SchedulesEntity getSchedules() {
+        return schedules;
     }
 
-    public void setScheludes(SchedulesEntity scheludes) {
-        this.scheludes = scheludes;
+    public void setSchedules(SchedulesEntity schedules) {
+        this.schedules = schedules;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Boolean getPayment_status() {
+        return payment_status;
+    }
+
+    public void setPayment_status(Boolean payment_status) {
+        this.payment_status = payment_status;
     }
 
     public String getDate() {
@@ -72,5 +95,19 @@ public class ReservationEntity implements Serializable{
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+
+    public String getDay(){
+        Date tempDate = null;
+        SimpleDateFormat parseDateFromServer= new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat parseDateForShowDetail =  new SimpleDateFormat("dd' de 'MMMM' del 'yyyy", new Locale("es","ES"));
+
+        try {
+            tempDate = parseDateFromServer.parse(getDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return parseDateForShowDetail.format(tempDate);
     }
 }

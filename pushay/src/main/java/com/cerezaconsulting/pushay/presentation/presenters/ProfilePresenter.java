@@ -3,12 +3,19 @@ package com.cerezaconsulting.pushay.presentation.presenters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.cerezaconsulting.pushay.data.entities.UploadResponse;
 import com.cerezaconsulting.pushay.data.entities.UserEntity;
 import com.cerezaconsulting.pushay.data.local.SessionManager;
 import com.cerezaconsulting.pushay.data.remote.ServiceFactory;
+import com.cerezaconsulting.pushay.data.remote.request.LoginRequest;
 import com.cerezaconsulting.pushay.data.remote.request.RegisterRequest;
 import com.cerezaconsulting.pushay.presentation.contracts.ProfileContract;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,7 +69,44 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
+    public void updatePhoto(int id, File image) {
+        LoginRequest loginRequest = ServiceFactory.createService(LoginRequest.class);
+        RequestBody photo = RequestBody.create(MediaType.parse("application/photo"), image);
+
+        RequestBody body = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("picture", "PROFILE_IMAGE_" + id + ".jpg", photo)
+                .build();
+
+        Call<UploadResponse> call = loginRequest.updatePhoto("Token " + mSessionManager.getUserToken(), id, body);
+        mView.setLoadingIndicator(true);
+        call.enqueue(new Callback<UploadResponse>() {
+            @Override
+            public void onResponse(Call<UploadResponse> call, Response<UploadResponse> response) {
+                if (!mView.isActive()) {
+                    return;
+                }
+                mView.setLoadingIndicator(false);
+                if (response.isSuccessful()) {
+                    mView.updateProfileImage(response.body());
+                } else {
+                    mView.showErrorMessage("Hubo un error, por favor intente más tarde");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UploadResponse> call, Throwable t) {
+                if (!mView.isActive()) {
+                    return;
+                }
+                mView.setLoadingIndicator(false);
+                mView.showErrorMessage("No se pudo conectar al servidor, por favor intente más tarde");
+            }
+        });    }
+
+    @Override
     public void start() {
+        mView.ShowSessionInformation(mSessionManager.getUserEntity());
 
     }
 

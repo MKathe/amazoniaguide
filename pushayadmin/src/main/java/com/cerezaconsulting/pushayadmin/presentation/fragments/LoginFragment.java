@@ -88,7 +88,6 @@ public class LoginFragment extends BaseFragment implements LoginContract.View,Va
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
-
         validator = new Validator(this);
         validator.setValidationListener(this);
 

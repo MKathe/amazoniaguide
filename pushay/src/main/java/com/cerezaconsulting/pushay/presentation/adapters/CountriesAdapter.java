@@ -10,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.LoaderAdapter;
 import com.cerezaconsulting.pushay.data.entities.CountryEntity;
 import com.cerezaconsulting.pushay.presentation.adapters.listener.OnClickListListener;
 import com.cerezaconsulting.pushay.presentation.presenters.commons.CountriesItem;
+import com.cerezaconsulting.pushay.utils.CircleTransform;
 
 import java.util.ArrayList;
 
@@ -63,6 +65,10 @@ public class CountriesAdapter extends LoaderAdapter<CountryEntity> implements On
     public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
         CountryEntity countryEntity = getItems().get(position);
         ((ViewHolder) holder).tvNamePlace.setText(countryEntity.getName());
+        Glide.with(context)
+                .load(countryEntity.getImage_1())
+                .transform(new CircleTransform(context))
+                .into(((ViewHolder) holder).ivPlaces);
     }
 
     @Override
@@ -78,9 +84,6 @@ public class CountriesAdapter extends LoaderAdapter<CountryEntity> implements On
         ImageView ivPlaces;
         @BindView(R.id.tv_name_place)
         TextView tvNamePlace;
-        @BindView(R.id.card_view)
-        CardView cardView;
-
         private OnClickListListener onClickListListener;
 
         ViewHolder(View itemView, OnClickListListener onClickListListener) {

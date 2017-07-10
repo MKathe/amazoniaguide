@@ -31,11 +31,13 @@ import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.ComingSoonFragment;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.TodayFragment;
 import com.cerezaconsulting.pushayadmin.utils.CircleTransform;
+import com.cerezaconsulting.pushayadmin.utils.ImagePicker;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,6 +114,10 @@ public class TravelActivity extends BaseActivity {
         if(userEntity!=null){
             tv_username.setText(userEntity.getFullName());
             tv_mail.setText(userEntity.getEmail());
+            Glide.with(this)
+                    .load(mSessionManager.getUserEntity().getPicture())
+                    .transform(new CircleTransform(this))
+                    .into(profile_image);
         }
 
     }
@@ -161,11 +167,11 @@ public class TravelActivity extends BaseActivity {
 
                         menuItem.setChecked(false);
                         menuItem.setCheckable(false);
-
-
                         switch (menuItem.getItemId()) {
                             case R.id.action_my_profile:
-                                next(TravelActivity.this, null, ProfileActivity.class, false);
+                                Intent intent = new Intent(TravelActivity.this , ProfileActivity.class);
+                                startActivityForResult(intent, 7);
+                                //next(TravelActivity.this, null, ProfileActivity.class, false);
                                 break;
                             case R.id.action_programming:
                                 Bundle bundle = new Bundle();
@@ -233,19 +239,25 @@ public class TravelActivity extends BaseActivity {
             }
         }
     }
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case 200:
+                    initHeader();
+                    break;
+                case 7:
+                    Glide.with(this)
+                            .load(mSessionManager.getUserEntity().getPicture())
+                            .transform(new CircleTransform(this))
+                            .into(profile_image);
+                    break;
 
-        if (Activity.RESULT_OK == resultCode)
-            if (200 == requestCode) {
-                initHeader();
 
             }
-
-
+        }
     }
+
     @Override
     public void onBackPressed() {
         if (this.mDrawer.isDrawerOpen(GravityCompat.START)) {

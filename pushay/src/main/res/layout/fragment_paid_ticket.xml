@@ -2,36 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="30dp"
     android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
+            android:layout_margin="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/xlarge_text"
                     android:text="Hola, " />
-
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/xlarge_text"
                     android:textColor="@color/colorPrimary"
-                    android:text="@string/name" />
-
+                    android:text="@string/name"/>
             </LinearLayout>
 
             <TextView
@@ -39,13 +36,11 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Gracias por comprar en PUSHAY" />
-
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,15 +98,13 @@
                         android:layout_height="wrap_content"
                         android:text="@string/selected_date" />
                 </LinearLayout>
-
             </RelativeLayout>
-
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Paquete adquirido"
+                android:text="Lugar y hora de encuentro"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/xlarge_text" />
 
@@ -124,20 +117,33 @@
                     android:id="@+id/tv_service"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Full Day " />
+                    android:text="Full Day /" />
 
                 <TextView
                     android:id="@+id/tv_service_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="(9:00am - 6:00pm)" />
-
+                    android:text=" 9:00am - 6:00pm" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:text="Contacta a tu guía"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:textSize="@dimen/xlarge_text" />
+
+            <TextView
+                android:id="@+id/tv_cell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#########" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="@string/detail"/>
 
             <TextView
@@ -149,9 +155,6 @@
                 android:textColor="@color/colorPrimary"
                 android:text="@string/thanks"/>
 
-
         </LinearLayout>
-
     </ScrollView>
-
 </LinearLayout>

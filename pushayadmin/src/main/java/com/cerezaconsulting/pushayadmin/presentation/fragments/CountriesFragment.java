@@ -114,7 +114,6 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
         bundle.putSerializable("countryEntity", countryEntity);
         bundle.putString("daySelected", daySelected);
         next(getActivity(),bundle, CitiesActivity.class,false);
-        getActivity().finish();
     }
 
     @Override

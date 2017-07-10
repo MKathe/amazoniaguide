@@ -29,7 +29,7 @@ public interface TicketsContract {
 
         void loadfromNextPage();
 
-        void loadList();
+        void loadList(String token, int page);
 
 
     }

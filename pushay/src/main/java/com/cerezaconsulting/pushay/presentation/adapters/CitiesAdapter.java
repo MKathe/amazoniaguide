@@ -10,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.LoaderAdapter;
 import com.cerezaconsulting.pushay.data.entities.CityEntity;
 import com.cerezaconsulting.pushay.presentation.adapters.listener.OnClickListListener;
 import com.cerezaconsulting.pushay.presentation.presenters.commons.CitiesItem;
+import com.cerezaconsulting.pushay.utils.CircleTransform;
 
 import java.util.ArrayList;
 
@@ -63,6 +65,10 @@ public class CitiesAdapter extends LoaderAdapter<CityEntity> implements OnClickL
     public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
         CityEntity cityEntity = getItems().get(position);
         ((ViewHolder) holder).tvNamePlace.setText(cityEntity.getName());
+        Glide.with(context)
+                .load(cityEntity.getImage_1())
+                .transform(new CircleTransform(context))
+                .into(((ViewHolder) holder).ivPlaces);
     }
 
     @Override
@@ -78,9 +84,6 @@ public class CitiesAdapter extends LoaderAdapter<CityEntity> implements OnClickL
         ImageView ivPlaces;
         @BindView(R.id.tv_name_place)
         TextView tvNamePlace;
-        @BindView(R.id.card_view)
-        CardView cardView;
-
         private OnClickListListener onClickListListener;
 
         ViewHolder(View itemView, OnClickListListener onClickListListener) {
