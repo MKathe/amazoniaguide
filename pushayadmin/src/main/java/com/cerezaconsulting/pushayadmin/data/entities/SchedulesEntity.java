@@ -16,6 +16,24 @@ public class SchedulesEntity implements Serializable {
     private String destiny_name;
     private float price_normal;
     private int max_user;
+    private String locality;
+    private String hour;
+
+    public String getLocality() {
+        return locality;
+    }
+
+    public void setLocality(String locality) {
+        this.locality = locality;
+    }
+
+    public String getHour() {
+        return hour;
+    }
+
+    public void setHour(String hour) {
+        this.hour = hour;
+    }
 
     public int getId() {
         return id;

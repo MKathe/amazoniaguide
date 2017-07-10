@@ -61,8 +61,8 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
     @Override
     public void onResume() {
         super.onResume();
-        //mPresenter.start();
-        mPresenter.loadList();
+        mPresenter.start();
+
     }
 
     public static TicketsFragment newInstance() {
@@ -137,7 +137,7 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
     @Override
     public void showDetailsTickets(ReservationEntity reservationEntity) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("reservation", reservationEntity);
+        bundle.putSerializable("reservationEntity", reservationEntity);
         next(getActivity(), bundle, TicketsDetailActivity.class, false);
     }
 

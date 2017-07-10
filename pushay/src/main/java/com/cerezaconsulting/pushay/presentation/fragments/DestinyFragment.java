@@ -100,7 +100,7 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
                 now.get(Calendar.DAY_OF_MONTH)
         );
 
-        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
+        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Obteniendo destinos...");
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         rvList.setLayoutManager(mLayoutManager);
         mAdapter = new DestinyAdapter(new ArrayList<DestinyTravelEntity>(), getContext(), (DestinyItem) mPresenter);

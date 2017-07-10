@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Pushay</string>
     <string name="pick_image_intent_text">Elegir imagen</string>
+    <string name="perm_camera">Se necesitan permisos para la cámara</string>
     <string name="demo_min_label">min</string>
     <string name="demo_max_label">max</string>
 
@@ -33,7 +34,7 @@
     <string name="decript_guide">descripción</string>
 
     //Paid Ticket
-    <string name="detail">*No te olvides de presentar tu código QR al guía\npara empezar
+    <string name="detail">*No te olvides de presentar tu código QR al \nguía para empezar
     y finalizar tu paseo guiado</string>
     <string name="thanks">¡Qué disfrutes tu viaje!</string>
 

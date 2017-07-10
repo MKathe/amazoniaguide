@@ -121,7 +121,8 @@ public class TicketsActivity extends BaseActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.action_profile:
-                                next(TicketsActivity.this, null, ProfileActivity.class, false);
+                                Intent intent = new Intent(TicketsActivity.this , ProfileActivity.class);
+                                startActivityForResult(intent, 7);
                                 break;
                             case R.id.action_buy:
                                 next(TicketsActivity.this, null, CountriesActivity.class, false);
@@ -179,11 +180,21 @@ public class TicketsActivity extends BaseActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case 200:
+                    initHeader();
+                    break;
+                case 7:
+                    Glide.with(this)
+                            .load(mSessionManager.getUserEntity().getPicture())
+                            .transform(new CircleTransform(this))
+                            .into(imageView);
+                    break;
 
-        if (Activity.RESULT_OK == resultCode)
-            if (200 == requestCode) {
-                initHeader();
+
             }
+        }
     }
 
     @Override

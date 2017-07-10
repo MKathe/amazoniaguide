@@ -15,6 +15,7 @@ public class ReservationEntity implements Serializable {
     private boolean is_confirm;
     private String status;
 
+
     public ReservationEntity(SchedulesEntity scheludes, String date, UserEntity userEntity, int num_coupons) {
         this.scheludes = scheludes;
         this.date = date;

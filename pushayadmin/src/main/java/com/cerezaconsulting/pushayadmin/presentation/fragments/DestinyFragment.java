@@ -119,8 +119,9 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
         Bundle bundle = new Bundle();
         bundle.putSerializable("destinyEntity", destinyTravelEntity);
         bundle.putString("daySelected", daySelected);
-        dialogCreateSchedules = new DialogCreateSchedules(getContext(), this, bundle);
-        dialogCreateSchedules.show();
+
+        dialogCreateSchedules = DialogCreateSchedules.newInstance(bundle);
+        dialogCreateSchedules.show(getActivity().getFragmentManager(), "Registro");
     }
 
     @Override
@@ -133,7 +134,7 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
         Bundle bundle = new Bundle();
         bundle.putString("daySelected", daySelected);
         dialogCreateSchedules.dismiss();
-        getActivity().finish();
+
         next(getActivity(), bundle, SchedulesActivity.class, false);
     }
 

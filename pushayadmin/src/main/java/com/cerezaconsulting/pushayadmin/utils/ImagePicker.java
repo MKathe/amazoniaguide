@@ -1,4 +1,4 @@
-package com.cerezaconsulting.pushay.utils;
+package com.cerezaconsulting.pushayadmin.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,7 +15,8 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import com.cerezaconsulting.pushay.R;
+
+import com.cerezaconsulting.pushayadmin.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;

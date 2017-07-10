@@ -86,4 +86,6 @@ dependencies {
     compile helpLibraries.pagerindicator
     compile helpLibraries.saripaar
     compile helpLibraries.eventBus
+    compile helpLibraries.dateTimePicker
+
 }

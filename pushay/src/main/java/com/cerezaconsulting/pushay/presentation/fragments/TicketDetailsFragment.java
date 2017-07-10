@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseFragment;
+import com.cerezaconsulting.pushay.data.entities.CountryEntity;
+import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
+import com.cerezaconsulting.pushay.data.local.SessionManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +22,8 @@ import butterknife.Unbinder;
  */
 
 public class TicketDetailsFragment extends BaseFragment {
+
+
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_destiny)
@@ -31,7 +36,12 @@ public class TicketDetailsFragment extends BaseFragment {
     TextView tvService;
     @BindView(R.id.tv_service_detail)
     TextView tvServiceDetail;
+    @BindView(R.id.tv_cell)
+    TextView tvCell;
     Unbinder unbinder;
+
+    private ReservationEntity reservationEntity;
+    private SessionManager  mSessionManager;
 
     public TicketDetailsFragment() {
         // Requires empty public constructor
@@ -54,6 +64,9 @@ public class TicketDetailsFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSessionManager = new SessionManager(getContext());
+        reservationEntity = (ReservationEntity) getArguments().getSerializable("reservationEntity");
+
     }
 
     @Nullable
@@ -67,6 +80,11 @@ public class TicketDetailsFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        tvName.setText(mSessionManager.getUserEntity().getFirst_name());
+        tvDestiny.setText(reservationEntity.getSchedules().getDestiny().getName());
+        tvDate.setText(reservationEntity.getDay());
+        tvGuide.setText(reservationEntity.getSchedules().getGuide().getFullName());
+        tvCell.setText(reservationEntity.getSchedules().getGuide().getCellphone());
     }
 
     @Override

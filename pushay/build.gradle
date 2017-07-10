@@ -78,6 +78,7 @@ dependencies {
     compile helpLibraries.saripaar
     compile helpLibraries.eventBus
     compile helpLibraries.dateTimePicker
+    compile helpLibraries.permissions
 
     compile imagesLoader.glide
     compile facebookCore.facebook

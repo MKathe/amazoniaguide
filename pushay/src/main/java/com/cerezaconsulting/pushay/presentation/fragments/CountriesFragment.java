@@ -84,7 +84,7 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
+        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Obteniendo Paises...");
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         rvList.setLayoutManager(mLayoutManager);
         mAdapter = new CountriesAdapter(new ArrayList<CountryEntity>(), getContext(), (CountriesItem) mPresenter);
@@ -105,7 +105,7 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
         Bundle bundle = new Bundle();
         bundle.putSerializable("countryEntity", countryEntity);
         next(getActivity(),bundle, CitiesActivity.class,false);
-        getActivity().finish();
+
     }
 
     @Override
