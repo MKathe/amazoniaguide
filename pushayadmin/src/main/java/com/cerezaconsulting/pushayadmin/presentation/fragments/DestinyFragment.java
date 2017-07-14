@@ -1,11 +1,8 @@
 package com.cerezaconsulting.pushayadmin.presentation.fragments;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,12 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.core.BaseFragment;
-import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
 import com.cerezaconsulting.pushayadmin.data.entities.CityEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.DestinyTravelEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
@@ -40,7 +35,7 @@ import butterknife.Unbinder;
  * Created by katherine on 28/06/17.
  */
 
-public class DestinyFragment extends BaseFragment implements DestinyContract.View {
+public class DestinyFragment extends BaseFragment implements DestinyContract.View, DialogInterface.OnDismissListener {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
@@ -68,7 +63,6 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
     public void onResume() {
         super.onResume();
         mPresenter.start();
-
     }
 
     public static DestinyFragment newInstance(Bundle bundle) {
@@ -82,7 +76,6 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
         super.onCreate(savedInstanceState);
         cityEntity = (CityEntity) getArguments().getSerializable("cityEntity");
         daySelected = (String) getArguments().getSerializable("daySelected");
-        //idCountry =  (int) getArguments().getSerializable("id_country");
     }
 
     @Nullable
@@ -97,7 +90,6 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         rvList.setLayoutManager(mLayoutManager);
@@ -119,9 +111,16 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
         Bundle bundle = new Bundle();
         bundle.putSerializable("destinyEntity", destinyTravelEntity);
         bundle.putString("daySelected", daySelected);
-
         dialogCreateSchedules = DialogCreateSchedules.newInstance(bundle);
         dialogCreateSchedules.show(getActivity().getFragmentManager(), "Registro");
+        /*dialogCreateSchedules.getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                Bundle bundle = new Bundle();
+                bundle.putString("daySelected", daySelected);
+                next(getActivity(), bundle, SchedulesActivity.class, true);
+            }
+        });*/
     }
 
     @Override
@@ -133,8 +132,6 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
     public void createScheduleSuccesful(String msg) {
         Bundle bundle = new Bundle();
         bundle.putString("daySelected", daySelected);
-        dialogCreateSchedules.dismiss();
-
         next(getActivity(), bundle, SchedulesActivity.class, false);
     }
 
@@ -142,7 +139,6 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
     public boolean isActive() {
         return isAdded();
     }
-
 
     @Override
     public void setPresenter(DestinyContract.Presenter mPresenter) {
@@ -172,4 +168,13 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
         unbinder.unbind();
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        if (dialog==null){
+            Bundle bundle = new Bundle();
+            bundle.putString("daySelected", daySelected);
+            next(getActivity(), bundle, SchedulesActivity.class, true);
+            getActivity().finish();
+        }
+    }
 }

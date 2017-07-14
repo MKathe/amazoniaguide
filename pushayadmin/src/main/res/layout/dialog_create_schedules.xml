@@ -2,11 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     android:orientation="vertical">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
+            android:padding="20dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -15,6 +18,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="REGISTRA TU HORARIO"
+                fontPath = "fonts/Gotham-Medium.otf"
                 android:gravity="center"
                 android:textSize="@dimen/xxlarge_text"
                 android:textColor="@color/colorPrimary"/>
@@ -22,10 +26,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:text="Destino"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/xlarge_text" />
+                android:textSize="@dimen/large_text" />
 
             <TextView
                 android:id="@+id/tv_destiny"
@@ -39,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text="Día"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/xlarge_text" />
+                android:textSize="@dimen/large_text" />
 
             <TextView
                 android:id="@+id/tv_day_selected"
@@ -48,20 +52,22 @@
                 android:text="@string/selected_date" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Cantidad máxima de personas"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/xlarge_text" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Cantidad máxima de personas"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/large_text" />
 
-                <EditText
-                    android:id="@+id/tv_quantity"
-                    android:layout_width="50dp"
-                    android:inputType="number"
-                    android:layout_height="wrap_content"
-                    android:gravity="center" />
+            <EditText
+                android:id="@+id/tv_quantity"
+                android:layout_width="50dp"
+                android:inputType="number"
+                android:textSize="@dimen/normal_text"
+
+                android:layout_height="wrap_content"
+                android:gravity="center" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -69,11 +75,12 @@
                 android:layout_marginTop="10dp"
                 android:text="Lugar de encuentro"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/xlarge_text" />
+                android:textSize="@dimen/large_text" />
 
             <EditText
                 android:id="@+id/tv_locality"
                 android:layout_width="wrap_content"
+                android:textSize="@dimen/normal_text"
                 android:layout_height="wrap_content"
                 android:hint="Plaza de armas" />
 
@@ -83,10 +90,12 @@
                 android:layout_marginTop="10dp"
                 android:text="Hora de encuentro"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/xlarge_text" />
+                android:textSize="@dimen/large_text" />
 
             <EditText
                 android:id="@+id/et_hour"
+                android:focusable="false"
+                android:textSize="@dimen/normal_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="9:00 am" />
@@ -97,7 +106,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Precio por persona"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/xlarge_text" />
+                android:textSize="@dimen/large_text" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,10 +121,11 @@
                     android:textSize="@dimen/xlarge_text" />
                 <EditText
                     android:id="@+id/tv_price"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
+                    android:textSize="@dimen/normal_text"
                     android:hint="20.00"
+                    android:textColor="@color/gray"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:gravity="center" />
             </LinearLayout>
 
@@ -130,6 +140,9 @@
                 android:text="REGISTRAR"/>
 
         </LinearLayout>
+
+    </ScrollView>
+
 
 
 </LinearLayout>

@@ -22,10 +22,12 @@ public interface SchedulesRequest {
     @FormUrlEncoded
     @POST("createschedule/")
     Call<Void> createSchedules(@Header("Authorization") String token,
-                                          @Field("day_name") String day_name,
-                                          @Field("destiny_name") String destiny_name,
-                                          @Field("price_normal") float price_normal,
-                                          @Field("max_user") int max_user);
+                               @Field("day_name") String day_name,
+                               @Field("destiny_name") String destiny_name,
+                               @Field("price_normal") float price_normal,
+                               @Field("max_user") int max_user,
+                               @Field("locality") String locality,
+                               @Field("hour") String hour);
 
     @FormUrlEncoded
     @PUT("update/{pk}/schedule")

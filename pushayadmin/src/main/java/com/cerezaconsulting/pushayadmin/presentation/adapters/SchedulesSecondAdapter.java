@@ -10,12 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushayadmin.R;
-import com.cerezaconsulting.pushayadmin.data.entities.CountryEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
+import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.listener.OnClickListListener;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.SchedulesItem;
+import com.cerezaconsulting.pushayadmin.utils.CircleTransform;
 
 import java.util.ArrayList;
 
@@ -28,11 +29,13 @@ import butterknife.ButterKnife;
 
 public class SchedulesSecondAdapter extends RecyclerView.Adapter<SchedulesSecondAdapter.ViewHolder> implements OnClickListListener {
     private static final String TAG = "ELIMINAR";
+
     private ArrayList<SchedulesEntity> list;
     private SchedulesEntity item;
     private ArrayList<Boolean> status;
     private Context context;
     private SchedulesItem schedulesItem;
+
 
     public SchedulesSecondAdapter(ArrayList<SchedulesEntity> list, Context context, SchedulesItem schedulesItem) {
         this.list = list;
@@ -62,7 +65,7 @@ public class SchedulesSecondAdapter extends RecyclerView.Adapter<SchedulesSecond
             return;
         }
         holder.tvNamePlace.setText(schedulesEntity.getDestiny().getName());
-        holder.tvPrice.setText(schedulesEntity.getPriceNormal());
+        holder.tvPrice.setText(schedulesEntity.getPriceNormal() + " c/u.");
         holder.tvQuantity.setText(schedulesEntity.getMaxUser());
         holder.imEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +79,14 @@ public class SchedulesSecondAdapter extends RecyclerView.Adapter<SchedulesSecond
                 schedulesItem.deleteItem(schedulesEntity, position);
             }
         });
+        holder.tvLocality.setText("Lugar de encuentro: "+schedulesEntity.getLocality());
+        holder.tvHour.setText("Hora de encuentro: "+ schedulesEntity.getHour());
+
+        Glide.with(context)
+                .load(schedulesEntity.getDestiny().getImage_1())
+                .transform(new CircleTransform(context))
+                .into(holder.ivPlaces);
+
     }
 
     @Override
@@ -90,12 +101,13 @@ public class SchedulesSecondAdapter extends RecyclerView.Adapter<SchedulesSecond
         }
         notifyDataSetChanged();
     }
-    public void deleteItem(int position){
+
+    public void deleteItem(int position) {
         String pos = String.valueOf(position);
         list.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, list.size());
-        Log.e(TAG , pos);
+        Log.e(TAG, pos);
     }
 
     @Override
@@ -117,6 +129,10 @@ public class SchedulesSecondAdapter extends RecyclerView.Adapter<SchedulesSecond
         ImageView imEdit;
         @BindView(R.id.im_delete)
         ImageView imDelete;
+        @BindView(R.id.tv_locality)
+        TextView tvLocality;
+        @BindView(R.id.tv_hour)
+        TextView tvHour;
         private OnClickListListener onClickListListener;
 
         ViewHolder(View itemView, OnClickListListener onClickListListener) {

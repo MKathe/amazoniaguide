@@ -52,6 +52,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             @Override
             public void onResponse(Call<UserEntity> call, Response<UserEntity> response) {
                 if(response.isSuccessful()){
+                    mView.setLoadingIndicator(false);
                     mView.editSuccessful(userEntity);
                     //getProfile(token);
                 }else {
@@ -87,8 +88,9 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 if (!mView.isActive()) {
                     return;
                 }
-                mView.setLoadingIndicator(false);
+
                 if (response.isSuccessful()) {
+                    mView.setLoadingIndicator(false);
                     mView.updateProfileImage(response.body());
                 } else {
                     mView.showErrorMessage("Hubo un error, por favor intente más tarde");

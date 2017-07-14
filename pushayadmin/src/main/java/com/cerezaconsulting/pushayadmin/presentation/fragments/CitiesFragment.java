@@ -121,6 +121,7 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
         bundle.putSerializable("cityEntity", cityEntity);
         bundle.putString("daySelected", daySelected);
         next(getActivity(),bundle, DestinyActivity.class,false);
+        getActivity().finish();
     }
 
     @Override

@@ -150,7 +150,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Cargando foto...");
+        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Actualizando información...");
 
 
     }

@@ -43,7 +43,6 @@ import java.util.List;
 
 
 public class TravelActivity extends BaseActivity {
-
     DrawerLayout mDrawer;
     NavigationView navigationView;
     SessionManager mSessionManager;
@@ -91,7 +90,7 @@ public class TravelActivity extends BaseActivity {
                 mDrawer,                    /* DrawerLayout object */
                 toolbar,
                 R.string.app_name,  /* "open drawer" description for accessibility */
-                R.string.app_name  /* "close drawer" description for accessibility */
+                R.string.app_name   /*"close drawer" description for accessibility */
         );
         mDrawerToggle.syncState();
         mDrawer.setDrawerListener(mDrawerToggle);
@@ -183,8 +182,8 @@ public class TravelActivity extends BaseActivity {
                               break;
                             case R.id.action_info:
                              /*  Intent intent_connect = new Intent(getBaseContext(), ProfileActivity.class);
-                                startActivityForResult(intent_connect,200);
-                */              break;
+                                startActivityForResult(intent_connect,200);*/
+                              break;
                             case R.id.action_sign_off:
                                 CloseSession();
                                 break;

@@ -68,7 +68,9 @@
                 android:layout_marginTop="10dp"
                 android:paddingLeft="20dp"
                 android:text="Historial"
-                android:textColor="@color/colorPrimary" />
+                fontPath = "fonts/Gotham-Medium.otf"
+                android:textSize="@dimen/large_text"
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:id="@+id/ly_travel_history"
@@ -86,7 +88,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
                     android:src="@drawable/ic_calendar"
-                    android:tint="@color/colorPrimary" />
+                    android:tint="@color/colorPrimaryDark" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -101,8 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_keyboard_arrow_right"
-                    android:tint="@color/colorAccent" />
+                    android:src="@drawable/ic_keyboard_arrow_right" />
             </LinearLayout>
 
             <LinearLayout
@@ -117,11 +118,11 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:tint="@color/colorPrimaryDark"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_payment"
-                    android:tint="@color/colorPrimary" />
+                    android:src="@drawable/ic_payment" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -136,8 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_keyboard_arrow_right"
-                    android:tint="@color/colorAccent" />
+                    android:src="@drawable/ic_keyboard_arrow_right"/>
             </LinearLayout>
 
             <LinearLayout
@@ -154,9 +154,11 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
                     android:text="Personal"
+                    fontPath = "fonts/Gotham-Medium.otf"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:textColor="@color/colorPrimary" />
+                    android:textSize="@dimen/large_text"
+                    android:textStyle="bold"/>
 
                 <RelativeLayout
                     android:background="?android:attr/selectableItemBackground"
@@ -171,8 +173,7 @@
                         android:layout_centerInParent="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_mode_edit"
-                        android:tint="@color/colorAccent" />
+                        android:src="@drawable/ic_mode_edit" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -205,7 +206,7 @@
                     android:text="Nombre"
                     android:layout_marginEnd="10dp"
                     android:focusable="false"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/gray_regular"
                     android:textSize="@dimen/normal_text" />
             </LinearLayout>
 
@@ -236,7 +237,7 @@
                     android:text="Correo"
                     android:focusable="false"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/gray_regular"
                     android:textSize="@dimen/normal_text" />
             </LinearLayout>
 
@@ -267,7 +268,7 @@
                     android:text="Teléfono"
                     android:focusable="false"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/gray_regular"
                     android:textSize="@dimen/normal_text"/>
 
             </LinearLayout>
@@ -279,10 +280,12 @@
                 android:layout_below="@id/ly_cel"
                 android:paddingLeft="20dp"
                 android:text="Cuenta"
+                android:textStyle="bold"
+                fontPath = "fonts/Gotham-Medium.otf"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/colorPrimary" />
+                android:textSize="@dimen/large_text"
+                android:layout_marginTop="10dp"/>
 
             <LinearLayout
                 android:id="@+id/ly_account"
@@ -315,8 +318,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_keyboard_arrow_right"
-                    android:tint="@color/gray" />
+                    android:src="@drawable/ic_keyboard_arrow_right" />
             </LinearLayout>
 
 
@@ -340,7 +342,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
-                        android:tint="@color/colorPrimary"
+                        android:tint="@color/colorAccent"
                         android:src="@drawable/ic_add_circle" />
 
                     <TextView
@@ -348,7 +350,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:gravity="center"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorAccent"
                         android:textSize="@dimen/xlarge_text"
                         android:text="Obtener Pushay Plus" />
                 </LinearLayout>

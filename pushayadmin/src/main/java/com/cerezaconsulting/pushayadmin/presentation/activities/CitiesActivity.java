@@ -27,7 +27,7 @@ public class CitiesActivity extends BaseActivity {
         setContentView(R.layout.activity_back);
         ButterKnife.bind(this);
 
-        toolbar.setTitle("ELige la ciudad");
+        toolbar.setTitle("Elige la ciudad");
 
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();

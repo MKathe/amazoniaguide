@@ -27,7 +27,7 @@ public class CountriesActivity extends BaseActivity {
         setContentView(R.layout.activity_back);
         ButterKnife.bind(this);
 
-        toolbar.setTitle("ELige el País");
+        toolbar.setTitle("Elige el País");
 
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
@@ -43,7 +43,6 @@ public class CountriesActivity extends BaseActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     fragment, R.id.body);
         }
-
         new CountriesPresenter(fragment,this);
     }
 

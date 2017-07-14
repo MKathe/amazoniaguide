@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:textSize="@dimen/large_text"
-            android:text="cantidad"/>
+            android:text="cantidad: "/>
 
     </LinearLayout>
 

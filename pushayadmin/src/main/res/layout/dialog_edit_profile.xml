@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="EDITA TUS DATOS"
+            fontPath = "fonts/Gotham-Medium.otf"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/xlarge_text" />

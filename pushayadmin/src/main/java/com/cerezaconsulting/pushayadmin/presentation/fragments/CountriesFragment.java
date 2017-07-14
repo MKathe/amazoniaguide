@@ -94,7 +94,6 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         rvList.setLayoutManager(mLayoutManager);
-
         mAdapter = new CountriesAdapter(new ArrayList<CountryEntity>(), getContext(), (CountriesItem) mPresenter);
         rvList.setAdapter(mAdapter);
     }
@@ -114,6 +113,7 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
         bundle.putSerializable("countryEntity", countryEntity);
         bundle.putString("daySelected", daySelected);
         next(getActivity(),bundle, CitiesActivity.class,false);
+        getActivity().finish();
     }
 
     @Override

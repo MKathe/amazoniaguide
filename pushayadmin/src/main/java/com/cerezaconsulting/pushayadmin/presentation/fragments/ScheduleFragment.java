@@ -18,10 +18,13 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.core.BaseFragment;
+import com.cerezaconsulting.pushayadmin.data.entities.DayEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
+import com.cerezaconsulting.pushayadmin.data.entities.UserEntity;
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.presentation.activities.CountriesActivity;
 import com.cerezaconsulting.pushayadmin.presentation.activities.SchedulesActivity;
@@ -32,6 +35,11 @@ import com.cerezaconsulting.pushayadmin.presentation.dialogs.EditSchedulesDialog
 import com.cerezaconsulting.pushayadmin.presentation.presenters.SchedulesPresenter;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.SchedulesItem;
+import com.cerezaconsulting.pushayadmin.utils.CircleTransform;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -104,6 +112,8 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
         super.onCreate(savedInstanceState);
         mSessionManager = new SessionManager(getContext());
         daySelected = getArguments().getString("daySelected");
+        EventBus.getDefault().register(this);
+
     }
 
     @Nullable
@@ -153,6 +163,16 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
         unbinder.unbind();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdateList(String daySelected) {
+        Intent refresh = new Intent(getContext(), SchedulesActivity.class);
+        refresh.putExtra("daySelected", daySelected);
+        startActivity(refresh);//Start the same Activity
+        showMessage("Su horario se ha creado con éxito!");
+        getActivity().finish();
+
+    }
+
     @OnClick({R.id.monday, R.id.tuesday, R.id.wednesday,
             R.id.thursday, R.id.friday, R.id.saturday, R.id.sunday,
             R.id.switch_disable, R.id.btn_get_in})
@@ -195,7 +215,6 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
                 Bundle bundle = new Bundle();
                 bundle.putString("daySelected", daySelected);
                 next(getActivity(), bundle, CountriesActivity.class, false);
-                getActivity().finish();
                 break;
         }
     }
@@ -388,5 +407,11 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
     @Override
     public void showErrorMessage(String message) {
         ((BaseActivity) getActivity()).showMessageError(message);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

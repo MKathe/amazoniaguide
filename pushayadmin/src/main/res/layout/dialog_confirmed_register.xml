@@ -22,7 +22,7 @@
         <TextView
             android:id="@+id/tv_name"
             android:layout_marginLeft="15dp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorAccent"
             android:textSize="@dimen/xxlarge_text"
             android:textAlignment="center"
             android:gravity="center"
