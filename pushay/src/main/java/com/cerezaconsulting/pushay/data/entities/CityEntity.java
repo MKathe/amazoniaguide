@@ -8,24 +8,24 @@ import java.io.Serializable;
 
 public class CityEntity implements Serializable {
     private int id;
-    private CountryEntity countryEntity;
+    private CountryEntity country;
     private String name;
     private String cover;
     private String image_1;
     private String image_2;
     private String image_3;
 
-    public CityEntity(CountryEntity countryEntity, String name) {
-        this.countryEntity = countryEntity;
+    public CityEntity(CountryEntity country, String name) {
+        this.country = country;
         this.name = name;
     }
 
-    public CountryEntity getCountryEntity() {
-        return countryEntity;
+    public CountryEntity getCountry() {
+        return country;
     }
 
-    public void setCountryEntity(CountryEntity countryEntity) {
-        this.countryEntity = countryEntity;
+    public void setCountry(CountryEntity country) {
+        this.country = country;
     }
 
     public int getId() {

@@ -1,6 +1,8 @@
 package com.cerezaconsulting.pushayadmin.presentation.adapters;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -57,6 +59,7 @@ public class SchedulesSecondAdapter extends RecyclerView.Adapter<SchedulesSecond
         return new ViewHolder(root, this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final SchedulesEntity schedulesEntity = list.get(position);
@@ -79,13 +82,19 @@ public class SchedulesSecondAdapter extends RecyclerView.Adapter<SchedulesSecond
                 schedulesItem.deleteItem(schedulesEntity, position);
             }
         });
-        holder.tvLocality.setText("Lugar de encuentro: "+schedulesEntity.getLocality());
-        holder.tvHour.setText("Hora de encuentro: "+ schedulesEntity.getHour());
+        holder.tvLocality.setText(schedulesEntity.getLocality());
+        holder.tvHour.setText(schedulesEntity.getHour());
 
-        Glide.with(context)
-                .load(schedulesEntity.getDestiny().getImage_1())
-                .transform(new CircleTransform(context))
-                .into(holder.ivPlaces);
+        if (schedulesEntity.getDestiny().getImage_1()!=null){
+            Glide.with(context)
+                    .load(schedulesEntity.getDestiny().getImage_1())
+                    .transform(new CircleTransform(context))
+                    .into(holder.ivPlaces);
+        }else{
+            (holder).ivPlaces.setImageDrawable(context.getDrawable(R.drawable.circular_symbol));
+        }
+
+
 
     }
 

@@ -46,7 +46,11 @@ public class DestinyActivity extends BaseActivity {
     }
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        String daySelected = getIntent().getExtras().getString("daySelected");
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("daySelected", daySelected);
+        bundle.putSerializable("cityEntity", getIntent().getExtras().getSerializable("cityEntity"));
+        next(DestinyActivity.this, bundle,CitiesActivity.class,true);
         return true;
     }
 }

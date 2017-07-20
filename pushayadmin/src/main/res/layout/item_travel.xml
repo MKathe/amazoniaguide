@@ -1,68 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="5dp"
     android:layout_margin="5dp"
-    card_view:cardUseCompatPadding="true"
-    android:background="?android:attr/selectableItemBackground">
+    android:background="?android:attr/selectableItemBackground"
+    android:elevation="5dp"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="15dp">
+
+        <TextView
+            android:id="@+id/tv_travel"
+            fontPath="fonts/Gotham-Medium.otf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lugar del recorrido"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/xlarge_text"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginTop="5dp"
-            android:paddingLeft="15dp"
-            android:layout_marginBottom="5dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lugar del recorrido"
-                android:textSize="@dimen/xlarge_text"/>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/im_photo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/photo_guide" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center_vertical"
-                android:orientation="horizontal">
-                <ImageView
-                    android:id="@+id/im_photo"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:src="@drawable/photo_guide"/>
-                <LinearLayout
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    fontPath="fonts/Gotham-Medium.otf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/tv_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/xlarge_text"
-                        android:text="Nombre"/>
-                    <TextView
-                        android:id="@+id/tv_package"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/large_text"
-                        android:text="Paquete"/>
-                    <TextView
-                        android:id="@+id/tv_descript"
-                        android:layout_gravity="right"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
-                        android:text="VALIDADO"/>
+                    android:text="@string/firstname"
+                    android:textSize="@dimen/xlarge_text"
+                    android:textStyle="bold" />
 
-                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/locality"
+                    android:textSize="@dimen/normal_text" />
+
+                <TextView
+                    android:id="@+id/tv_locality"
+                    fontPath="fonts/Gotham-Medium.otf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Paquete"
+                    android:textSize="@dimen/normal_text" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hour"
+                    android:textSize="@dimen/normal_text" />
+
+                <TextView
+                    android:id="@+id/tv_hour"
+                    fontPath="fonts/Gotham-Medium.otf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Paquete"
+                    android:textSize="@dimen/normal_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de viaje"
+                    android:textSize="@dimen/normal_text" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    fontPath="fonts/Gotham-Medium.otf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Paquete"
+                    android:textSize="@dimen/normal_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/status"
+                    android:textSize="@dimen/large_text"
+                    android:textColor="@color/red" />
 
             </LinearLayout>
-
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

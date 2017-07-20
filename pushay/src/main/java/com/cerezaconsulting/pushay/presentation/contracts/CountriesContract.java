@@ -25,11 +25,12 @@ public interface CountriesContract {
 
     interface Presenter extends BasePresenter {
 
+
         void loadOrdersFromPage(int page);
 
-        void loadfromNextPage();
+        void loadFromNextPage();
 
-        void getPlaces();
+        void getCountries(int page);
 
     }
 }

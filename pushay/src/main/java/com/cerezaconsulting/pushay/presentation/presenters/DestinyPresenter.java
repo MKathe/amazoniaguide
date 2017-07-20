@@ -25,6 +25,9 @@ public class DestinyPresenter implements DestinyContract.Presenter, DestinyItem 
     private DestinyContract.View mView;
     private Context context;
     private SessionManager mSessionManager;
+    private boolean firstLoad = false;
+    private int currentPage = 1;
+
 
     public DestinyPresenter(DestinyContract.View mView, Context context) {
         this.context = checkNotNull(context, "context cannot be null!");
@@ -34,19 +37,35 @@ public class DestinyPresenter implements DestinyContract.Presenter, DestinyItem 
     }
 
     @Override
-    public void listDestiny(int id) {
+    public void loadOrdersFromPage(int id, int page) {
+        getDestiny(id, page);
+    }
+
+    @Override
+    public void loadfromNextPage(int id) {
+
+        if (currentPage > 0)
+            getDestiny(id, currentPage);
+    }
+
+    @Override
+    public void getDestiny(int id, final int page) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
-        Call<TrackHolderEntity<DestinyTravelEntity>> orders = listRequest.getDestiny(id);
+        Call<TrackHolderEntity<DestinyTravelEntity>> orders = listRequest.getDestiny(id, page);
         orders.enqueue(new Callback<TrackHolderEntity<DestinyTravelEntity>>() {
             @Override
             public void onResponse(Call<TrackHolderEntity<DestinyTravelEntity>> call, Response<TrackHolderEntity<DestinyTravelEntity>> response) {
-                mView.setLoadingIndicator(false);
                 if (!mView.isActive()) {
                     return;
                 }
+                mView.setLoadingIndicator(false);
                 if (response.isSuccessful()) {
-
+                    if (response.body().getNext() != null) {
+                        currentPage = page +1;
+                    } else {
+                        currentPage = -1;
+                    }
                     mView.getDestiny(response.body().getResults());
 
                 } else {
@@ -63,6 +82,14 @@ public class DestinyPresenter implements DestinyContract.Presenter, DestinyItem 
                 mView.showErrorMessage("Error al conectar con el servidor");
             }
         });
+    }
+
+    @Override
+    public void startLoad(int id) {
+        if (!firstLoad) {
+            firstLoad = true;
+            loadOrdersFromPage(id, 1);
+        }
     }
 
 

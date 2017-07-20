@@ -1,10 +1,10 @@
-package com.cerezaconsulting.pushay.presentation.fragments;
+package com.cerezaconsulting.pushayadmin.presentation.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +13,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.cerezaconsulting.pushay.R;
-import com.cerezaconsulting.pushay.core.BaseActivity;
-import com.cerezaconsulting.pushay.core.BaseFragment;
-import com.cerezaconsulting.pushay.core.RecyclerViewScrollListener;
-import com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout;
-import com.cerezaconsulting.pushay.data.entities.CountryEntity;
-import com.cerezaconsulting.pushay.presentation.activities.CitiesActivity;
-import com.cerezaconsulting.pushay.presentation.adapters.CountriesAdapter;
-import com.cerezaconsulting.pushay.presentation.contracts.CountriesContract;
-import com.cerezaconsulting.pushay.presentation.presenters.commons.CountriesItem;
-import com.cerezaconsulting.pushay.utils.ProgressDialogCustom;
+import com.cerezaconsulting.pushayadmin.R;
+import com.cerezaconsulting.pushayadmin.core.BaseActivity;
+import com.cerezaconsulting.pushayadmin.core.BaseFragment;
+import com.cerezaconsulting.pushayadmin.core.RecyclerViewScrollListener;
+import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
+import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
+import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
+import com.cerezaconsulting.pushayadmin.presentation.adapters.PaymentHistoryAdapter;
+import com.cerezaconsulting.pushayadmin.presentation.adapters.TodayAdapter;
+import com.cerezaconsulting.pushayadmin.presentation.contracts.PaymentHistoryContract;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
+import com.cerezaconsulting.pushayadmin.utils.ProgressDialogCustom;
 
 import java.util.ArrayList;
 
@@ -32,57 +33,53 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by katherine on 28/06/17.
+ * Created by katherine on 19/07/17.
  */
 
-public class CountriesFragment extends BaseFragment implements CountriesContract.View {
-
+public class PaymentHistoryFragment extends BaseFragment implements PaymentHistoryContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
-    @BindView(R.id.noListIcon)
-    ImageView noListIcon;
-    @BindView(R.id.noListMain)
-    TextView noListMain;
-    @BindView(R.id.noList)
-    LinearLayout noList;
+    @BindView(R.id.noPlacesIcon)
+    ImageView noPlacesIcon;
+    @BindView(R.id.noPLacesMain)
+    TextView noPLacesMain;
+    @BindView(R.id.noPlaces)
+    LinearLayout noPlaces;
     @BindView(R.id.refresh_layout)
     ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
-    private CountriesAdapter mAdapter;
-    private String daySelected;
-    private GridLayoutManager mLayoutManager;
-    private CountriesContract.Presenter mPresenter;
+    private SessionManager mSessionManager;
+    private PaymentHistoryContract.Presenter mPresenter;
     private ProgressDialogCustom mProgressDialogCustom;
-    private CountryEntity countryEntity;
+    private LinearLayoutManager mLayoutManager;
+    private PaymentHistoryAdapter mAdapter;
 
-    public CountriesFragment() {
+
+    public PaymentHistoryFragment() {
         // Requires empty public constructor
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
-
+        //mPresenter.start();
     }
 
-    public static CountriesFragment newInstance() {
-        CountriesFragment fragment = new CountriesFragment();
-        return fragment;
+    public static PaymentHistoryFragment newInstance() {
+        return new PaymentHistoryFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mSessionManager = new SessionManager(getContext());
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_list, container, false);
-        //countryEntity = (CountryEntity) getArguments().getSerializable("countryEntity");
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
                 (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(
@@ -108,17 +105,20 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Obteniendo datos...");
-        mLayoutManager = new GridLayoutManager(getContext(), 2);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvList.setLayoutManager(mLayoutManager);
-        mAdapter = new CountriesAdapter(new ArrayList<CountryEntity>(), getContext(), (CountriesItem) mPresenter);
+        mAdapter = new PaymentHistoryAdapter(new ArrayList<ReservationEntity>(), getContext(), (PlaceItem) mPresenter);
         rvList.setAdapter(mAdapter);
     }
 
+
     @Override
-    public void getCountries(ArrayList<CountryEntity> list) {
+    public void getPaymentList(ArrayList<ReservationEntity> list) {
         mAdapter.setItems(list);
+
         if (list != null) {
-            noList.setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
+            noPlaces.setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
         }
         rvList.addOnScrollListener(new RecyclerViewScrollListener() {
             @Override
@@ -136,15 +136,6 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
                 mPresenter.loadFromNextPage();
             }
         });
-
-    }
-
-    @Override
-    public void clickItemCountry(CountryEntity countryEntity) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("countryEntity", countryEntity);
-        next(getActivity(), bundle, CitiesActivity.class, false);
-        getActivity().finish();
     }
 
     @Override
@@ -153,8 +144,8 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
     }
 
     @Override
-    public void setPresenter(CountriesContract.Presenter mPresenter) {
-        this.mPresenter = mPresenter;
+    public void setPresenter(PaymentHistoryContract.Presenter mPresenter) {
+
     }
 
     @Override
@@ -172,13 +163,6 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
                 srl.setRefreshing(active);
             }
         });
-        if (active) {
-            mProgressDialogCustom.show();
-        } else {
-            if (mProgressDialogCustom.isShowing()) {
-                mProgressDialogCustom.dismiss();
-            }
-        }
     }
 
     @Override
@@ -195,8 +179,5 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-
     }
-
-
 }

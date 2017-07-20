@@ -3,9 +3,7 @@ package com.cerezaconsulting.pushayadmin.presentation.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -31,13 +29,11 @@ import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.ComingSoonFragment;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.TodayFragment;
 import com.cerezaconsulting.pushayadmin.utils.CircleTransform;
-import com.cerezaconsulting.pushayadmin.utils.ImagePicker;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

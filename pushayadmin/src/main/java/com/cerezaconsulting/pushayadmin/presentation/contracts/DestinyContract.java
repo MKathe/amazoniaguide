@@ -29,8 +29,14 @@ public interface DestinyContract {
 
     interface Presenter extends BasePresenter {
 
+        void loadOrdersFromPage(int id, int page);
 
-        void listDestiny(int id);
+        void loadfromNextPage(int id);
+
+        void getDestiny(int id, int page);
+
+        void startLoad(int id);
+
         void createSchedules(SchedulesEntity schedulesEntity);
 
     }

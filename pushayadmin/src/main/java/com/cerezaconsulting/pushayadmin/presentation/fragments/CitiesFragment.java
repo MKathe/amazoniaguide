@@ -19,16 +19,11 @@ import com.cerezaconsulting.pushayadmin.core.BaseFragment;
 import com.cerezaconsulting.pushayadmin.core.RecyclerViewScrollListener;
 import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
 import com.cerezaconsulting.pushayadmin.data.entities.CityEntity;
-
 import com.cerezaconsulting.pushayadmin.data.entities.CountryEntity;
-import com.cerezaconsulting.pushayadmin.presentation.activities.CitiesActivity;
 import com.cerezaconsulting.pushayadmin.presentation.activities.DestinyActivity;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.CitiesAdapter;
-
 import com.cerezaconsulting.pushayadmin.presentation.contracts.CitiesContract;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.CountriesContract;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.CitiesItem;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.CountriesItem;
 import com.cerezaconsulting.pushayadmin.utils.ProgressDialogCustom;
 
 import java.util.ArrayList;
@@ -52,7 +47,10 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
     @BindView(R.id.noPlaces)
     LinearLayout noPlaces;
     Unbinder unbinder;
+    @BindView(R.id.refresh_layout)
+    ScrollChildSwipeRefreshLayout refreshLayout;
     private CountryEntity countryEntity;
+    private CityEntity cityEntity;
     private String daySelected;
     private CitiesAdapter mAdapter;
     private GridLayoutManager mLayoutManager;
@@ -66,8 +64,11 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
-
+        if (countryEntity != null) {
+            mPresenter.startLoad(countryEntity.getId());
+        } else {
+            mPresenter.startLoad(cityEntity.getCountryEntity().getId());
+        }
     }
 
     public static CitiesFragment newInstance(Bundle bundle) {
@@ -80,6 +81,7 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         countryEntity = (CountryEntity) getArguments().getSerializable("countryEntity");
+        cityEntity = (CityEntity) getArguments().getSerializable("cityEntity");
         daySelected = getArguments().getString("daySelected");
         //idCountry =  (int) getArguments().getSerializable("id_country");
     }
@@ -87,8 +89,33 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_simple_list, container, false);
-        mPresenter.getCities(countryEntity.getId());
+        View root = inflater.inflate(R.layout.fragment_list, container, false);
+        final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
+                (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
+        swipeRefreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(getActivity(), R.color.black),
+                ContextCompat.getColor(getActivity(), R.color.dark_gray),
+                ContextCompat.getColor(getActivity(), R.color.black)
+        );
+        // Set the scrolling view in the custom SwipeRefreshLayout.
+        swipeRefreshLayout.setScrollUpChild(rvList);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //mPresenter.start();
+                if (countryEntity != null) {
+                    mPresenter.loadOrdersFromPage(countryEntity.getId(), 1);
+                } else {
+                    mPresenter.loadOrdersFromPage(cityEntity.getCountryEntity().getId(), 1);
+                }
+            }
+        });
+     /*   if (countryEntity != null) {
+            mPresenter.getCities(countryEntity.getId(), 1);
+        } else {
+            mPresenter.getCities(cityEntity.getCountryEntity().getId(), 1);
+        }*/
+
         unbinder = ButterKnife.bind(this, root);
         return root;
     }
@@ -97,10 +124,9 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
+        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Obteniendo datos...");
         mLayoutManager = new GridLayoutManager(getContext(), 2);
         rvList.setLayoutManager(mLayoutManager);
-
         mAdapter = new CitiesAdapter(new ArrayList<CityEntity>(), getContext(), (CitiesItem) mPresenter);
         rvList.setAdapter(mAdapter);
     }
@@ -108,19 +134,38 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
     @Override
     public void getCities(final ArrayList<CityEntity> list) {
         mAdapter.setItems(list);
-        if (list !=null){
-            noPlaces.setVisibility((list.size()>0) ? View.GONE : View.VISIBLE);
+        if (list != null) {
+            noPlaces.setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
         }
+        rvList.addOnScrollListener(new RecyclerViewScrollListener() {
+            @Override
+            public void onScrollUp() {
+
+            }
+
+            @Override
+            public void onScrollDown() {
+
+            }
+
+            @Override
+            public void onLoadMore() {
+                if (countryEntity != null) {
+                    mPresenter.loadfromNextPage(countryEntity.getId());
+                } else {
+                    mPresenter.loadfromNextPage(cityEntity.getCountryEntity().getId());
+                }
+            }
+        });
 
     }
 
     @Override
     public void clickItemCities(CityEntity cityEntity) {
-
         Bundle bundle = new Bundle();
         bundle.putSerializable("cityEntity", cityEntity);
         bundle.putString("daySelected", daySelected);
-        next(getActivity(),bundle, DestinyActivity.class,false);
+        next(getActivity(), bundle, DestinyActivity.class, false);
         getActivity().finish();
     }
 
@@ -140,6 +185,26 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
         if (getView() == null) {
             return;
         }
+
+        final SwipeRefreshLayout srl =
+                (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
+
+        // Make sure setRefreshing() is called after the layout is done with everything else.
+        srl.post(new Runnable() {
+            @Override
+            public void run() {
+                srl.setRefreshing(active);
+            }
+        });
+
+        if (active) {
+            mProgressDialogCustom.show();
+        } else {
+            if (mProgressDialogCustom.isShowing()) {
+                mProgressDialogCustom.dismiss();
+            }
+        }
+
     }
 
     @Override

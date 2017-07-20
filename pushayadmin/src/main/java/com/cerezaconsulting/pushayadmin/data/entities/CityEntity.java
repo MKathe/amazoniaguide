@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class CityEntity implements Serializable {
     private int id;
-    private CountryEntity countryEntity;
+    private CountryEntity country;
     private String name;
     private String cover;
     private String image_1;
@@ -16,16 +16,16 @@ public class CityEntity implements Serializable {
     private String image_3;
 
     public CityEntity(CountryEntity countryEntity, String name) {
-        this.countryEntity = countryEntity;
+        this.country = countryEntity;
         this.name = name;
     }
 
     public CountryEntity getCountryEntity() {
-        return countryEntity;
+        return country;
     }
 
     public void setCountryEntity(CountryEntity countryEntity) {
-        this.countryEntity = countryEntity;
+        this.country = countryEntity;
     }
 
     public int getId() {

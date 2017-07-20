@@ -1,6 +1,8 @@
 package com.cerezaconsulting.pushayadmin.presentation.adapters;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.LoaderAdapter;
 import com.cerezaconsulting.pushayadmin.data.entities.CityEntity;
@@ -16,6 +19,7 @@ import com.cerezaconsulting.pushayadmin.data.entities.CountryEntity;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.listener.OnClickListListener;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.CitiesItem;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.CountriesItem;
+import com.cerezaconsulting.pushayadmin.utils.CircleTransform;
 
 import java.util.ArrayList;
 
@@ -60,10 +64,19 @@ public class CitiesAdapter extends LoaderAdapter<CityEntity> implements OnClickL
         return new ViewHolder(root, this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
         CityEntity cityEntity = getItems().get(position);
         ((ViewHolder) holder).tvNamePlace.setText(cityEntity.getName());
+        if (cityEntity.getImage_1()!=null){
+            Glide.with(context)
+                    .load(cityEntity.getImage_1())
+                    .transform(new CircleTransform(context))
+                    .into(((ViewHolder) holder).ivPlaces);
+        }else{
+            ((ViewHolder) holder).ivPlaces.setImageDrawable(context.getDrawable(R.drawable.circular_symbol));
+        }
     }
 
     @Override
@@ -79,8 +92,6 @@ public class CitiesAdapter extends LoaderAdapter<CityEntity> implements OnClickL
         ImageView ivPlaces;
         @BindView(R.id.tv_name_place)
         TextView tvNamePlace;
-        @BindView(R.id.card_view)
-        CardView cardView;
 
         private OnClickListListener onClickListListener;
 

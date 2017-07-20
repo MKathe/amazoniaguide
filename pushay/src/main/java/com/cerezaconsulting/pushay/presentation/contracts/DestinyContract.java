@@ -1,6 +1,7 @@
 package com.cerezaconsulting.pushay.presentation.contracts;
 
 
+
 import com.cerezaconsulting.pushay.core.BasePresenter;
 import com.cerezaconsulting.pushay.core.BaseView;
 import com.cerezaconsulting.pushay.data.entities.DestinyTravelEntity;
@@ -19,14 +20,18 @@ public interface DestinyContract {
 
         void clickItemDestiny(DestinyTravelEntity destinyTravelEntity);
 
-
         boolean isActive();
     }
 
     interface Presenter extends BasePresenter {
 
+        void loadOrdersFromPage(int id, int page);
 
-        void listDestiny(int id);
+        void loadfromNextPage(int id);
+
+        void getDestiny(int id, int page);
+
+        void startLoad(int id);
 
     }
 }

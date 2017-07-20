@@ -1,50 +1,57 @@
 package com.cerezaconsulting.pushayadmin.data.entities;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by katherine on 24/05/17.
  */
 
 public class ReservationEntity implements Serializable {
-    private int id_reservation;
-    private SchedulesEntity scheludes;
+    private int id;
+    private SchedulesEntity schedules;
     private String date;
-    private UserEntity userEntity;
+    private UserEntity user_client;
     private int num_coupons;
     private boolean is_confirm;
     private String status;
+    private boolean payment_status;
+    private int compare;
 
 
-    public ReservationEntity(SchedulesEntity scheludes, String date, UserEntity userEntity, int num_coupons) {
-        this.scheludes = scheludes;
-        this.date = date;
-        this.userEntity = userEntity;
-        this.num_coupons = num_coupons;
+    public boolean isPayment_status() {
+        return payment_status;
+    }
+
+    public void setPayment_status(boolean payment_status) {
+        this.payment_status = payment_status;
     }
 
     public UserEntity getUserEntity() {
-        return userEntity;
+        return user_client;
     }
 
     public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+        this.user_client = userEntity;
     }
 
-    public int getId_reservation() {
-        return id_reservation;
+    public int getId() {
+        return id;
     }
 
-    public void setId_reservation(int id_reservation) {
-        this.id_reservation = id_reservation;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public SchedulesEntity getScheludes() {
-        return scheludes;
+    public SchedulesEntity getSchedules() {
+        return schedules;
     }
 
-    public void setScheludes(SchedulesEntity scheludes) {
-        this.scheludes = scheludes;
+    public void setSchedules(SchedulesEntity schedules) {
+        this.schedules = schedules;
     }
 
     public String getDate() {
@@ -79,4 +86,57 @@ public class ReservationEntity implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public int compareTo(){
+        Date tempDate = null;
+        SimpleDateFormat parseDateFromServer= new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat parseDateForShowDetail =  new SimpleDateFormat("dd'/'MMMM'/'yyyy", new Locale("es","ES"));
+
+        try {
+            tempDate = parseDateFromServer.parse(getDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd'/'MMMM'/'yyyy", new Locale("es","ES"));
+        String today = format.format(date);
+
+
+        if(parseDateForShowDetail.format(tempDate).compareTo(today)==0){
+            compare = 1;
+        }else{
+            if(parseDateForShowDetail.format(tempDate).compareTo(today)>0){
+                compare = 3;
+            }else{
+                compare = 2;
+            }
+
+        }
+        return  compare;
+    }
+    public boolean isEquals(){
+        Date tempDate = null;
+        SimpleDateFormat parseDateFromServer= new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat parseDateForShowDetail =  new SimpleDateFormat("dd'/'MMMM'/'yyyy", new Locale("es","ES"));
+
+        try {
+            tempDate = parseDateFromServer.parse(getDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd'/'MMMM'/'yyyy", new Locale("es","ES"));
+        String today = format.format(date);
+
+
+        if(parseDateForShowDetail.format(tempDate).compareTo(today)==0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 }

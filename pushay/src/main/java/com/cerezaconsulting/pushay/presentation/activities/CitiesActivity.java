@@ -1,5 +1,6 @@
 package com.cerezaconsulting.pushay.presentation.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +23,8 @@ public class CitiesActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    Activity activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,6 @@ public class CitiesActivity extends BaseActivity {
 
         CitiesFragment fragment = (CitiesFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.body);
-
         if (fragment == null) {
             fragment = CitiesFragment.newInstance(getIntent().getExtras());
 
@@ -48,7 +50,8 @@ public class CitiesActivity extends BaseActivity {
     }
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+
+        next(CitiesActivity.this, null,CountriesActivity.class,true);
         return true;
     }
 }

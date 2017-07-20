@@ -1,30 +1,18 @@
 package com.cerezaconsulting.pushayadmin.presentation.presenters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
-import com.cerezaconsulting.pushayadmin.R;
-import com.cerezaconsulting.pushayadmin.data.entities.CityEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.CountryEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.DayEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.DestinyTravelEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.UserEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.trackholder.TrackHolderEntity;
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.data.remote.ServiceFactory;
 import com.cerezaconsulting.pushayadmin.data.remote.request.ListRequest;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.LoginContract;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.TodayContract;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -35,7 +23,7 @@ import retrofit2.Response;
  * Created by katherine on 24/05/17.
  */
 
-public class TodayPresenter implements TodayContract.Presenter, PlaceItem{
+public class ValidatedTravelPresenter implements TodayContract.Presenter, PlaceItem{
 
     private final TodayContract.View mView;
     private final SessionManager mSessionManager;
@@ -43,7 +31,7 @@ public class TodayPresenter implements TodayContract.Presenter, PlaceItem{
     private boolean firstLoad = false;
     private int currentPage = 1;
 
-    public TodayPresenter(TodayContract.View mView, Context context) {
+    public ValidatedTravelPresenter(TodayContract.View mView, Context context) {
         this.mView = mView;
         this.mSessionManager = new SessionManager(context);
         this.mView.setPresenter(this);
@@ -110,14 +98,9 @@ public class TodayPresenter implements TodayContract.Presenter, PlaceItem{
     public void getTravelList(ArrayList<ReservationEntity> list){
 
         ArrayList<ReservationEntity> newList = new ArrayList<>();
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd'/'MMMM'/'yyyy", new Locale("es","ES"));
-        String today = format.format(date);
-
-
         for (int i = 0; i <list.size() ; i++) {
 
-            if(!list.get(i).is_confirm() && list.get(i).isEquals()){
+            if(list.get(i).is_confirm() && !list.get(i).isEquals()){
                 newList.add(list.get(i));
             }
         }

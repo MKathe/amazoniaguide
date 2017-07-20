@@ -36,27 +36,33 @@ public class CountriesPresenter implements CountriesContract.Presenter, Countrie
     }
     @Override
     public void loadOrdersFromPage(int page) {
-
+        getCountries(page);
     }
 
     @Override
-    public void loadfromNextPage() {
+    public void loadFromNextPage() {
+        if (currentPage > 0)
+            getCountries(currentPage);
     }
 
     @Override
-    public void getPlaces() {
+    public void getCountries(final int page) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
-        Call<TrackHolderEntity<CountryEntity>> orders = listRequest.getCountry();
+        Call<TrackHolderEntity<CountryEntity>> orders = listRequest.getCountry(page);
         orders.enqueue(new Callback<TrackHolderEntity<CountryEntity>>() {
             @Override
             public void onResponse(Call<TrackHolderEntity<CountryEntity>> call, Response<TrackHolderEntity<CountryEntity>> response) {
-                mView.setLoadingIndicator(false);
                 if (!mView.isActive()) {
                     return;
                 }
+                mView.setLoadingIndicator(false);
                 if (response.isSuccessful()) {
-
+                    if (response.body().getNext() != null) {
+                        currentPage = page +1;
+                    } else {
+                        currentPage = -1;
+                    }
                     mView.getCountries(response.body().getResults());
 
                 } else {
@@ -77,7 +83,10 @@ public class CountriesPresenter implements CountriesContract.Presenter, Countrie
 
     @Override
     public void start() {
-        getPlaces();
+        if (!firstLoad) {
+            firstLoad = true;
+            loadOrdersFromPage(1);
+        }
     }
 
 

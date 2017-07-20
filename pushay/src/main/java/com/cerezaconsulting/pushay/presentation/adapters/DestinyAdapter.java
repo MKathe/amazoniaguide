@@ -1,14 +1,14 @@
 package com.cerezaconsulting.pushay.presentation.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushay.R;
@@ -61,14 +61,19 @@ public class DestinyAdapter extends LoaderAdapter<DestinyTravelEntity> implement
         return new ViewHolder(root, this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
         DestinyTravelEntity destinyTravelEntity = getItems().get(position);
         ((ViewHolder) holder).tvNamePlace.setText(destinyTravelEntity.getName());
-        Glide.with(context)
-                .load(destinyTravelEntity.getImage_1())
-                .transform(new CircleTransform(context))
-                .into(((ViewHolder) holder).ivPlaces);
+        if (destinyTravelEntity.getImage_1()!=null){
+            Glide.with(context)
+                    .load(destinyTravelEntity.getImage_1())
+                    .transform(new CircleTransform(context))
+                    .into(((ViewHolder) holder).ivPlaces);
+        }else{
+            ((ViewHolder) holder).ivPlaces.setImageDrawable(context.getDrawable(R.drawable.circular_symbol));
+        }
     }
 
     @Override

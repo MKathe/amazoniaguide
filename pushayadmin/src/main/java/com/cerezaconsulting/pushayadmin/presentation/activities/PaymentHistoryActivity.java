@@ -1,24 +1,23 @@
-package com.cerezaconsulting.pushay.presentation.activities;
+package com.cerezaconsulting.pushayadmin.presentation.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
-
-import com.cerezaconsulting.pushay.R;
-import com.cerezaconsulting.pushay.core.BaseActivity;
-import com.cerezaconsulting.pushay.presentation.fragments.CountriesFragment;
-import com.cerezaconsulting.pushay.presentation.presenters.CountriesPresenter;
-import com.cerezaconsulting.pushay.utils.ActivityUtils;
+import com.cerezaconsulting.pushayadmin.R;
+import com.cerezaconsulting.pushayadmin.core.BaseActivity;
+import com.cerezaconsulting.pushayadmin.presentation.fragments.CitiesFragment;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.CitiesPresenter;
+import com.cerezaconsulting.pushayadmin.utils.ActivityUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by katherine on 28/06/17.
+ * Created by katherine on 19/07/17.
  */
 
-public class CountriesActivity extends BaseActivity {
+public class PaymentHistoryActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -28,29 +27,27 @@ public class CountriesActivity extends BaseActivity {
         setContentView(R.layout.activity_back);
         ButterKnife.bind(this);
 
-        toolbar.setTitle("Elige el País");
+        toolbar.setTitle("Historial de Pagos");
 
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
 
-        CountriesFragment fragment = (CountriesFragment) getSupportFragmentManager()
+        /*CitiesFragment fragment = (CitiesFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.body);
 
         if (fragment == null) {
-            fragment = CountriesFragment.newInstance();
+            fragment = CitiesFragment.newInstance(getIntent().getExtras());
 
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     fragment, R.id.body);
         }
-        new CountriesPresenter(fragment,this);
+        new CitiesPresenter(fragment,this);*/
     }
-
-   @Override
+    @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
 }
-

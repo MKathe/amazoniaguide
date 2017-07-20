@@ -1,31 +1,17 @@
 package com.cerezaconsulting.pushayadmin.presentation.presenters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
-import com.cerezaconsulting.pushayadmin.R;
-import com.cerezaconsulting.pushayadmin.data.entities.CityEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.CountryEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.DayEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.DestinyTravelEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.UserEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.trackholder.TrackHolderEntity;
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.data.remote.ServiceFactory;
 import com.cerezaconsulting.pushayadmin.data.remote.request.ListRequest;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.LoginContract;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.TodayContract;
+import com.cerezaconsulting.pushayadmin.presentation.contracts.HistoryTravelContract;
+import com.cerezaconsulting.pushayadmin.presentation.contracts.PaymentHistoryContract;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,15 +21,15 @@ import retrofit2.Response;
  * Created by katherine on 24/05/17.
  */
 
-public class TodayPresenter implements TodayContract.Presenter, PlaceItem{
+public class PaymentHistoryPresenter implements PaymentHistoryContract.Presenter, PlaceItem{
 
-    private final TodayContract.View mView;
+    private final PaymentHistoryContract.View mView;
     private final SessionManager mSessionManager;
     private Context context;
     private boolean firstLoad = false;
     private int currentPage = 1;
 
-    public TodayPresenter(TodayContract.View mView, Context context) {
+    public PaymentHistoryPresenter(PaymentHistoryContract.View mView, Context context) {
         this.mView = mView;
         this.mSessionManager = new SessionManager(context);
         this.mView.setPresenter(this);
@@ -60,21 +46,21 @@ public class TodayPresenter implements TodayContract.Presenter, PlaceItem{
 
     @Override
     public void loadOrdersFromPage(int page) {
-        loadList(mSessionManager.getUserToken(), page);
+        loadPaymentList(mSessionManager.getUserToken(), page);
     }
 
     @Override
     public void loadFromNextPage() {
 
         if (currentPage > 0)
-            loadList(mSessionManager.getUserToken(), currentPage);
+            loadPaymentList(mSessionManager.getUserToken(), currentPage);
     }
 
     @Override
-    public void loadList(String token, final int page) {
+    public void loadPaymentList(String token, final int page) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
-        final Call<TrackHolderEntity<ReservationEntity>> reservation = listRequest.getMyReservation("Token "+mSessionManager.getUserToken(), page);
+        Call<TrackHolderEntity<ReservationEntity>> reservation = listRequest.getMyPayment("Token "+mSessionManager.getUserToken(), page);
         reservation.enqueue(new Callback<TrackHolderEntity<ReservationEntity>>() {
             @Override
             public void onResponse(Call<TrackHolderEntity<ReservationEntity>> call, Response<TrackHolderEntity<ReservationEntity>> response) {
@@ -89,7 +75,8 @@ public class TodayPresenter implements TodayContract.Presenter, PlaceItem{
                     } else {
                         currentPage = -1;
                     }
-                    getTravelList(response.body().getResults());
+                    getHistoryTravel(response.body().getResults());
+                    //mView.getTravelList(response.body().getResults());
 
                 } else {
                     mView.showErrorMessage("Error al obtener la lista");
@@ -107,25 +94,23 @@ public class TodayPresenter implements TodayContract.Presenter, PlaceItem{
         });
     }
 
-    public void getTravelList(ArrayList<ReservationEntity> list){
+
+    public void getHistoryTravel(ArrayList<ReservationEntity> list){
 
         ArrayList<ReservationEntity> newList = new ArrayList<>();
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd'/'MMMM'/'yyyy", new Locale("es","ES"));
-        String today = format.format(date);
-
 
         for (int i = 0; i <list.size() ; i++) {
 
-            if(!list.get(i).is_confirm() && list.get(i).isEquals()){
+            if(list.get(i).is_confirm()){
+
                 newList.add(list.get(i));
             }
         }
-        mView.getTodayList(newList);
+       // mView.getTravelList(newList);
     }
     @Override
     public void clickItem(ReservationEntity reservationEntity) {
-        mView.showDetailsTravel(reservationEntity);
+        //mView.showDetailsTravel(reservationEntity);
     }
 
     @Override

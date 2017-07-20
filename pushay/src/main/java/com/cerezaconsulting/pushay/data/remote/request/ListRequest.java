@@ -21,14 +21,16 @@ import retrofit2.http.Query;
 
 public interface ListRequest {
     @GET("listcountry/")
-    Call<TrackHolderEntity<CountryEntity>> getCountry();
+    Call<TrackHolderEntity<CountryEntity>> getCountry(@Query("page") int numberPage);
 
 
     @GET("listcitybycountries/{pk}/")
-    Call<TrackHolderEntity<CityEntity>> getCities(@Path("pk") int id);
+    Call<TrackHolderEntity<CityEntity>> getCities(@Path("pk") int id,
+                                                  @Query("page") int numberPage);
 
     @GET("listdestinybycities/{pk}/")
-    Call<TrackHolderEntity<DestinyTravelEntity>> getDestiny(@Path("pk") int id);
+    Call<TrackHolderEntity<DestinyTravelEntity>> getDestiny(@Path("pk") int id,
+                                                            @Query("page") int numberPage);
 
     @GET("listschedulebydestinies/{pk}/")
     Call<TrackHolderEntity<SchedulesEntity>> getListSchedules(@Path("pk") int id);

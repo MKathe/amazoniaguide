@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
-
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.presentation.fragments.DestinyFragment;
@@ -27,8 +26,7 @@ public class DestinyActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_back);
         ButterKnife.bind(this);
-
-        toolbar.setTitle("Elige tu destino");
+        toolbar.setTitle("Elige la ciudad");
 
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
@@ -48,7 +46,9 @@ public class DestinyActivity extends BaseActivity {
     }
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("cityEntity", getIntent().getExtras().getSerializable("cityEntity"));
+        next(DestinyActivity.this, bundle,CitiesActivity.class,true);
         return true;
     }
 }

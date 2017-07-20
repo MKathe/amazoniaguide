@@ -58,6 +58,9 @@
 
         <activity android:name=".presentation.activities.EditPasswordActivity">
         </activity>
+
+        <activity android:name=".presentation.activities.HistoryTravelActivity">
+        </activity>
     </application>
 
 </manifest>

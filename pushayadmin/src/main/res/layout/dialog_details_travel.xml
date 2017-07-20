@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_margin="20dp"
-    android:padding="25dp"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:padding="25dp">
+
     <TextView
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        android:textSize="@dimen/xxxlarge_text"
-        android:text="@string/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/title"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/xxxlarge_text" />
+
     <View
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
         android:layout_height="1dp"
-        android:background="@color/colorPrimary"/>
+        android:layout_marginTop="5dp"
+        android:background="@color/colorPrimary" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_gravity="center"
-            android:textSize="@dimen/xlarge_text"
-            android:text="@string/firstname"/>
+            android:layout_marginTop="15dp"
+            android:text="@string/firstname"
+            android:textSize="@dimen/xlarge_text" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +46,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_name_travel"/>
+                android:src="@drawable/ic_name_travel" />
 
             <TextView
                 android:id="@+id/tv_name_detail_travel"
@@ -64,7 +67,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_descript_travel"/>
+                android:src="@drawable/ic_descript_travel" />
 
             <TextView
                 android:id="@+id/tv_descript_travel"
@@ -76,13 +79,43 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="cantidad: "
+                android:textSize="@dimen/large_text" />
+
+            <TextView
+                android:id="@+id/tv_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="5"
+                android:textSize="@dimen/large_text" />
+        </LinearLayout>
+
         <TextView
-            android:id="@+id/tv_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:textSize="@dimen/large_text"
-            android:text="cantidad: "/>
+            android:text="Validalo por código"
+            android:textAllCaps="true"
+            android:textSize="@dimen/xlarge_text"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="Ingresa el código aquí" />
+
 
     </LinearLayout>
 
@@ -90,12 +123,11 @@
         android:id="@+id/btn_validate_travel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/validate_travel"
-        android:textColor="@color/white"
-        android:background="@color/colorPrimary"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:layout_gravity="center_horizontal"/>
-
+        android:background="@color/colorPrimary"
+        android:text="@string/validate_travel"
+        android:textColor="@color/white" />
 
 
 </LinearLayout>

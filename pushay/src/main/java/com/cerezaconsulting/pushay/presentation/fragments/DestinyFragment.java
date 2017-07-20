@@ -1,7 +1,8 @@
 package com.cerezaconsulting.pushay.presentation.fragments;
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,10 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.core.BaseFragment;
+import com.cerezaconsulting.pushay.core.RecyclerViewScrollListener;
+import com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout;
 import com.cerezaconsulting.pushay.data.entities.CityEntity;
 import com.cerezaconsulting.pushay.data.entities.DestinyTravelEntity;
 import com.cerezaconsulting.pushay.presentation.adapters.DestinyAdapter;
@@ -37,24 +39,25 @@ import butterknife.Unbinder;
 
 public class DestinyFragment extends BaseFragment implements DestinyContract.View, DatePickerDialog.OnDateSetListener {
 
+
     @BindView(R.id.rv_list)
     RecyclerView rvList;
-    @BindView(R.id.noPlacesIcon)
-    ImageView noPlacesIcon;
-    @BindView(R.id.noPLacesMain)
-    TextView noPLacesMain;
-    @BindView(R.id.noPlaces)
-    LinearLayout noPlaces;
+    @BindView(R.id.noListIcon)
+    ImageView noListIcon;
+    @BindView(R.id.noListMain)
+    TextView noListMain;
+    @BindView(R.id.noList)
+    LinearLayout noList;
+    @BindView(R.id.refresh_layout)
+    ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
-
     private CityEntity cityEntity;
     private DestinyAdapter mAdapter;
     private GridLayoutManager mLayoutManager;
     private DestinyContract.Presenter mPresenter;
     private ProgressDialogCustom mProgressDialogCustom;
-
     private DatePickerDialog datePickerDialog;
-    //private DialogCreateSchedules dialogCreateSchedules;
+
 
     public DestinyFragment() {
         // Requires empty public constructor
@@ -63,8 +66,7 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
-
+        mPresenter.startLoad(cityEntity.getId());
     }
 
     public static DestinyFragment newInstance(Bundle bundle) {
@@ -77,14 +79,28 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         cityEntity = (CityEntity) getArguments().getSerializable("cityEntity");
-        //idCountry =  (int) getArguments().getSerializable("id_country");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_simple_list, container, false);
-        mPresenter.listDestiny(cityEntity.getId());
+        View root = inflater.inflate(R.layout.fragment_list, container, false);
+        final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
+                (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
+        swipeRefreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(getActivity(), R.color.black),
+                ContextCompat.getColor(getActivity(), R.color.dark_gray),
+                ContextCompat.getColor(getActivity(), R.color.black)
+        );
+        // Set the scrolling view in the custom SwipeRefreshLayout.
+        swipeRefreshLayout.setScrollUpChild(rvList);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //mPresenter.start();
+                mPresenter.loadOrdersFromPage(cityEntity.getId(), 1);
+            }
+        });
         unbinder = ButterKnife.bind(this, root);
         return root;
     }
@@ -92,6 +108,12 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Obteniendo datos...");
+        mLayoutManager = new GridLayoutManager(getContext(), 2);
+        rvList.setLayoutManager(mLayoutManager);
+        mAdapter = new DestinyAdapter(new ArrayList<DestinyTravelEntity>(), getContext(), (DestinyItem) mPresenter);
+        rvList.setAdapter(mAdapter);
+
         Calendar now = Calendar.getInstance();
         datePickerDialog = DatePickerDialog.newInstance(
                 this,
@@ -99,36 +121,47 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH)
         );
-
-        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Obteniendo destinos...");
-        mLayoutManager = new GridLayoutManager(getContext(), 2);
-        rvList.setLayoutManager(mLayoutManager);
-        mAdapter = new DestinyAdapter(new ArrayList<DestinyTravelEntity>(), getContext(), (DestinyItem) mPresenter);
-        rvList.setAdapter(mAdapter);
     }
 
 
     @Override
     public void getDestiny(ArrayList<DestinyTravelEntity> list) {
         mAdapter.setItems(list);
-        if (list !=null){
-            noPlaces.setVisibility((list.size()>0) ? View.GONE : View.VISIBLE);
+        if (list != null) {
+            noList
+                    .setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
         }
+        rvList.addOnScrollListener(new RecyclerViewScrollListener() {
+            @Override
+            public void onScrollUp() {
+
+            }
+
+            @Override
+            public void onScrollDown() {
+
+            }
+
+            @Override
+            public void onLoadMore() {
+                mPresenter.loadfromNextPage(cityEntity.getId());
+            }
+        });
+
     }
 
     @Override
     public void clickItemDestiny(DestinyTravelEntity destinyTravelEntity) {
-        datePickerDialog.setTitle("Elija su día de viaje");
+
+        datePickerDialog.setTitle("ELija su fecha de viaje");
         datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
         datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
     }
-
 
     @Override
     public boolean isActive() {
         return isAdded();
     }
-
 
     @Override
     public void setPresenter(DestinyContract.Presenter mPresenter) {
@@ -140,6 +173,18 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
         if (getView() == null) {
             return;
         }
+
+        final SwipeRefreshLayout srl =
+                (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
+
+        // Make sure setRefreshing() is called after the layout is done with everything else.
+        srl.post(new Runnable() {
+            @Override
+            public void run() {
+                srl.setRefreshing(active);
+            }
+        });
+
         if (active) {
             mProgressDialogCustom.show();
         } else {
@@ -147,7 +192,6 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
                 mProgressDialogCustom.dismiss();
             }
         }
-
     }
 
     @Override
@@ -164,11 +208,13 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+
     }
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String msg = year + "-" + String.format("%02d", monthOfYear + 1) + "-" + String.format("%02d", dayOfMonth);
-        Toast.makeText(getContext(), msg , Toast.LENGTH_SHORT).show();
+        String date = dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
+        Toast.makeText(getContext(), date , Toast.LENGTH_SHORT).show();
     }
+
 }

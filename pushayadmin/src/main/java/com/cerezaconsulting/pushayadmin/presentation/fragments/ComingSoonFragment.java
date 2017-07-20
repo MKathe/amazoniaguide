@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,13 +18,11 @@ import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.core.BaseFragment;
 import com.cerezaconsulting.pushayadmin.core.RecyclerViewScrollListener;
 import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
-import com.cerezaconsulting.pushayadmin.data.entities.DestinyTravelEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
-import com.cerezaconsulting.pushayadmin.presentation.adapters.ComingSoonAdapter;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.TodayAdapter;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.ComingSoonContract;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.TodayContract;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.ComingSoonPresenter;
+import com.cerezaconsulting.pushayadmin.presentation.dialogs.TravelDetailsDialog;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.TodayPresenter;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 
 import java.util.ArrayList;
@@ -38,7 +35,7 @@ import butterknife.Unbinder;
  * Created by katherine on 17/05/17.
  */
 
-public class ComingSoonFragment extends BaseFragment implements ComingSoonContract.View {
+public class ComingSoonFragment extends BaseFragment implements TodayContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
@@ -52,10 +49,11 @@ public class ComingSoonFragment extends BaseFragment implements ComingSoonContra
     ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
 
-    private ComingSoonContract.Presenter mPresenter;
-
-    private ComingSoonAdapter mAdapter;
+    private TodayContract.Presenter mPresenter;
+    private TodayAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
+    //private ProgressDialogCustom mProgressDialogCustom;
+
 
     public ComingSoonFragment() {
         // Requires empty public constructor
@@ -64,8 +62,7 @@ public class ComingSoonFragment extends BaseFragment implements ComingSoonContra
     @Override
     public void onResume() {
         super.onResume();
-        // mPresenter.start();
-        mPresenter.loadList();
+        mPresenter.start();
     }
 
     public static ComingSoonFragment newInstance() {
@@ -75,7 +72,7 @@ public class ComingSoonFragment extends BaseFragment implements ComingSoonContra
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new ComingSoonPresenter(this, getContext());
+        mPresenter = new TodayPresenter(this,getContext());
 
     }
 
@@ -97,10 +94,9 @@ public class ComingSoonFragment extends BaseFragment implements ComingSoonContra
             @Override
             public void onRefresh() {
                 //mPresenter.start();
-                // mPresenter.loadOrdersFromPage(1);
+                mPresenter.loadOrdersFromPage(1);
             }
         });
-
 
         unbinder = ButterKnife.bind(this, root);
         return root;
@@ -112,15 +108,13 @@ public class ComingSoonFragment extends BaseFragment implements ComingSoonContra
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvList.setLayoutManager(mLayoutManager);
-
-        mAdapter = new ComingSoonAdapter(new ArrayList<ReservationEntity>() , getContext(), (PlaceItem) mPresenter);
+        mAdapter = new TodayAdapter(new ArrayList<ReservationEntity>() , getContext(), (PlaceItem) mPresenter);
         rvList.setAdapter(mAdapter);
 
     }
 
-
     @Override
-    public void getComingSoonList(ArrayList<ReservationEntity> list) {
+    public void getTodayList(ArrayList<ReservationEntity> list) {
         mAdapter.setItems(list);
 
         if (list !=null){
@@ -137,9 +131,17 @@ public class ComingSoonFragment extends BaseFragment implements ComingSoonContra
             }
             @Override
             public void onLoadMore() {
-                mPresenter.loadfromNextPage();
+                mPresenter.loadFromNextPage();
             }
         });
+    }
+
+    @Override
+    public void showDetailsTravel(ReservationEntity reservationEntity) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("travel", reservationEntity);
+        TravelDetailsDialog travelDetailsDialog = new TravelDetailsDialog(getContext(), bundle);
+        travelDetailsDialog.show();
     }
 
     @Override
@@ -148,7 +150,7 @@ public class ComingSoonFragment extends BaseFragment implements ComingSoonContra
     }
 
     @Override
-    public void setPresenter(ComingSoonContract.Presenter mPresenter) {
+    public void setPresenter(TodayContract.Presenter mPresenter) {
         this.mPresenter = mPresenter;
     }
 

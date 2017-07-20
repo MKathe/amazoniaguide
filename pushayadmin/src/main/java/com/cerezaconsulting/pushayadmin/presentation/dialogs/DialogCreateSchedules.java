@@ -73,9 +73,7 @@ public class DialogCreateSchedules extends DialogFragment implements Validator.V
     private DestinyTravelEntity destinyTravelEntity;
     private SchedulesEntity schedulesEntity;
     private String daySelected;
-
     private ConfirmedDialog confirmedDialog;
-
     private TimePickerDialog timePickerDialog;
 
     public static DialogCreateSchedules newInstance(Bundle bundle) {
@@ -101,7 +99,6 @@ public class DialogCreateSchedules extends DialogFragment implements Validator.V
         ButterKnife.bind(this, view);
         return view;
     }
-
 
 
     @Override

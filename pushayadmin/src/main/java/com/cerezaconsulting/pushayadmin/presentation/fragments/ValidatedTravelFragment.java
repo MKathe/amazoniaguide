@@ -1,10 +1,10 @@
-package com.cerezaconsulting.pushay.presentation.fragments;
+package com.cerezaconsulting.pushayadmin.presentation.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +13,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.cerezaconsulting.pushay.R;
-import com.cerezaconsulting.pushay.core.BaseActivity;
-import com.cerezaconsulting.pushay.core.BaseFragment;
-import com.cerezaconsulting.pushay.core.RecyclerViewScrollListener;
-import com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout;
-import com.cerezaconsulting.pushay.data.entities.CountryEntity;
-import com.cerezaconsulting.pushay.presentation.activities.CitiesActivity;
-import com.cerezaconsulting.pushay.presentation.adapters.CountriesAdapter;
-import com.cerezaconsulting.pushay.presentation.contracts.CountriesContract;
-import com.cerezaconsulting.pushay.presentation.presenters.commons.CountriesItem;
-import com.cerezaconsulting.pushay.utils.ProgressDialogCustom;
+import com.cerezaconsulting.pushayadmin.R;
+import com.cerezaconsulting.pushayadmin.core.BaseActivity;
+import com.cerezaconsulting.pushayadmin.core.BaseFragment;
+import com.cerezaconsulting.pushayadmin.core.RecyclerViewScrollListener;
+import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
+import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
+import com.cerezaconsulting.pushayadmin.presentation.adapters.TodayAdapter;
+import com.cerezaconsulting.pushayadmin.presentation.contracts.TodayContract;
+import com.cerezaconsulting.pushayadmin.presentation.dialogs.TravelDetailsDialog;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.TodayPresenter;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 
 import java.util.ArrayList;
 
@@ -32,31 +32,30 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by katherine on 28/06/17.
+ * Created by katherine on 17/05/17.
  */
 
-public class CountriesFragment extends BaseFragment implements CountriesContract.View {
-
+public class ValidatedTravelFragment extends BaseFragment implements TodayContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
-    @BindView(R.id.noListIcon)
-    ImageView noListIcon;
-    @BindView(R.id.noListMain)
-    TextView noListMain;
-    @BindView(R.id.noList)
-    LinearLayout noList;
+    @BindView(R.id.noPlacesIcon)
+    ImageView noPlacesIcon;
+    @BindView(R.id.noPLacesMain)
+    TextView noPLacesMain;
+    @BindView(R.id.noPlaces)
+    LinearLayout noPlaces;
     @BindView(R.id.refresh_layout)
     ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
-    private CountriesAdapter mAdapter;
-    private String daySelected;
-    private GridLayoutManager mLayoutManager;
-    private CountriesContract.Presenter mPresenter;
-    private ProgressDialogCustom mProgressDialogCustom;
-    private CountryEntity countryEntity;
 
-    public CountriesFragment() {
+    private TodayContract.Presenter mPresenter;
+    private TodayAdapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
+    //private ProgressDialogCustom mProgressDialogCustom;
+
+
+    public ValidatedTravelFragment() {
         // Requires empty public constructor
     }
 
@@ -64,25 +63,24 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
     public void onResume() {
         super.onResume();
         mPresenter.start();
-
     }
 
-    public static CountriesFragment newInstance() {
-        CountriesFragment fragment = new CountriesFragment();
-        return fragment;
+    public static ValidatedTravelFragment newInstance() {
+        return new ValidatedTravelFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPresenter = new TodayPresenter(this,getContext());
 
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_list, container, false);
-        //countryEntity = (CountryEntity) getArguments().getSerializable("countryEntity");
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
                 (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(
@@ -107,44 +105,43 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Obteniendo datos...");
-        mLayoutManager = new GridLayoutManager(getContext(), 2);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvList.setLayoutManager(mLayoutManager);
-        mAdapter = new CountriesAdapter(new ArrayList<CountryEntity>(), getContext(), (CountriesItem) mPresenter);
+        mAdapter = new TodayAdapter(new ArrayList<ReservationEntity>() , getContext(), (PlaceItem) mPresenter);
         rvList.setAdapter(mAdapter);
+
     }
 
     @Override
-    public void getCountries(ArrayList<CountryEntity> list) {
+    public void getTodayList(ArrayList<ReservationEntity> list) {
         mAdapter.setItems(list);
-        if (list != null) {
-            noList.setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
+
+        if (list !=null){
+            noPlaces.setVisibility((list.size()>0) ? View.GONE : View.VISIBLE);
         }
         rvList.addOnScrollListener(new RecyclerViewScrollListener() {
             @Override
             public void onScrollUp() {
 
             }
-
             @Override
             public void onScrollDown() {
 
             }
-
             @Override
             public void onLoadMore() {
                 mPresenter.loadFromNextPage();
             }
         });
-
     }
 
     @Override
-    public void clickItemCountry(CountryEntity countryEntity) {
+    public void showDetailsTravel(ReservationEntity reservationEntity) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("countryEntity", countryEntity);
-        next(getActivity(), bundle, CitiesActivity.class, false);
-        getActivity().finish();
+        bundle.putSerializable("travel", reservationEntity);
+        TravelDetailsDialog travelDetailsDialog = new TravelDetailsDialog(getContext(), bundle);
+        travelDetailsDialog.show();
     }
 
     @Override
@@ -153,7 +150,7 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
     }
 
     @Override
-    public void setPresenter(CountriesContract.Presenter mPresenter) {
+    public void setPresenter(TodayContract.Presenter mPresenter) {
         this.mPresenter = mPresenter;
     }
 
@@ -172,13 +169,6 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
                 srl.setRefreshing(active);
             }
         });
-        if (active) {
-            mProgressDialogCustom.show();
-        } else {
-            if (mProgressDialogCustom.isShowing()) {
-                mProgressDialogCustom.dismiss();
-            }
-        }
     }
 
     @Override
@@ -195,8 +185,5 @@ public class CountriesFragment extends BaseFragment implements CountriesContract
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-
     }
-
-
 }

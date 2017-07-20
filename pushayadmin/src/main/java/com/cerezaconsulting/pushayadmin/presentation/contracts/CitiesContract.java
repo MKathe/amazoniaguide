@@ -25,7 +25,13 @@ public interface CitiesContract {
     interface Presenter extends BasePresenter {
 
 
-        void getCities(int id);
+        void loadOrdersFromPage(int id, int page);
+
+        void loadfromNextPage(int id);
+
+        void startLoad(int id);
+
+        void getCities(int id, int page);
 
     }
 }

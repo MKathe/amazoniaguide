@@ -58,7 +58,7 @@
     <string name="title">Detalle del recorrido</string>
     <string name="package_name">Nombre del paquete: </string>
     <string name="decription_package">descripción</string>
-    <string name="validate_travel">Validar viaje</string>
+    <string name="validate_travel">Validar viaje por QR</string>
     <string name="selected_travel">Seleccionar lugar</string>
     <string name="validate">Valida el destino</string>
     <string name="confirmed_travel">Su viaje se ha \nvalidado correctamente</string>
@@ -68,5 +68,10 @@
     <string name="title_2">Gracias por registrarte como guía en Pushay </string>
     <string name="confirm">Te estaremos contactando en los próximos días para validar tus datos</string>
 
+    //Details strings
+
+    <string name="locality">Lugar de encuentro</string>
+    <string name="hour">Hora de encuentro</string>
+    <string name="status">NO VALIDADO</string>
 
 </resources>

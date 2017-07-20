@@ -21,19 +21,26 @@ import retrofit2.http.Query;
 
 public interface ListRequest {
     @GET("listcountry/")
-    Call<TrackHolderEntity<CountryEntity>> getCountry();
+    Call<TrackHolderEntity<CountryEntity>> getCountry(@Query("page") int numberPage);
 
 
     @GET("listcitybycountries/{pk}/")
-    Call<TrackHolderEntity<CityEntity>> getCities(@Path("pk") int id);
+    Call<TrackHolderEntity<CityEntity>> getCities(@Path("pk") int id,
+                                                  @Query("page") int numberPage);
 
     @GET("listdestinybycities/{pk}/")
-    Call<TrackHolderEntity<DestinyTravelEntity>> getDestiny(@Path("pk") int id);
+    Call<TrackHolderEntity<DestinyTravelEntity>> getDestiny(@Path("pk") int id,
+                                                            @Query("page") int numberPage);
 
-    @GET("listreservation/")
-    Call<TrackHolderEntity<ReservationEntity>> getReservation();
+    @GET("myguidereservation/")
+    Call<TrackHolderEntity<ReservationEntity>> getMyReservation(@Header("Authorization") String token,
+                                                                @Query("page") int numberPage);
 
     @GET("myschedulebyday/")
     Call<TrackHolderEntity<SchedulesEntity>> getSchedules(@Header("Authorization") String token,
                                                           @Query("page") int numberPage);
+
+    @GET()
+    Call<TrackHolderEntity<ReservationEntity>> getMyPayment(@Header("Authorization") String token,
+                                                            @Query("page") int numberPage);
 }

@@ -28,7 +28,6 @@ import butterknife.OnClick;
 
 public class TravelDetailsDialog extends AlertDialog {
 
-
     @BindView(R.id.tv_user_name)
     TextView tvUserName;
     @BindView(R.id.tv_name_detail_travel)
@@ -66,9 +65,9 @@ public class TravelDetailsDialog extends AlertDialog {
 
         reservationEntity = (ReservationEntity) bundle.getSerializable("travel");
         tvUserName.setText(reservationEntity.getUserEntity().getFullName());
-        tvDescriptTravel.setText(reservationEntity.getScheludes().getDestiny().getDescription());
-        tvNameDetailTravel.setText(reservationEntity.getScheludes().getDestiny().getName());
-        tvCount.setText("Cantidad: "+reservationEntity.getNum_coupons());
+        tvDescriptTravel.setText(reservationEntity.getSchedules().getDestiny().getDescription());
+        tvNameDetailTravel.setText(reservationEntity.getSchedules().getDestiny().getName());
+        tvCount.setText(reservationEntity.getNum_coupons());
 
     }
 

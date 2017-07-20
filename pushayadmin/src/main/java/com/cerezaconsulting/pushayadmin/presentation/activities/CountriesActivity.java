@@ -46,7 +46,7 @@ public class CountriesActivity extends BaseActivity {
         new CountriesPresenter(fragment,this);
     }
 
-    @Override
+   @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
