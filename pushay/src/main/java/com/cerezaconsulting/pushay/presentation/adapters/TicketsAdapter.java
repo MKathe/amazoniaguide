@@ -64,8 +64,11 @@ public class TicketsAdapter extends LoaderAdapter<ReservationEntity> implements 
     @Override
     public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
         ReservationEntity ticketEntity = getItems().get(position);
+        ((ViewHolder) holder).tvPackageName.setText(ticketEntity.getSchedules().getLocality());
+        ((ViewHolder) holder).tvPackageDate.setText(ticketEntity.getSchedules().getHour());
         ((ViewHolder) holder).tvDate.setText(ticketEntity.getDay());
         ((ViewHolder) holder).tvNameCity.setText(ticketEntity.getSchedules().getDestiny().getName());
+        ((ViewHolder) holder).tvDescriptCity.setText(ticketEntity.getSchedules().getDestiny().getCity().getName());
 
         if(ticketEntity.getSchedules().getGuide().getPicture()!=null){
             Glide.with(context)

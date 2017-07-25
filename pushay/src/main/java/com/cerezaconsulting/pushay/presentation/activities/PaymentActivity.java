@@ -45,8 +45,8 @@ public class PaymentActivity extends BaseActivity implements BillingProcessor.IB
     private static final String LOG_TAG = "iabv3";
 
     // PRODUCT & SUBSCRIPTION IDS
-    private static final String PRODUCT_ID = "com.cerezaconsulting.capmnow.b1";
-    private static final String SUBSCRIPTION_ID = "com.cerezaconsulting.capmnow.subs";
+    private static final String PRODUCT_ID = "com.cerezaconsulting.pushay.travel";
+    private static final String SUBSCRIPTION_ID = "com.cerezaconsulting.pushay.sub";
     private static final String LICENSE_KEY = null; // PUT YOUR MERCHANT KEY HERE;
     // put your Google merchant id here (as stated in public profile of your Payments Merchant Center)
     // if filled library will provide protection against Freedom alike Play Market simulators
@@ -100,7 +100,7 @@ public class PaymentActivity extends BaseActivity implements BillingProcessor.IB
         tvCityName.setText(schedulesEntity.getDestiny().getCity().getName());
         tvDay.setText(schedulesEntity.getDay().getName());
         tvName.setText(mSessionManager.getUserEntity().getFullName());
-        tvDate.setText(getCost());
+        //tvDate.setText(getCost());
 
 
         progressDialog = new ProgressDialog(this);
@@ -112,7 +112,7 @@ public class PaymentActivity extends BaseActivity implements BillingProcessor.IB
         if (!BillingProcessor.isIabServiceAvailable(this)) {
             showToast("In-app billing service is unavailable, please upgrade Android Market/Play to version >= 3.9.16");
         }
-        bp = new BillingProcessor(this, LICENSE_KEY, MERCHANT_ID, new BillingProcessor.IBillingHandler() {
+       /* bp = new BillingProcessor(this, LICENSE_KEY, MERCHANT_ID, new BillingProcessor.IBillingHandler() {
             @Override
             public void onProductPurchased(String productId, TransactionDetails details) {
                 showLoader(true);
@@ -128,7 +128,7 @@ public class PaymentActivity extends BaseActivity implements BillingProcessor.IB
                             showToast("El código ha sido enviado a su correo");
                             finish();
                         } else {
-                            showToast("Ha ocurrido un error");
+                            showToast("Ha ocurrido un error desconocido");
                         }
                     }
 
@@ -139,8 +139,8 @@ public class PaymentActivity extends BaseActivity implements BillingProcessor.IB
                     }
                 });
             }
-
-            @Override
+*/
+            /*@Override
             public void onBillingError(int errorCode, Throwable error) {
                 showToast("onBillingError: " + Integer.toString(errorCode));
             }
@@ -161,7 +161,7 @@ public class PaymentActivity extends BaseActivity implements BillingProcessor.IB
 
             }
         });
-
+*/
         // or bp = BillingProcessor.newBillingProcessor(this, "YOUR LICENSE KEY FROM GOOGLE PLAY CONSOLE HERE", this);
         // See below on why this is a useful alternative
     }

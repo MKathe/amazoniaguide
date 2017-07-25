@@ -2,18 +2,22 @@ package com.cerezaconsulting.pushay.presentation.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseFragment;
-import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushay.data.entities.SchedulesEntity;
-import com.cerezaconsulting.pushay.presentation.activities.PaymentActivity;
+import com.cerezaconsulting.pushay.presentation.activities.CreateReservationActivity;
+import com.cerezaconsulting.pushay.presentation.adapters.ListSchedulesAdapter;
+import com.cerezaconsulting.pushay.utils.CircleTransform;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,6 +62,8 @@ public class GuideDetailsFragment extends BaseFragment {
     TextView tvDayName;
     @BindView(R.id.tv_day)
     TextView tvDay;
+    @BindView(R.id.rating)
+    RatingBar rating;
 
     private SchedulesEntity schedulesEntity;
     private String date;
@@ -105,6 +111,14 @@ public class GuideDetailsFragment extends BaseFragment {
         tvLocality.setText(schedulesEntity.getLocality());
         tvHour.setText(schedulesEntity.getHour());
         tvPrice.setText(schedulesEntity.getPriceNormal());
+        rating.setRating(Float.valueOf(schedulesEntity.getGuide().getClasification()));
+        if (schedulesEntity.getGuide().getPicture() != null) {
+            Glide.with(getContext())
+                    .load(schedulesEntity.getGuide().getPicture())
+                    .transform(new CircleTransform(getContext()))
+                    .into(imageView);
+        }
+
     }
 
     @Override
@@ -114,10 +128,10 @@ public class GuideDetailsFragment extends BaseFragment {
     }
 
 
-    public String getDay(){
+    public String getDay() {
         Date tempDate = null;
-        SimpleDateFormat parseDateFromServer= new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat parseDateForShowDetail =  new SimpleDateFormat("dd' de 'MMMM' del 'yyyy", new Locale("es","ES"));
+        SimpleDateFormat parseDateFromServer = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat parseDateForShowDetail = new SimpleDateFormat("dd' de 'MMMM' del 'yyyy", new Locale("es", "ES"));
         try {
             tempDate = parseDateFromServer.parse(date);
         } catch (ParseException e) {
@@ -131,6 +145,6 @@ public class GuideDetailsFragment extends BaseFragment {
         Bundle bundle = new Bundle();
         bundle.putString("date", date);
         bundle.putSerializable("schedulesEntity", schedulesEntity);
-        next(getActivity(), bundle, PaymentActivity.class, false);
+        next(getActivity(), bundle, CreateReservationActivity.class, false);
     }
 }

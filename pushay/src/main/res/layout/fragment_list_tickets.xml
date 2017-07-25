@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/cream"
+    android:orientation="vertical">
+
+    <com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:background="@color/cream"
+        android:layout_marginBottom="50dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp" />
+                <LinearLayout
+                    android:id="@+id/noList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/noListIcon"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ic_launcher" />
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/noListMain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/gray_regular"
+                        android:text="NO TIENES TICKETS" />
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.design.widget.CoordinatorLayout>
+    </com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout>
+
+    <FrameLayout
+        android:id="@+id/btn_suscribe"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/ic_add_circle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/xlarge_text"
+                android:text="Reserva tu guía" />
+        </LinearLayout>
+    </FrameLayout>
+
+</RelativeLayout>

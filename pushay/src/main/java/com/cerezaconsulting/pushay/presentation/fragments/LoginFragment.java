@@ -197,12 +197,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.View, F
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                if (!isLoading) {
-                    InputMethodManager input = (InputMethodManager) getActivity()
-                            .getSystemService(Activity.INPUT_METHOD_SERVICE);
-                    input.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-                    validator.validate();
-                }
+                validator.validate();
                 break;
             case R.id.login_button:
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));

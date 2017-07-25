@@ -167,6 +167,12 @@ public class TicketsActivity extends BaseActivity {
                 }
             });
             tv_email.setText(mUser.getEmail());
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    next(TicketsActivity.this, null, ProfileActivity.class, false);
+                }
+            });
 
             if (mUser.getPicture() != null) {
                 Glide.with(this)

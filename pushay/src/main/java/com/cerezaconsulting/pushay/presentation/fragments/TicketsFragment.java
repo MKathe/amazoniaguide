@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.cerezaconsulting.pushay.core.BaseFragment;
 import com.cerezaconsulting.pushay.core.RecyclerViewScrollListener;
 import com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout;
 import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
+import com.cerezaconsulting.pushay.presentation.activities.CountriesActivity;
 import com.cerezaconsulting.pushay.presentation.activities.TicketsDetailActivity;
 import com.cerezaconsulting.pushay.presentation.adapters.TicketsAdapter;
 import com.cerezaconsulting.pushay.presentation.contracts.TicketsContract;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -49,6 +52,9 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
     @BindView(R.id.refresh_layout)
     ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
+    @BindView(R.id.btn_suscribe)
+    FrameLayout btnSuscribe;
+
     private TicketsAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private TicketsContract.Presenter mPresenter;
@@ -77,7 +83,7 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_list, container, false);
+        View root = inflater.inflate(R.layout.fragment_list_tickets, container, false);
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
                 (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(
@@ -91,7 +97,7 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
             @Override
             public void onRefresh() {
                 //mPresenter.start();
-                // mPresenter.loadOrdersFromPage(1);
+                mPresenter.loadOrdersFromPage(1);
             }
         });
 
@@ -193,4 +199,9 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
 
     }
 
+    @OnClick(R.id.btn_suscribe)
+    public void onViewClicked() {
+        next(getActivity(), null, CountriesActivity.class, false);
+
+    }
 }

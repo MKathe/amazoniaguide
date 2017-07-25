@@ -5,13 +5,15 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseFragment;
-import com.cerezaconsulting.pushay.data.entities.CountryEntity;
 import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushay.data.local.SessionManager;
+import com.cerezaconsulting.pushay.utils.CircleTransform;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +24,6 @@ import butterknife.Unbinder;
  */
 
 public class TicketDetailsFragment extends BaseFragment {
-
 
     @BindView(R.id.tv_name)
     TextView tvName;
@@ -39,9 +40,15 @@ public class TicketDetailsFragment extends BaseFragment {
     @BindView(R.id.tv_cell)
     TextView tvCell;
     Unbinder unbinder;
+    @BindView(R.id.im_qr)
+    ImageView imQr;
+    @BindView(R.id.tv_city_name)
+    TextView tvCityName;
+    @BindView(R.id.tv_code)
+    TextView tvCode;
 
     private ReservationEntity reservationEntity;
-    private SessionManager  mSessionManager;
+    private SessionManager mSessionManager;
 
     public TicketDetailsFragment() {
         // Requires empty public constructor
@@ -82,9 +89,19 @@ public class TicketDetailsFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         tvName.setText(mSessionManager.getUserEntity().getFirst_name());
         tvDestiny.setText(reservationEntity.getSchedules().getDestiny().getName());
+        tvCityName.setText(reservationEntity.getSchedules().getDestiny().getCity().getName());
         tvDate.setText(reservationEntity.getDay());
         tvGuide.setText(reservationEntity.getSchedules().getGuide().getFullName());
         tvCell.setText(reservationEntity.getSchedules().getGuide().getCellphone());
+        tvCode.setText(reservationEntity.getCode());
+        tvService.setText(reservationEntity.getSchedules().getLocality());
+        tvServiceDetail.setText(reservationEntity.getSchedules().getHour());
+
+        if (reservationEntity.getQrcode() != null) {
+            Glide.with(getContext())
+                    .load(reservationEntity.getQrcode())
+                    .into(imQr);
+        }
     }
 
     @Override

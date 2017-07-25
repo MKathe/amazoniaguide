@@ -46,17 +46,19 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         RegisterRequest registerRequest =
                 ServiceFactory.createService(RegisterRequest.class);
         Call<UserEntity> call = registerRequest.editUser("Token "+token,userEntity.getFirst_name(),
-                userEntity.getLast_name());
+                userEntity.getLast_name(), userEntity.getCellphone());
         mView.setLoadingIndicator(true);
         call.enqueue(new Callback<UserEntity>() {
             @Override
             public void onResponse(Call<UserEntity> call, Response<UserEntity> response) {
+                mView.setLoadingIndicator(false);
+                if (!mView.isActive()) {
+                    return;
+                }
                 if(response.isSuccessful()){
-                    mView.setLoadingIndicator(false);
                     mView.editSuccessful(userEntity);
                     //getProfile(token);
                 }else {
-                    mView.setLoadingIndicator(false);
                     mView.showErrorMessage("Falló algo actualizando sus datos, por favor inténtelo nuevamente");
                 }
             }
@@ -88,9 +90,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 if (!mView.isActive()) {
                     return;
                 }
-
+                mView.setLoadingIndicator(false);
                 if (response.isSuccessful()) {
-                    mView.setLoadingIndicator(false);
                     mView.updateProfileImage(response.body());
                 } else {
                     mView.showErrorMessage("Hubo un error, por favor intente más tarde");

@@ -31,7 +31,8 @@ public interface RegisterRequest  {
     @PUT("user/update/")
     Call<UserEntity> editUser(@Header("Authorization") String token,
                               @Field("first_name") String first_name,
-                              @Field("last_name") String last_name);
+                              @Field("last_name") String last_name,
+                              @Field("cellphone") String cellphone);
 
 }
 

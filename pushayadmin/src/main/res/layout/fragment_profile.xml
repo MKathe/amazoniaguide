@@ -7,8 +7,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -344,7 +342,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="15dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -364,6 +363,7 @@
                         android:text="Obtener Pushay Plus" />
                 </LinearLayout>
             </RelativeLayout>
+
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

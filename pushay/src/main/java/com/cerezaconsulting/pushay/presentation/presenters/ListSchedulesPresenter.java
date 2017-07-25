@@ -81,10 +81,11 @@ public class ListSchedulesPresenter implements ListSchedulesContract.Presenter, 
         orders.enqueue(new Callback<TrackHolderEntity<SchedulesEntity>>() {
             @Override
             public void onResponse(Call<TrackHolderEntity<SchedulesEntity>> call, Response<TrackHolderEntity<SchedulesEntity>> response) {
-                mView.setLoadingIndicator(false);
+
                 if (!mView.isActive()) {
                     return;
                 }
+                mView.setLoadingIndicator(false);
                 if (response.isSuccessful()) {
 
                     mView.getListGuideByDestiny(response.body().getResults());

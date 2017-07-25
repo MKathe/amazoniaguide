@@ -78,6 +78,7 @@ public class ListSchedulesAdapter extends LoaderAdapter<SchedulesEntity> impleme
                     .transform(new CircleTransform(context))
                     .into(((ViewHolder) holder).imageView);
         }
+        ((ViewHolder) holder).rating.setRating(Float.valueOf(schedulesEntity.getGuide().getClasification()));
     }
 
     @Override

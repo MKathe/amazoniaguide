@@ -21,6 +21,7 @@ public class TicketsDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_back);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("Detalle de tu ticket");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 

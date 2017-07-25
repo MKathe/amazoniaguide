@@ -144,7 +144,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Cargando foto...");
+        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Cargando datos...");
         Glide.with(getContext())
                 .load(mSessionManager.getUserEntity().getPicture())
                 .transform(new CircleTransform(getContext()))
@@ -175,13 +175,14 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
         UserEntity newUserEntity = mSessionManager.getUserEntity();
         newUserEntity.setFirst_name(userEntity.getFirst_name());
         newUserEntity.setLast_name(userEntity.getLast_name());
+        newUserEntity.setCellphone(userEntity.getCellphone());
         mSessionManager.setUser(newUserEntity);
         EventBus.getDefault().post(newUserEntity);
         tvName.setText(newUserEntity.getFullName());
         tvNameDetail.setText(newUserEntity.getFullName());
         tvEmailDetail.setText(newUserEntity.getEmail());
         tvCelDetail.setText(newUserEntity.getCellphone());
-        showMessage("Tus datos han sido actualizados con éxito");
+        //showMessage("Tus datos han sido actualizados con éxito");
     }
 
     @Override

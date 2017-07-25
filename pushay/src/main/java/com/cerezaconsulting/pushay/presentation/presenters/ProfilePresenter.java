@@ -49,11 +49,14 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         call.enqueue(new Callback<UserEntity>() {
             @Override
             public void onResponse(Call<UserEntity> call, Response<UserEntity> response) {
+                if (!mView.isActive()) {
+                    return;
+                }
+                mView.setLoadingIndicator(false);
                 if(response.isSuccessful()){
                     mView.editSuccessful(userEntity);
                     //getProfile(token);
                 }else {
-                    mView.setLoadingIndicator(false);
                     mView.showErrorMessage("Falló algo actualizando sus datos, por favor inténtelo nuevamente");
                 }
             }

@@ -134,7 +134,7 @@
             <LinearLayout
                 android:id="@+id/ly_personal_edit"
                 android:layout_width="match_parent"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="15dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ly_travel_history"
                 android:orientation="horizontal">
@@ -191,12 +191,14 @@
                 <EditText
                     android:id="@+id/tv_name_detail"
                     android:layout_width="match_parent"
+                    android:backgroundTint="@color/gray_regular"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="Nombre"
                     android:layout_marginRight="10dp"
                     android:focusable="false"
+                    android:textColorHint="@color/gray_regular"
                     android:textColor="@color/gray_regular"
                     android:textSize="@dimen/normal_text" />
             </LinearLayout>
@@ -267,7 +269,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_below="@+id/ly_cel"
                 android:background="@color/dark_gray"
                 android:layout_width="match_parent"
