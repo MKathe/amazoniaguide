@@ -24,6 +24,7 @@ import com.cerezaconsulting.pushay.data.entities.UploadResponse;
 import com.cerezaconsulting.pushay.data.entities.UserEntity;
 import com.cerezaconsulting.pushay.data.local.SessionManager;
 import com.cerezaconsulting.pushay.presentation.activities.EditPasswordActivity;
+import com.cerezaconsulting.pushay.presentation.activities.HistoryTravelActivity;
 import com.cerezaconsulting.pushay.presentation.contracts.ProfileContract;
 import com.cerezaconsulting.pushay.presentation.dialogs.EditDialog;
 import com.cerezaconsulting.pushay.utils.BitmapCircleUtil;
@@ -225,6 +226,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ly_travel_history:
+                next(getActivity(), null, HistoryTravelActivity.class, false);
                 break;
             case R.id.img_edit:
                 Bundle bundle = new Bundle();

@@ -168,7 +168,6 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
         Intent refresh = new Intent(getContext(), SchedulesActivity.class);
         refresh.putExtra("daySelected", daySelected);
         startActivity(refresh);//Start the same Activity
-        showMessage("Su horario se ha creado con éxito!");
         getActivity().finish();
 
     }
@@ -180,31 +179,31 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
         switch (view.getId()) {
             case R.id.monday:
                 disableOrEnableDay(mondayEntity);
-                daySelected = "Lunes";
+                daySelected = "monday";
                 break;
             case R.id.tuesday:
                 disableOrEnableDay(tuesdayEntity);
-                daySelected = "Martes";
+                daySelected = "tuesday";
                 break;
             case R.id.wednesday:
                 disableOrEnableDay(wednesdayEntity);
-                daySelected = "Miércoles";
+                daySelected = "wednesday";
                 break;
             case R.id.thursday:
                 disableOrEnableDay(thursdayEntity);
-                daySelected = "Jueves";
+                daySelected = "thursday";
                 break;
             case R.id.friday:
                 disableOrEnableDay(fridayEntity);
-                daySelected = "Viernes";
+                daySelected = "friday";
                 break;
             case R.id.saturday:
                 disableOrEnableDay(saturdayEntity);
-                daySelected = "Sábado";
+                daySelected = "saturday";
                 break;
             case R.id.sunday:
                 disableOrEnableDay(sundayEntity);
-                daySelected = "Domingo";
+                daySelected = "sunday";
                 break;
             case R.id.switch_disable:
                 switchDisable.setChecked(true);
@@ -221,31 +220,31 @@ public class ScheduleFragment extends BaseFragment implements ScheduleContract.V
 
     private void getDayButton() {
         switch (daySelected) {
-            case "Lunes":
+            case "monday":
                 monday.setChecked(true);
                 onViewClicked(monday);
                 break;
-            case "Martes":
+            case "tuesday":
                 tuesday.setChecked(true);
                 onViewClicked(tuesday);
                 break;
-            case "Miércoles":
+            case "wednesday":
                 wednesday.setChecked(true);
                 onViewClicked(wednesday);
                 break;
-            case "Jueves":
+            case "thursday":
                 thursday.setChecked(true);
                 onViewClicked(thursday);
                 break;
-            case "Viernes":
+            case "friday":
                 friday.setChecked(true);
                 onViewClicked(friday);
                 break;
-            case "Sábado":
+            case "saturday":
                 saturday.setChecked(true);
                 onViewClicked(saturday);
                 break;
-            case "Domingo":
+            case "sunday":
                 sunday.setChecked(true);
                 onViewClicked(sunday);
                 break;

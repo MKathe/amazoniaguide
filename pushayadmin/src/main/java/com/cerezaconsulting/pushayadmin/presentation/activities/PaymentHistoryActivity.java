@@ -1,14 +1,30 @@
 package com.cerezaconsulting.pushayadmin.presentation.activities;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.CitiesFragment;
+import com.cerezaconsulting.pushayadmin.presentation.fragments.NoValidatedTravelFragment;
+import com.cerezaconsulting.pushayadmin.presentation.fragments.PaymenteGoalFragment;
+import com.cerezaconsulting.pushayadmin.presentation.fragments.PaymentePendientFragment;
+import com.cerezaconsulting.pushayadmin.presentation.fragments.ValidatedTravelFragment;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.CitiesPresenter;
 import com.cerezaconsulting.pushayadmin.utils.ActivityUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +36,9 @@ import butterknife.ButterKnife;
 public class PaymentHistoryActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +52,65 @@ public class PaymentHistoryActivity extends BaseActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.body);
 
-        /*CitiesFragment fragment = (CitiesFragment) getSupportFragmentManager()
+        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View activityView = layoutInflater.inflate(R.layout.layout_tab, null, false);
+        frameLayout.addView(activityView);
+        viewPager = (ViewPager) activityView.findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) activityView.findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+       /* HistoryTravelFragment fragment = (HistoryTravelFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.body);
 
         if (fragment == null) {
-            fragment = CitiesFragment.newInstance(getIntent().getExtras());
+            fragment = HistoryTravelFragment.newInstance();
 
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     fragment, R.id.body);
         }
-        new CitiesPresenter(fragment,this);*/
+        new HistoryTravelPresenter(fragment,this);*/
     }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new PaymentePendientFragment(), "NO PAGADO");
+        adapter.addFragment(new PaymenteGoalFragment(), "PAGADO");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

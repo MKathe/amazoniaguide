@@ -19,11 +19,13 @@ import com.cerezaconsulting.pushayadmin.core.BaseFragment;
 import com.cerezaconsulting.pushayadmin.core.RecyclerViewScrollListener;
 import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
-import com.cerezaconsulting.pushayadmin.presentation.adapters.ComingSoonAdapter;
+import com.cerezaconsulting.pushayadmin.presentation.adapters.PaymentHistoryAdapter;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.TodayAdapter;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.NoValidatedTravelContract;
+import com.cerezaconsulting.pushayadmin.presentation.contracts.PaymentContract;
+import com.cerezaconsulting.pushayadmin.presentation.contracts.ValidatedTravelContract;
 import com.cerezaconsulting.pushayadmin.presentation.dialogs.TravelDetailsDialog;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.NoValidatedTravelPresenter;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.PaymentValidatedPresenter;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.ValidatedTravelPresenter;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ import butterknife.Unbinder;
  * Created by katherine on 17/05/17.
  */
 
-public class ComingSoonFragment extends BaseFragment implements NoValidatedTravelContract.View {
+public class PaymenteGoalFragment extends BaseFragment implements PaymentContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
@@ -50,30 +52,31 @@ public class ComingSoonFragment extends BaseFragment implements NoValidatedTrave
     ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
 
-    private NoValidatedTravelContract.Presenter mPresenter;
-    private ComingSoonAdapter mAdapter;
+    private PaymentContract.Presenter mPresenter;
+    private PaymentHistoryAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private int id = 3;
+    private int id = 1;
     //private ProgressDialogCustom mProgressDialogCustom;
 
 
-    public ComingSoonFragment() {
+    public PaymenteGoalFragment() {
         // Requires empty public constructor
     }
+
     @Override
     public void onResume() {
         super.onResume();
         mPresenter.startLoad(id);
     }
 
-    public static ComingSoonFragment newInstance() {
-        return new ComingSoonFragment();
+    public static PaymenteGoalFragment newInstance() {
+        return new PaymenteGoalFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new NoValidatedTravelPresenter(this,getContext());
+        mPresenter = new PaymentValidatedPresenter(this,getContext());
 
     }
 
@@ -109,13 +112,13 @@ public class ComingSoonFragment extends BaseFragment implements NoValidatedTrave
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvList.setLayoutManager(mLayoutManager);
-        mAdapter = new ComingSoonAdapter(new ArrayList<ReservationEntity>() , getContext(), (PlaceItem) mPresenter);
+        mAdapter = new PaymentHistoryAdapter(new ArrayList<ReservationEntity>() , getContext(), (PlaceItem) mPresenter);
         rvList.setAdapter(mAdapter);
 
     }
 
     @Override
-    public void getListTravel(ArrayList<ReservationEntity> list) {
+    public void getListPayment(ArrayList<ReservationEntity> list) {
         mAdapter.setItems(list);
 
         if (list !=null){
@@ -139,7 +142,7 @@ public class ComingSoonFragment extends BaseFragment implements NoValidatedTrave
 
 
     @Override
-    public void showDetailsTravel(ReservationEntity reservationEntity) {
+    public void clickItemPayment(ReservationEntity reservationEntity) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("travel", reservationEntity);
         TravelDetailsDialog travelDetailsDialog = new TravelDetailsDialog(getContext(), bundle);
@@ -152,7 +155,7 @@ public class ComingSoonFragment extends BaseFragment implements NoValidatedTrave
     }
 
     @Override
-    public void setPresenter(NoValidatedTravelContract.Presenter mPresenter) {
+    public void setPresenter(PaymentContract.Presenter mPresenter) {
         this.mPresenter = mPresenter;
     }
 

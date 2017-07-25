@@ -2,6 +2,7 @@ package com.cerezaconsulting.pushay.presentation.contracts;
 
 import com.cerezaconsulting.pushay.core.BasePresenter;
 import com.cerezaconsulting.pushay.core.BaseView;
+import com.cerezaconsulting.pushay.data.entities.DestinyTravelEntity;
 import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushay.data.entities.SchedulesEntity;
 
@@ -14,7 +15,8 @@ import java.util.ArrayList;
 public interface ListSchedulesContract {
     interface View extends BaseView<Presenter> {
 
-        void getListSchedulesByDay(ArrayList<SchedulesEntity> list);
+        void getListGuideByDestiny(ArrayList<SchedulesEntity> list);
+
 
         void showDetailsTickets(SchedulesEntity schedulesEntity);
 
@@ -26,11 +28,14 @@ public interface ListSchedulesContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadOrdersFromPage(int page);
+        void loadOrdersFromPage(String destinyName, String date,int page);
 
-        void loadfromNextPage();
+        void loadfromNextPage(String destinyName, String date);
 
-        void loadList(int id);
+        void startLoad(String destinyName, String date);
+
+        void getListGuideByDestiny(String destinyName, String date, int page);
+
 
 
     }

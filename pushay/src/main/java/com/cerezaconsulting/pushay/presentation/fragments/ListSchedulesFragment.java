@@ -1,7 +1,9 @@
 package com.cerezaconsulting.pushay.presentation.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.cerezaconsulting.pushay.R;
@@ -21,6 +23,7 @@ import com.cerezaconsulting.pushay.core.RecyclerViewScrollListener;
 import com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout;
 import com.cerezaconsulting.pushay.data.entities.DestinyTravelEntity;
 import com.cerezaconsulting.pushay.data.entities.SchedulesEntity;
+import com.cerezaconsulting.pushay.presentation.activities.GuideDetailsActivity;
 import com.cerezaconsulting.pushay.presentation.activities.TicketsDetailActivity;
 import com.cerezaconsulting.pushay.presentation.adapters.ListSchedulesAdapter;
 import com.cerezaconsulting.pushay.presentation.contracts.ListSchedulesContract;
@@ -31,6 +34,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -39,10 +43,10 @@ import butterknife.Unbinder;
 
 public class ListSchedulesFragment extends BaseFragment implements ListSchedulesContract.View {
 
-    @BindView(R.id.sp_price)
-    Spinner spPrice;
-    @BindView(R.id.sp_stars)
-    Spinner spStars;
+    @BindView(R.id.btn_price)
+    RadioButton btnPrice;
+    @BindView(R.id.btn_stars)
+    RadioButton btnStars;
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     @BindView(R.id.noListIcon)
@@ -54,11 +58,14 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
     @BindView(R.id.refresh_layout)
     ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
+    @BindView(R.id.tv_destiny_name)
+    TextView tvDestinyName;
     private ListSchedulesAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     private ListSchedulesContract.Presenter mPresenter;
     private ProgressDialogCustom mProgressDialogCustom;
     private DestinyTravelEntity destinyTravelEntity;
+    private String date;
 
     public ListSchedulesFragment() {
         // Requires empty public constructor
@@ -67,7 +74,7 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
     @Override
     public void onResume() {
         super.onResume();
-        //mPresenter.start();
+        mPresenter.startLoad(destinyTravelEntity.getName(), date);
 
     }
 
@@ -80,7 +87,8 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        destinyTravelEntity = (DestinyTravelEntity) getArguments().getSerializable("destinyEntity");
+        destinyTravelEntity = (DestinyTravelEntity) getArguments().getSerializable("destinyTravelEntity");
+        date = getArguments().getString("date");
 
     }
 
@@ -88,7 +96,7 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_guides, container, false);
-        mPresenter.loadList(destinyTravelEntity.getId());
+
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
                 (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(
@@ -102,9 +110,11 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
             @Override
             public void onRefresh() {
                 //mPresenter.start();
-                // mPresenter.loadOrdersFromPage(1);
+                mPresenter.loadOrdersFromPage(destinyTravelEntity.getName(), date, 1);
             }
         });
+
+
 
         unbinder = ButterKnife.bind(this, root);
         return root;
@@ -113,16 +123,17 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
+        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Obteniendo datos...");
         mLayoutManager = new LinearLayoutManager(getContext());
         rvList.setLayoutManager(mLayoutManager);
         mAdapter = new ListSchedulesAdapter(new ArrayList<SchedulesEntity>(), getContext(), (SchedulesItem) mPresenter);
         rvList.setAdapter(mAdapter);
+        tvDestinyName.setText(destinyTravelEntity.getName());
     }
 
 
     @Override
-    public void getListSchedulesByDay(ArrayList<SchedulesEntity> list) {
+    public void getListGuideByDestiny(ArrayList<SchedulesEntity> list) {
         mAdapter.setItems(list);
 
         if (list != null) {
@@ -141,17 +152,19 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
 
             @Override
             public void onLoadMore() {
-                mPresenter.loadfromNextPage();
+                mPresenter.loadfromNextPage(destinyTravelEntity.getName(), date);
             }
         });
     }
+
 
     @Override
     public void showDetailsTickets(SchedulesEntity schedulesEntity) {
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("reservation", schedulesEntity);
-        next(getActivity(), bundle, TicketsDetailActivity.class, false);
+        bundle.putSerializable("schedulesEntity", schedulesEntity);
+        bundle.putString("date", date);
+        next(getActivity(), bundle, GuideDetailsActivity.class, false);
     }
 
     @Override
@@ -180,6 +193,14 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
                 srl.setRefreshing(active);
             }
         });
+
+        if (active) {
+            mProgressDialogCustom.show();
+        } else {
+            if (mProgressDialogCustom.isShowing()) {
+                mProgressDialogCustom.dismiss();
+            }
+        }
     }
 
     @Override
@@ -199,4 +220,20 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @OnClick({R.id.btn_price, R.id.btn_stars})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_price:
+                btnPrice.setTextColor(getResources().getColor(R.color.white, null));
+                btnStars.setTextColor(getResources().getColor(R.color.colorPrimaryDark, null));
+
+                break;
+            case R.id.btn_stars:
+                btnStars.setTextColor(getResources().getColor(R.color.white, null));
+                btnPrice.setTextColor(getResources().getColor(R.color.colorPrimaryDark, null));
+
+                break;
+        }
+    }
 }

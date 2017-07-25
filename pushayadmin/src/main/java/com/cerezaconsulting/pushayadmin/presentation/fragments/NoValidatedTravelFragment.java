@@ -19,7 +19,7 @@ import com.cerezaconsulting.pushayadmin.core.BaseFragment;
 import com.cerezaconsulting.pushayadmin.core.RecyclerViewScrollListener;
 import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
-import com.cerezaconsulting.pushayadmin.presentation.adapters.ComingSoonAdapter;
+import com.cerezaconsulting.pushayadmin.presentation.adapters.HistoryTravelAdapter;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.TodayAdapter;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.NoValidatedTravelContract;
 import com.cerezaconsulting.pushayadmin.presentation.dialogs.TravelDetailsDialog;
@@ -36,7 +36,7 @@ import butterknife.Unbinder;
  * Created by katherine on 17/05/17.
  */
 
-public class ComingSoonFragment extends BaseFragment implements NoValidatedTravelContract.View {
+public class NoValidatedTravelFragment extends BaseFragment implements NoValidatedTravelContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
@@ -51,23 +51,24 @@ public class ComingSoonFragment extends BaseFragment implements NoValidatedTrave
     Unbinder unbinder;
 
     private NoValidatedTravelContract.Presenter mPresenter;
-    private ComingSoonAdapter mAdapter;
+    private HistoryTravelAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private int id = 3;
+    private int id = 1;
     //private ProgressDialogCustom mProgressDialogCustom;
 
 
-    public ComingSoonFragment() {
+    public NoValidatedTravelFragment() {
         // Requires empty public constructor
     }
+
     @Override
     public void onResume() {
         super.onResume();
         mPresenter.startLoad(id);
     }
 
-    public static ComingSoonFragment newInstance() {
-        return new ComingSoonFragment();
+    public static NoValidatedTravelFragment newInstance() {
+        return new NoValidatedTravelFragment();
     }
 
     @Override
@@ -109,7 +110,7 @@ public class ComingSoonFragment extends BaseFragment implements NoValidatedTrave
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvList.setLayoutManager(mLayoutManager);
-        mAdapter = new ComingSoonAdapter(new ArrayList<ReservationEntity>() , getContext(), (PlaceItem) mPresenter);
+        mAdapter = new HistoryTravelAdapter(new ArrayList<ReservationEntity>() , getContext(), (PlaceItem) mPresenter);
         rvList.setAdapter(mAdapter);
 
     }
@@ -136,7 +137,6 @@ public class ComingSoonFragment extends BaseFragment implements NoValidatedTrave
             }
         });
     }
-
 
     @Override
     public void showDetailsTravel(ReservationEntity reservationEntity) {

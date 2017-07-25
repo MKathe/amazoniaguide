@@ -32,10 +32,13 @@ public interface ListRequest {
     Call<TrackHolderEntity<DestinyTravelEntity>> getDestiny(@Path("pk") int id,
                                                             @Query("page") int numberPage);
 
-    @GET("listschedulebydestinies/{pk}/")
-    Call<TrackHolderEntity<SchedulesEntity>> getListSchedules(@Path("pk") int id);
-
+    @GET("list/{date}/schedulebydate/")
+    Call<TrackHolderEntity<SchedulesEntity>> getListSchedules(@Header("Authorization") String token,
+                                                              @Path("date") String date,
+                                                              @Query("search") String destinyName,
+                                                              @Query("page") int numberPage);
     @GET("myreservation/")
-    Call<TrackHolderEntity<ReservationEntity>> getReservation(@Header("Authorization") String token);
+    Call<TrackHolderEntity<ReservationEntity>> getReservation(@Header("Authorization") String token,
+                                                              @Query("page") int numberPage);
 
 }

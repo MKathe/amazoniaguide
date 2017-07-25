@@ -49,7 +49,7 @@ ext {
     eventBusVersion='3.0.0'
     calligraphyVersion = '2.2.0'
     saripaarVersion = '2.0.3'
-    googleServiceVersion = '9.0.2'
+    googleServiceVersion = '9.4.0'
     facebookVersion = '4.19.0'
     firebaseVersion = '9.0.2'
     materialPickerVersion = "2.3.0"
@@ -57,6 +57,7 @@ ext {
     guavaVersion = '18.0'
     interceptorVersion = '3.6.0'
     zxingVersion = '1.9'
+    iabVersion = '1.0.+'
 
 
     //import all support design libraries
@@ -80,6 +81,9 @@ ext {
 
     ]
 
+
+
+
     imagesLoader = [
             glide :  "com.github.bumptech.glide:glide:${glideVersion}"
     ]
@@ -89,7 +93,8 @@ ext {
             location :  "com.google.android.gms:play-services-location:${googleServiceVersion}",
             auth :  "com.google.android.gms:play-services-auth:${googleServiceVersion}",
             plus :  "com.google.android.gms:play-services-plus:${googleServiceVersion}",
-            allServices :  "'com.google.android.gms:play-services':${googleServiceVersion}"
+            allServices :  "'com.google.android.gms:play-services':${googleServiceVersion}",
+            wallet : "com.google.android.gms:play-services-wallet:${googleServiceVersion}"
     ]
 
     firebase = [
@@ -123,8 +128,8 @@ ext {
             multidex : "com.android.support:multidex:${multidexVersion}",
             guava : "com.google.guava:guava:${guavaVersion}",
             qrScanner : "me.dm7.barcodescanner:zxing:${zxingVersion}",
-            pagerindicator: "com.github.JakeWharton:ViewPagerIndicator:${viewPageIndicatorVersion}"
-
+            pagerindicator: "com.github.JakeWharton:ViewPagerIndicator:${viewPageIndicatorVersion}",
+            iab : "com.anjlab.android.iab.v3:library:${iabVersion}"
 
     ]
 }

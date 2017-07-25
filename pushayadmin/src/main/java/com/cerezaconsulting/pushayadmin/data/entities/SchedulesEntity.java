@@ -92,7 +92,7 @@ public class SchedulesEntity implements Serializable {
     }
 
     public String getPriceNormal(){
-        return "S/. "+price_normal;
+        return "S/. "+price_normal + "c/u.";
     }
 
     public void setPrice_normal(float price_normal) {

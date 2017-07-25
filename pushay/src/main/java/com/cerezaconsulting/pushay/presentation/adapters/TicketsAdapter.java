@@ -66,10 +66,14 @@ public class TicketsAdapter extends LoaderAdapter<ReservationEntity> implements 
         ReservationEntity ticketEntity = getItems().get(position);
         ((ViewHolder) holder).tvDate.setText(ticketEntity.getDay());
         ((ViewHolder) holder).tvNameCity.setText(ticketEntity.getSchedules().getDestiny().getName());
-        Glide.with(context)
-                .load(ticketEntity.getSchedules().getDestiny().getImage_1())
-                .transform(new CircleTransform(context))
-                .into(((ViewHolder) holder).imPerfil);
+
+        if(ticketEntity.getSchedules().getGuide().getPicture()!=null){
+            Glide.with(context)
+                    .load(ticketEntity.getSchedules().getDestiny().getImage_1())
+                    .transform(new CircleTransform(context))
+                    .into(((ViewHolder) holder).imPerfil);
+        }
+
     }
 
     @Override

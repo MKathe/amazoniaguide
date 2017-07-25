@@ -1,15 +1,15 @@
-package com.cerezaconsulting.pushayadmin.presentation.presenters;
+package com.cerezaconsulting.pushay.presentation.presenters;
 
 import android.content.Context;
 
-import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.trackholder.TrackHolderEntity;
-import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
-import com.cerezaconsulting.pushayadmin.data.remote.ServiceFactory;
-import com.cerezaconsulting.pushayadmin.data.remote.request.ListRequest;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.HistoryTravelContract;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.PaymentHistoryContract;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
+
+import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
+import com.cerezaconsulting.pushay.data.entities.trackholder.TrackHolderEntity;
+import com.cerezaconsulting.pushay.data.local.SessionManager;
+import com.cerezaconsulting.pushay.data.remote.ServiceFactory;
+import com.cerezaconsulting.pushay.data.remote.request.ListRequest;
+import com.cerezaconsulting.pushay.presentation.contracts.HistoryTravelContract;
+import com.cerezaconsulting.pushay.presentation.presenters.commons.PlaceItem;
 
 import java.util.ArrayList;
 
@@ -21,15 +21,15 @@ import retrofit2.Response;
  * Created by katherine on 24/05/17.
  */
 
-public class PaymentHistoryPresenter implements PaymentHistoryContract.Presenter, PlaceItem{
+public class HistoryTravelPresenter implements HistoryTravelContract.Presenter, PlaceItem {
 
-    private final PaymentHistoryContract.View mView;
+    private final HistoryTravelContract.View mView;
     private final SessionManager mSessionManager;
     private Context context;
     private boolean firstLoad = false;
     private int currentPage = 1;
 
-    public PaymentHistoryPresenter(PaymentHistoryContract.View mView, Context context) {
+    public HistoryTravelPresenter(HistoryTravelContract.View mView, Context context) {
         this.mView = mView;
         this.mSessionManager = new SessionManager(context);
         this.mView.setPresenter(this);
@@ -46,21 +46,21 @@ public class PaymentHistoryPresenter implements PaymentHistoryContract.Presenter
 
     @Override
     public void loadOrdersFromPage(int page) {
-        loadPaymentList(mSessionManager.getUserToken(), page);
+        loadTravelList(mSessionManager.getUserToken(), page);
     }
 
     @Override
     public void loadFromNextPage() {
 
         if (currentPage > 0)
-            loadPaymentList(mSessionManager.getUserToken(), currentPage);
+            loadTravelList(mSessionManager.getUserToken(), currentPage);
     }
 
     @Override
-    public void loadPaymentList(String token, final int page) {
+    public void loadTravelList(String token, final int page) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
-        Call<TrackHolderEntity<ReservationEntity>> reservation = listRequest.getMyPayment("Token "+mSessionManager.getUserToken(), page);
+        Call<TrackHolderEntity<ReservationEntity>> reservation = listRequest.getReservation("Token "+mSessionManager.getUserToken(), page);
         reservation.enqueue(new Callback<TrackHolderEntity<ReservationEntity>>() {
             @Override
             public void onResponse(Call<TrackHolderEntity<ReservationEntity>> call, Response<TrackHolderEntity<ReservationEntity>> response) {
@@ -94,7 +94,6 @@ public class PaymentHistoryPresenter implements PaymentHistoryContract.Presenter
         });
     }
 
-
     public void getHistoryTravel(ArrayList<ReservationEntity> list){
 
         ArrayList<ReservationEntity> newList = new ArrayList<>();
@@ -102,11 +101,10 @@ public class PaymentHistoryPresenter implements PaymentHistoryContract.Presenter
         for (int i = 0; i <list.size() ; i++) {
 
             if(list.get(i).is_confirm()){
-
                 newList.add(list.get(i));
             }
         }
-       // mView.getTravelList(newList);
+        mView.getTravelList(newList);
     }
     @Override
     public void clickItem(ReservationEntity reservationEntity) {

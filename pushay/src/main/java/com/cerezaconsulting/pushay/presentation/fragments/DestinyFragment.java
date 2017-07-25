@@ -1,4 +1,5 @@
 package com.cerezaconsulting.pushay.presentation.fragments;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +21,7 @@ import com.cerezaconsulting.pushay.core.RecyclerViewScrollListener;
 import com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout;
 import com.cerezaconsulting.pushay.data.entities.CityEntity;
 import com.cerezaconsulting.pushay.data.entities.DestinyTravelEntity;
+import com.cerezaconsulting.pushay.presentation.activities.ListSchedulesActivity;
 import com.cerezaconsulting.pushay.presentation.adapters.DestinyAdapter;
 import com.cerezaconsulting.pushay.presentation.contracts.DestinyContract;
 import com.cerezaconsulting.pushay.presentation.presenters.commons.DestinyItem;
@@ -39,7 +41,6 @@ import butterknife.Unbinder;
 
 public class DestinyFragment extends BaseFragment implements DestinyContract.View, DatePickerDialog.OnDateSetListener {
 
-
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     @BindView(R.id.noListIcon)
@@ -57,6 +58,9 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
     private DestinyContract.Presenter mPresenter;
     private ProgressDialogCustom mProgressDialogCustom;
     private DatePickerDialog datePickerDialog;
+
+    private String date;
+    private DestinyTravelEntity sendDestinyTravelEntity;
 
 
     public DestinyFragment() {
@@ -123,7 +127,6 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
         );
     }
 
-
     @Override
     public void getDestiny(ArrayList<DestinyTravelEntity> list) {
         mAdapter.setItems(list);
@@ -152,6 +155,8 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
 
     @Override
     public void clickItemDestiny(DestinyTravelEntity destinyTravelEntity) {
+
+        sendDestinyTravelEntity = destinyTravelEntity;
 
         datePickerDialog.setTitle("ELija su fecha de viaje");
         datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
@@ -213,8 +218,11 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
-        Toast.makeText(getContext(), date , Toast.LENGTH_SHORT).show();
+        date = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
+        Bundle bundle = new Bundle();
+        bundle.putString("date", date);
+        bundle.putSerializable("destinyTravelEntity", sendDestinyTravelEntity);
+        next(getActivity(),bundle, ListSchedulesActivity.class , true);
     }
 
 }

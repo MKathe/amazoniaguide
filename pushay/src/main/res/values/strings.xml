@@ -34,8 +34,8 @@
     <string name="decript_guide">descripción</string>
 
     //Paid Ticket
-    <string name="detail">*No te olvides de presentar tu código QR al \nguía para empezar
-    y finalizar tu paseo guiado</string>
+    <string name="detail">*No te olvides de presentar tu código al guía \ncuando
+        finalice tu recorrido para validarlo. </string>
     <string name="thanks">¡Qué disfrutes tu viaje!</string>
 
     //Buy Ticket
@@ -48,6 +48,18 @@
     <string name="title_register">Hola! </string>
     <string name="title_2">Gracias por registrarte como guía en Pushay </string>
     <string name="confirm">Te estaremos contactando en los próximos días para validar tus datos</string>
+
+
+
+    //Details strings
+    <string name="locality">Lugar de encuentro</string>
+    <string name="hour">Hora de encuentro</string>
+    <string name="status">NO VALIDADO</string>
+    <string name="price">PRECIO</string>
+    <string name="stars">CALIFICACIÓN</string>
+    <string name="name_guide">Nombre del guía: </string>
+    <string name="pay_total">Precio del viaje: </string>
+    <string name="date_travel">Fecha del viaje: </string>
 
 
 </resources>

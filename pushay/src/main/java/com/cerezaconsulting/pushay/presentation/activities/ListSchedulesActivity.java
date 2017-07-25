@@ -29,7 +29,7 @@ public class ListSchedulesActivity extends BaseActivity{
         setContentView(R.layout.activity_back);
         ButterKnife.bind(this);
 
-        toolbar.setTitle("Elige la ciudad");
+        toolbar.setTitle("Elige a tu guía");
 
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();

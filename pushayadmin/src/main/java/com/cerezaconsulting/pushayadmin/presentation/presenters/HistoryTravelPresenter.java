@@ -8,7 +8,6 @@ import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.data.remote.ServiceFactory;
 import com.cerezaconsulting.pushayadmin.data.remote.request.ListRequest;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.HistoryTravelContract;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.TodayContract;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 
 import java.util.ArrayList;

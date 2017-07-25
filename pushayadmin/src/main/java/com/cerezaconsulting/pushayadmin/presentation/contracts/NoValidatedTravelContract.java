@@ -11,10 +11,10 @@ import java.util.ArrayList;
  * Created by katherine on 17/05/17.
  */
 
-public interface TodayContract {
+public interface NoValidatedTravelContract {
     interface View extends BaseView<Presenter> {
 
-        void getTodayList(ArrayList<ReservationEntity> list);
+        void getListTravel(ArrayList<ReservationEntity> list);
 
         void showDetailsTravel(ReservationEntity reservationEntity);
 
@@ -26,11 +26,13 @@ public interface TodayContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadOrdersFromPage(int page);
+        void loadOrdersFromPage(int id, int page);
 
-        void loadFromNextPage();
+        void loadFromNextPage(int id);
 
-        void loadList(String token, final int page);
+        void startLoad(int id);
+
+        void loadListTravel(int id, final int page);
 
 
     }

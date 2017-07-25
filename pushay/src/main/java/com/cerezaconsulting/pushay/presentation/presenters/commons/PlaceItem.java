@@ -1,6 +1,7 @@
 package com.cerezaconsulting.pushay.presentation.presenters.commons;
 
 import com.cerezaconsulting.pushay.data.entities.PlacesEntity;
+import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
 
 /**
  * Created by katherine on 24/04/17.
@@ -8,7 +9,7 @@ import com.cerezaconsulting.pushay.data.entities.PlacesEntity;
 
 public interface PlaceItem {
 
-    void clickItem(PlacesEntity placesEntity);
+    void clickItem(ReservationEntity reservationEntity);
 
-    void deleteItem(PlacesEntity placesEntity, int position);
+    void deleteItem(ReservationEntity reservationEntity, int position);
 }

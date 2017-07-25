@@ -10,12 +10,7 @@
         android:background="@drawable/background_free"
         android:scaleType="centerInside" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></RelativeLayout>
-
-
-    <FrameLayout
+       <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -138,8 +133,6 @@
                         android:text="@string/forgot_password"
                         android:textColor="@color/white"
                         android:textSize="13sp" />
-
-
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

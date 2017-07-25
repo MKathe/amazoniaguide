@@ -1,4 +1,4 @@
-package com.cerezaconsulting.pushayadmin.presentation.fragments;
+package com.cerezaconsulting.pushay.presentation.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,18 +13,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.cerezaconsulting.pushayadmin.R;
-import com.cerezaconsulting.pushayadmin.core.BaseActivity;
-import com.cerezaconsulting.pushayadmin.core.BaseFragment;
-import com.cerezaconsulting.pushayadmin.core.RecyclerViewScrollListener;
-import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
-import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
-import com.cerezaconsulting.pushayadmin.presentation.adapters.ComingSoonAdapter;
-import com.cerezaconsulting.pushayadmin.presentation.adapters.TodayAdapter;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.NoValidatedTravelContract;
-import com.cerezaconsulting.pushayadmin.presentation.dialogs.TravelDetailsDialog;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.NoValidatedTravelPresenter;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
+import com.cerezaconsulting.pushay.R;
+import com.cerezaconsulting.pushay.core.BaseActivity;
+import com.cerezaconsulting.pushay.core.BaseFragment;
+import com.cerezaconsulting.pushay.core.RecyclerViewScrollListener;
+import com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout;
+import com.cerezaconsulting.pushay.data.entities.ReservationEntity;
+import com.cerezaconsulting.pushay.presentation.adapters.HistoryTravelAdapter;
+import com.cerezaconsulting.pushay.presentation.contracts.HistoryTravelContract;
+import com.cerezaconsulting.pushay.presentation.presenters.commons.PlaceItem;
+import com.cerezaconsulting.pushay.utils.ProgressDialogCustom;
 
 import java.util.ArrayList;
 
@@ -33,48 +31,45 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by katherine on 17/05/17.
+ * Created by katherine on 19/07/17.
  */
 
-public class ComingSoonFragment extends BaseFragment implements NoValidatedTravelContract.View {
+public class HistoryTravelFragment extends BaseFragment implements HistoryTravelContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
-    @BindView(R.id.noPlacesIcon)
-    ImageView noPlacesIcon;
-    @BindView(R.id.noPLacesMain)
-    TextView noPLacesMain;
-    @BindView(R.id.noPlaces)
-    LinearLayout noPlaces;
+    @BindView(R.id.noListIcon)
+    ImageView noListIcon;
+    @BindView(R.id.noListMain)
+    TextView noListMain;
+    @BindView(R.id.noList)
+    LinearLayout noList;
     @BindView(R.id.refresh_layout)
     ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
-
-    private NoValidatedTravelContract.Presenter mPresenter;
-    private ComingSoonAdapter mAdapter;
+    private HistoryTravelContract.Presenter mPresenter;
+    private HistoryTravelAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private int id = 3;
-    //private ProgressDialogCustom mProgressDialogCustom;
+    private ProgressDialogCustom mProgressDialogCustom;
 
 
-    public ComingSoonFragment() {
+    public HistoryTravelFragment() {
         // Requires empty public constructor
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.startLoad(id);
+        mPresenter.start();
     }
 
-    public static ComingSoonFragment newInstance() {
-        return new ComingSoonFragment();
+    public static HistoryTravelFragment newInstance() {
+        return new HistoryTravelFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new NoValidatedTravelPresenter(this,getContext());
-
     }
 
     @Nullable
@@ -95,7 +90,7 @@ public class ComingSoonFragment extends BaseFragment implements NoValidatedTrave
             @Override
             public void onRefresh() {
                 //mPresenter.start();
-                mPresenter.loadOrdersFromPage(id,1);
+                mPresenter.loadOrdersFromPage(1);
             }
         });
 
@@ -106,53 +101,57 @@ public class ComingSoonFragment extends BaseFragment implements NoValidatedTrave
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Obteniendo datos...");
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvList.setLayoutManager(mLayoutManager);
-        mAdapter = new ComingSoonAdapter(new ArrayList<ReservationEntity>() , getContext(), (PlaceItem) mPresenter);
+        mAdapter = new HistoryTravelAdapter(new ArrayList<ReservationEntity>(), getContext(), (PlaceItem) mPresenter);
         rvList.setAdapter(mAdapter);
 
     }
 
+   /* @Override
+    public void showDetailsTravel(ReservationEntity reservationEntity) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("travel", reservationEntity);
+        TravelDetailsDialog travelDetailsDialog = new TravelDetailsDialog(getContext(), bundle);
+        travelDetailsDialog.show();
+    }*/
+
     @Override
-    public void getListTravel(ArrayList<ReservationEntity> list) {
+    public void getTravelList(ArrayList<ReservationEntity> list) {
         mAdapter.setItems(list);
 
-        if (list !=null){
-            noPlaces.setVisibility((list.size()>0) ? View.GONE : View.VISIBLE);
+        if (list != null) {
+            noList.setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
         }
         rvList.addOnScrollListener(new RecyclerViewScrollListener() {
             @Override
             public void onScrollUp() {
 
             }
+
             @Override
             public void onScrollDown() {
 
             }
+
             @Override
             public void onLoadMore() {
-                mPresenter.loadFromNextPage(id);
+                mPresenter.loadFromNextPage();
             }
         });
     }
 
 
     @Override
-    public void showDetailsTravel(ReservationEntity reservationEntity) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("travel", reservationEntity);
-        TravelDetailsDialog travelDetailsDialog = new TravelDetailsDialog(getContext(), bundle);
-        travelDetailsDialog.show();
-    }
-
-    @Override
     public boolean isActive() {
         return isAdded();
     }
 
+
     @Override
-    public void setPresenter(NoValidatedTravelContract.Presenter mPresenter) {
+    public void setPresenter(HistoryTravelContract.Presenter mPresenter) {
         this.mPresenter = mPresenter;
     }
 
@@ -171,6 +170,14 @@ public class ComingSoonFragment extends BaseFragment implements NoValidatedTrave
                 srl.setRefreshing(active);
             }
         });
+
+        if (active) {
+            mProgressDialogCustom.show();
+        } else {
+            if (mProgressDialogCustom.isShowing()) {
+                mProgressDialogCustom.dismiss();
+            }
+        }
     }
 
     @Override
@@ -187,5 +194,6 @@ public class ComingSoonFragment extends BaseFragment implements NoValidatedTrave
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+
     }
 }

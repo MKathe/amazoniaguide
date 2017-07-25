@@ -37,8 +37,9 @@
 
             <ImageView
                 android:id="@+id/im_photo"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:src="@drawable/photo_guide" />
 
             <LinearLayout
@@ -46,6 +47,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_guide"
+                    android:textSize="@dimen/normal_text" />
+
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -57,42 +65,9 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/title_tv_locality"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/locality"
-                    android:textSize="@dimen/normal_text" />
-
-                <TextView
-                    android:id="@+id/tv_locality"
-                    fontPath="fonts/Gotham-Medium.otf"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Paquete"
-                    android:textSize="@dimen/normal_text" />
-
-                <TextView
-                    android:id="@+id/title_tc_hour"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/hour"
-                    android:textSize="@dimen/normal_text" />
-
-                <TextView
-                    android:id="@+id/tv_hour"
-                    fontPath="fonts/Gotham-Medium.otf"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Paquete"
-                    android:textSize="@dimen/normal_text"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/title_tv_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fecha de viaje: "
-                    android:visibility="gone"
+                    android:text="@string/date_travel"
                     android:textSize="@dimen/normal_text" />
 
                 <TextView
@@ -101,7 +76,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Paquete"
-                    android:visibility="gone"
+                    android:textSize="@dimen/normal_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pay_total"
+                    android:textSize="@dimen/normal_text" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    fontPath="fonts/Gotham-Medium.otf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Paquete"
                     android:textSize="@dimen/normal_text"
                     android:textStyle="bold" />
 

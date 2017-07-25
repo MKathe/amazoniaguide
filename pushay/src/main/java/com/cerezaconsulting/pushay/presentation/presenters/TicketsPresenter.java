@@ -60,7 +60,7 @@ public class TicketsPresenter implements TicketsContract.Presenter, TicketItem {
     public void loadList(String token, final int page) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
-        Call<TrackHolderEntity<ReservationEntity>> reservation = listRequest.getReservation("Token " + token);
+        Call<TrackHolderEntity<ReservationEntity>> reservation = listRequest.getReservation("Token " + token, page);
         reservation.enqueue(new Callback<TrackHolderEntity<ReservationEntity>>() {
             @Override
             public void onResponse(Call<TrackHolderEntity<ReservationEntity>> call, Response<TrackHolderEntity<ReservationEntity>> response) {

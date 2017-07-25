@@ -6,6 +6,7 @@
         android:background="@color/white">
         <ImageView
             android:id="@+id/im_close"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_gravity="right"
             android:layout_height="wrap_content"
@@ -13,8 +14,8 @@
             android:tint="@color/black"/>
         <ImageView
             android:layout_marginTop="30dp"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:src="@mipmap/ic_launcher"/>
 

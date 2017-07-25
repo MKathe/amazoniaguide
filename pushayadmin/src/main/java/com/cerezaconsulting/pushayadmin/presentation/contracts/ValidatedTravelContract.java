@@ -1,20 +1,23 @@
 package com.cerezaconsulting.pushayadmin.presentation.contracts;
 
+
 import com.cerezaconsulting.pushayadmin.core.BasePresenter;
 import com.cerezaconsulting.pushayadmin.core.BaseView;
-import com.cerezaconsulting.pushayadmin.data.entities.DestinyTravelEntity;
+import com.cerezaconsulting.pushayadmin.data.entities.CountryEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
 
 import java.util.ArrayList;
 
 /**
- * Created by katherine on 17/05/17.
+ * Created by katherine on 12/05/17.
  */
 
-public interface ComingSoonContract {
+public interface ValidatedTravelContract {
     interface View extends BaseView<Presenter> {
 
-        void getComingSoonList(ArrayList<ReservationEntity> list);
+        void getListTravel(ArrayList<ReservationEntity> list);
+
+        void clickItemTravel(ReservationEntity reservationEntity);
 
         boolean isActive();
 
@@ -24,10 +27,12 @@ public interface ComingSoonContract {
 
     interface Presenter extends BasePresenter {
 
+
         void loadOrdersFromPage(int page);
 
-        void loadfromNextPage();
+        void loadFromNextPage();
 
-        void loadList();
+        void getListTravel(int page);
+
     }
 }

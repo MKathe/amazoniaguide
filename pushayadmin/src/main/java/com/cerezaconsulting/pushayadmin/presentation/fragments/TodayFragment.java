@@ -20,9 +20,9 @@ import com.cerezaconsulting.pushayadmin.core.RecyclerViewScrollListener;
 import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.TodayAdapter;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.TodayContract;
+import com.cerezaconsulting.pushayadmin.presentation.contracts.NoValidatedTravelContract;
 import com.cerezaconsulting.pushayadmin.presentation.dialogs.TravelDetailsDialog;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.TodayPresenter;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.NoValidatedTravelPresenter;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ import butterknife.Unbinder;
  * Created by katherine on 17/05/17.
  */
 
-public class TodayFragment extends BaseFragment implements TodayContract.View {
+public class TodayFragment extends BaseFragment implements NoValidatedTravelContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
@@ -49,9 +49,10 @@ public class TodayFragment extends BaseFragment implements TodayContract.View {
     ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
 
-    private TodayContract.Presenter mPresenter;
+    private NoValidatedTravelContract.Presenter mPresenter;
     private TodayAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
+    private int id = 2;
     //private ProgressDialogCustom mProgressDialogCustom;
 
 
@@ -62,7 +63,7 @@ public class TodayFragment extends BaseFragment implements TodayContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.start();
+        mPresenter.startLoad(id);
     }
 
     public static TodayFragment newInstance() {
@@ -72,7 +73,7 @@ public class TodayFragment extends BaseFragment implements TodayContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new TodayPresenter(this,getContext());
+        mPresenter = new NoValidatedTravelPresenter(this,getContext());
 
     }
 
@@ -94,7 +95,7 @@ public class TodayFragment extends BaseFragment implements TodayContract.View {
             @Override
             public void onRefresh() {
                 //mPresenter.start();
-                mPresenter.loadOrdersFromPage(1);
+                mPresenter.loadOrdersFromPage(id,1);
             }
         });
 
@@ -114,7 +115,7 @@ public class TodayFragment extends BaseFragment implements TodayContract.View {
     }
 
     @Override
-    public void getTodayList(ArrayList<ReservationEntity> list) {
+    public void getListTravel(ArrayList<ReservationEntity> list) {
         mAdapter.setItems(list);
 
         if (list !=null){
@@ -131,7 +132,7 @@ public class TodayFragment extends BaseFragment implements TodayContract.View {
             }
             @Override
             public void onLoadMore() {
-                mPresenter.loadFromNextPage();
+                mPresenter.loadFromNextPage(id);
             }
         });
     }
@@ -150,7 +151,7 @@ public class TodayFragment extends BaseFragment implements TodayContract.View {
     }
 
     @Override
-    public void setPresenter(TodayContract.Presenter mPresenter) {
+    public void setPresenter(NoValidatedTravelContract.Presenter mPresenter) {
         this.mPresenter = mPresenter;
     }
 

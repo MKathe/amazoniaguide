@@ -67,7 +67,7 @@ public class TravelDetailsDialog extends AlertDialog {
         tvUserName.setText(reservationEntity.getUserEntity().getFullName());
         tvDescriptTravel.setText(reservationEntity.getSchedules().getDestiny().getDescription());
         tvNameDetailTravel.setText(reservationEntity.getSchedules().getDestiny().getName());
-        tvCount.setText(reservationEntity.getNum_coupons());
+        tvCount.setText(reservationEntity.getNum_coupons()+"");
 
     }
 

@@ -19,8 +19,16 @@ public class ReservationEntity implements Serializable {
     private boolean is_confirm;
     private String status;
     private boolean payment_status;
-    private int compare;
+    private float pay_total;
 
+
+    public float getPay_total() {
+        return pay_total;
+    }
+
+    public void setPay_total(float pay_total) {
+        this.pay_total = pay_total;
+    }
 
     public boolean isPayment_status() {
         return payment_status;
@@ -87,56 +95,16 @@ public class ReservationEntity implements Serializable {
         this.status = status;
     }
 
-    public int compareTo(){
+    public String getDay(){
         Date tempDate = null;
         SimpleDateFormat parseDateFromServer= new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat parseDateForShowDetail =  new SimpleDateFormat("dd'/'MMMM'/'yyyy", new Locale("es","ES"));
-
+        SimpleDateFormat parseDateForShowDetail =  new SimpleDateFormat("dd' de 'MMMM' del 'yyyy", new Locale("es","ES"));
         try {
             tempDate = parseDateFromServer.parse(getDate());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd'/'MMMM'/'yyyy", new Locale("es","ES"));
-        String today = format.format(date);
-
-
-        if(parseDateForShowDetail.format(tempDate).compareTo(today)==0){
-            compare = 1;
-        }else{
-            if(parseDateForShowDetail.format(tempDate).compareTo(today)>0){
-                compare = 3;
-            }else{
-                compare = 2;
-            }
-
-        }
-        return  compare;
+        return parseDateForShowDetail.format(tempDate);
     }
-    public boolean isEquals(){
-        Date tempDate = null;
-        SimpleDateFormat parseDateFromServer= new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat parseDateForShowDetail =  new SimpleDateFormat("dd'/'MMMM'/'yyyy", new Locale("es","ES"));
-
-        try {
-            tempDate = parseDateFromServer.parse(getDate());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd'/'MMMM'/'yyyy", new Locale("es","ES"));
-        String today = format.format(date);
-
-
-        if(parseDateForShowDetail.format(tempDate).compareTo(today)==0){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
 
 }

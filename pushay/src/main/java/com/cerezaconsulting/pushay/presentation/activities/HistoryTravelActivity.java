@@ -1,4 +1,4 @@
-package com.cerezaconsulting.pushayadmin.presentation.activities;
+package com.cerezaconsulting.pushay.presentation.activities;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,11 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.cerezaconsulting.pushayadmin.R;
-import com.cerezaconsulting.pushayadmin.core.BaseActivity;
-import com.cerezaconsulting.pushayadmin.presentation.fragments.ComingSoonFragment;
-import com.cerezaconsulting.pushayadmin.presentation.fragments.NoValidatedTravelFragment;
-import com.cerezaconsulting.pushayadmin.presentation.fragments.ValidatedTravelFragment;
+import com.cerezaconsulting.pushay.R;
+import com.cerezaconsulting.pushay.core.BaseActivity;
+import com.cerezaconsulting.pushay.presentation.fragments.HistoryTravelFragment;
+import com.cerezaconsulting.pushay.presentation.presenters.HistoryTravelPresenter;
+import com.cerezaconsulting.pushay.utils.ActivityUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class HistoryTravelActivity extends BaseActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
 
-        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.body);
+        /*FrameLayout frameLayout = (FrameLayout) findViewById(R.id.body);
 
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View activityView = layoutInflater.inflate(R.layout.layout_tab, null, false);
@@ -58,9 +58,9 @@ public class HistoryTravelActivity extends BaseActivity {
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) activityView.findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);*/
 
-       /* HistoryTravelFragment fragment = (HistoryTravelFragment) getSupportFragmentManager()
+       HistoryTravelFragment fragment = (HistoryTravelFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.body);
 
         if (fragment == null) {
@@ -69,13 +69,13 @@ public class HistoryTravelActivity extends BaseActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     fragment, R.id.body);
         }
-        new HistoryTravelPresenter(fragment,this);*/
+        new HistoryTravelPresenter(fragment,this);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+  /*  private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ValidatedTravelFragment(), "VALIDADO");
-        adapter.addFragment(new NoValidatedTravelFragment(), "NO VALIDADO");
+        adapter.addFragment(new ComingSoonFragment(), "NO VALIDADO");
         viewPager.setAdapter(adapter);
     }
 
@@ -106,7 +106,7 @@ public class HistoryTravelActivity extends BaseActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-    }
+    }*/
 
 
     @Override

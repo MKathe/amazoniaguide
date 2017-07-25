@@ -141,13 +141,9 @@
                     android:background="@drawable/radio_button_group"
                     android:button="@null"
                     android:text="@string/female"/>
-
-
             </RadioGroup>
 
-
             <Button
-
                 android:id="@+id/btn_create"
                 android:layout_width="300dp"
                 android:layout_height="35dp"

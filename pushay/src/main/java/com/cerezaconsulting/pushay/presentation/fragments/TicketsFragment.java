@@ -102,7 +102,7 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Ingresando...");
+        mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Obteniendo datos...");
         mLayoutManager = new LinearLayoutManager(getContext());
         rvList.setLayoutManager(mLayoutManager);
         mAdapter = new TicketsAdapter(new ArrayList<ReservationEntity>(), getContext(), (TicketItem) mPresenter);
@@ -166,6 +166,14 @@ public class TicketsFragment extends BaseFragment implements TicketsContract.Vie
                 srl.setRefreshing(active);
             }
         });
+
+        if (active) {
+            mProgressDialogCustom.show();
+        } else {
+            if (mProgressDialogCustom.isShowing()) {
+                mProgressDialogCustom.dismiss();
+            }
+        }
     }
 
     @Override

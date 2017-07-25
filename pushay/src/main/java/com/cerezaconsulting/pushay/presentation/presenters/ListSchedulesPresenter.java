@@ -13,6 +13,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 
 /**
  * Created by katherine on 31/05/17.
@@ -27,28 +29,55 @@ public class ListSchedulesPresenter implements ListSchedulesContract.Presenter, 
     private int currentPage = 1;
 
     public ListSchedulesPresenter(ListSchedulesContract.View mView, Context context) {
-        this.mView = mView;
-        this.mSessionManager = new SessionManager(context);
+        this.context = checkNotNull(context, "context cannot be null!");
+        this.mView = checkNotNull(mView, "view cannot be null!");
         this.mView.setPresenter(this);
+        this.mSessionManager = new SessionManager(this.context);
 
     }
 
 
     @Override
-    public void loadOrdersFromPage(int page) {
+    public void start() {
 
     }
 
     @Override
-    public void loadfromNextPage() {
+    public void clickItem(SchedulesEntity schedulesEntity) {
+        mView.showDetailsTickets(schedulesEntity);
+    }
+
+    @Override
+    public void deleteItem(SchedulesEntity schedulesEntity, int position) {
 
     }
 
     @Override
-    public void loadList(int id) {
+    public void loadOrdersFromPage(String destinyName, String date, int page) {
+        getListGuideByDestiny(destinyName,date,page);
+    }
+
+    @Override
+    public void loadfromNextPage(String destinyName, String date) {
+
+        if (currentPage > 0)
+            getListGuideByDestiny(destinyName, date, currentPage);
+    }
+
+    @Override
+    public void startLoad(String destinyName, String date) {
+        if (!firstLoad) {
+            firstLoad = true;
+            loadOrdersFromPage(destinyName, date, 1);
+        }
+    }
+
+    @Override
+    public void getListGuideByDestiny(String destinyName, String date, int page) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
-        Call<TrackHolderEntity<SchedulesEntity>> orders = listRequest.getListSchedules(id);
+        Call<TrackHolderEntity<SchedulesEntity>> orders = listRequest.getListSchedules("Token "+ mSessionManager.getUserToken(),
+                date, destinyName, page);
         orders.enqueue(new Callback<TrackHolderEntity<SchedulesEntity>>() {
             @Override
             public void onResponse(Call<TrackHolderEntity<SchedulesEntity>> call, Response<TrackHolderEntity<SchedulesEntity>> response) {
@@ -58,7 +87,7 @@ public class ListSchedulesPresenter implements ListSchedulesContract.Presenter, 
                 }
                 if (response.isSuccessful()) {
 
-                    mView.getListSchedulesByDay(response.body().getResults());
+                    mView.getListGuideByDestiny(response.body().getResults());
 
                 } else {
                     mView.showErrorMessage("Error al obtener las órdenes");
@@ -74,20 +103,5 @@ public class ListSchedulesPresenter implements ListSchedulesContract.Presenter, 
                 mView.showErrorMessage("Error al conectar con el servidor");
             }
         });
-    }
-
-    @Override
-    public void start() {
-
-    }
-
-    @Override
-    public void clickItem(SchedulesEntity schedulesEntity) {
-
-    }
-
-    @Override
-    public void deleteItem(SchedulesEntity schedulesEntity, int position) {
-
     }
 }

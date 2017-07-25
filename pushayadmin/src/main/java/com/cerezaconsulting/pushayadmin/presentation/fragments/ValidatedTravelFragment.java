@@ -19,10 +19,13 @@ import com.cerezaconsulting.pushayadmin.core.BaseFragment;
 import com.cerezaconsulting.pushayadmin.core.RecyclerViewScrollListener;
 import com.cerezaconsulting.pushayadmin.core.ScrollChildSwipeRefreshLayout;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
+import com.cerezaconsulting.pushayadmin.presentation.adapters.HistoryTravelAdapter;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.TodayAdapter;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.TodayContract;
+import com.cerezaconsulting.pushayadmin.presentation.contracts.NoValidatedTravelContract;
+import com.cerezaconsulting.pushayadmin.presentation.contracts.ValidatedTravelContract;
 import com.cerezaconsulting.pushayadmin.presentation.dialogs.TravelDetailsDialog;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.TodayPresenter;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.NoValidatedTravelPresenter;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.ValidatedTravelPresenter;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 
 import java.util.ArrayList;
@@ -35,7 +38,7 @@ import butterknife.Unbinder;
  * Created by katherine on 17/05/17.
  */
 
-public class ValidatedTravelFragment extends BaseFragment implements TodayContract.View {
+public class ValidatedTravelFragment extends BaseFragment implements ValidatedTravelContract.View {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
@@ -49,8 +52,8 @@ public class ValidatedTravelFragment extends BaseFragment implements TodayContra
     ScrollChildSwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
 
-    private TodayContract.Presenter mPresenter;
-    private TodayAdapter mAdapter;
+    private ValidatedTravelContract.Presenter mPresenter;
+    private HistoryTravelAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
     //private ProgressDialogCustom mProgressDialogCustom;
 
@@ -72,7 +75,7 @@ public class ValidatedTravelFragment extends BaseFragment implements TodayContra
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new TodayPresenter(this,getContext());
+        mPresenter = new ValidatedTravelPresenter(this,getContext());
 
     }
 
@@ -108,13 +111,13 @@ public class ValidatedTravelFragment extends BaseFragment implements TodayContra
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvList.setLayoutManager(mLayoutManager);
-        mAdapter = new TodayAdapter(new ArrayList<ReservationEntity>() , getContext(), (PlaceItem) mPresenter);
+        mAdapter = new HistoryTravelAdapter(new ArrayList<ReservationEntity>() , getContext(), (PlaceItem) mPresenter);
         rvList.setAdapter(mAdapter);
 
     }
 
     @Override
-    public void getTodayList(ArrayList<ReservationEntity> list) {
+    public void getListTravel(ArrayList<ReservationEntity> list) {
         mAdapter.setItems(list);
 
         if (list !=null){
@@ -136,8 +139,9 @@ public class ValidatedTravelFragment extends BaseFragment implements TodayContra
         });
     }
 
+
     @Override
-    public void showDetailsTravel(ReservationEntity reservationEntity) {
+    public void clickItemTravel(ReservationEntity reservationEntity) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("travel", reservationEntity);
         TravelDetailsDialog travelDetailsDialog = new TravelDetailsDialog(getContext(), bundle);
@@ -150,7 +154,7 @@ public class ValidatedTravelFragment extends BaseFragment implements TodayContra
     }
 
     @Override
-    public void setPresenter(TodayContract.Presenter mPresenter) {
+    public void setPresenter(ValidatedTravelContract.Presenter mPresenter) {
         this.mPresenter = mPresenter;
     }
 

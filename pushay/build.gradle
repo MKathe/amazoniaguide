@@ -79,6 +79,10 @@ dependencies {
     compile helpLibraries.eventBus
     compile helpLibraries.dateTimePicker
     compile helpLibraries.permissions
+    compile helpLibraries.iab
+
+    compile googleService.auth
+    compile googleService.wallet
 
     compile imagesLoader.glide
     compile facebookCore.facebook

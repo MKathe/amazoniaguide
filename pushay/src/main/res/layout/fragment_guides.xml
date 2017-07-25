@@ -2,29 +2,81 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/large_text"
+            android:text="Destino: "/>
+        <TextView
+            android:id="@+id/tv_destiny_name"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/xxlarge_text"
+            android:layout_height="wrap_content"
+            android:text="Piura"/>
+
+    </LinearLayout>
+
 <LinearLayout
+    android:layout_marginTop="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
     android:orientation="horizontal">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
         android:text="Ordenar por: "/>
 
-    <Spinner
-        android:id="@+id/sp_price"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content">
-    </Spinner>
-    <Spinner
-        android:id="@+id/sp_stars"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content">
-    </Spinner>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <RadioButton
+            android:id="@+id/btn_price"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:background="@drawable/radio_button_group"
+            android:button="@null"
+            android:textSize="@dimen/smallest_text"
+            android:text="@string/price" />
+        <RadioButton
+            android:id="@+id/btn_stars"
+            android:layout_width="100dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="35dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:textSize="@dimen/smallest_text"
+            android:background="@drawable/radio_button_group"
+            android:button="@null"
+            android:text="@string/stars"/>
+    </RadioGroup>
 
 </LinearLayout>
-
+    <View
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:background="@color/gray_regular">
+    </View>
     <com.cerezaconsulting.pushay.core.ScrollChildSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"

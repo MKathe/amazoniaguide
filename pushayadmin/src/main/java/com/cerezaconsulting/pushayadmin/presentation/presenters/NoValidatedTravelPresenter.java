@@ -1,31 +1,16 @@
 package com.cerezaconsulting.pushayadmin.presentation.presenters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
-import com.cerezaconsulting.pushayadmin.R;
-import com.cerezaconsulting.pushayadmin.data.entities.CityEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.CountryEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.DayEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.DestinyTravelEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.SchedulesEntity;
-import com.cerezaconsulting.pushayadmin.data.entities.UserEntity;
 import com.cerezaconsulting.pushayadmin.data.entities.trackholder.TrackHolderEntity;
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.data.remote.ServiceFactory;
 import com.cerezaconsulting.pushayadmin.data.remote.request.ListRequest;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.LoginContract;
-import com.cerezaconsulting.pushayadmin.presentation.contracts.TodayContract;
+import com.cerezaconsulting.pushayadmin.presentation.contracts.NoValidatedTravelContract;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,15 +20,15 @@ import retrofit2.Response;
  * Created by katherine on 24/05/17.
  */
 
-public class TodayPresenter implements TodayContract.Presenter, PlaceItem{
+public class NoValidatedTravelPresenter implements NoValidatedTravelContract.Presenter, PlaceItem{
 
-    private final TodayContract.View mView;
+    private final NoValidatedTravelContract.View mView;
     private final SessionManager mSessionManager;
     private Context context;
     private boolean firstLoad = false;
     private int currentPage = 1;
 
-    public TodayPresenter(TodayContract.View mView, Context context) {
+    public NoValidatedTravelPresenter(NoValidatedTravelContract.View mView, Context context) {
         this.mView = mView;
         this.mSessionManager = new SessionManager(context);
         this.mView.setPresenter(this);
@@ -51,30 +36,38 @@ public class TodayPresenter implements TodayContract.Presenter, PlaceItem{
     }
 
     @Override
-    public void start() {
+    public void start() { }
+
+    @Override
+    public void startLoad(int id) {
         if (!firstLoad) {
             firstLoad = true;
-            loadOrdersFromPage(1);
+            loadOrdersFromPage(id, 1);
         }
     }
 
     @Override
-    public void loadOrdersFromPage(int page) {
-        loadList(mSessionManager.getUserToken(), page);
+    public void loadOrdersFromPage(int id, int page) {
+        loadListTravel(id, page);
+
     }
 
     @Override
-    public void loadFromNextPage() {
+    public void loadFromNextPage(int id) {
 
-        if (currentPage > 0)
-            loadList(mSessionManager.getUserToken(), currentPage);
+        if (currentPage > 0){
+                    loadListTravel(id, currentPage);
+
+        }
     }
 
+
+
     @Override
-    public void loadList(String token, final int page) {
+    public void loadListTravel(int id, final int page) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
-        final Call<TrackHolderEntity<ReservationEntity>> reservation = listRequest.getMyReservation("Token "+mSessionManager.getUserToken(), page);
+        final Call<TrackHolderEntity<ReservationEntity>> reservation = listRequest.getNoValidateReservation("Token "+mSessionManager.getUserToken(), id , page);
         reservation.enqueue(new Callback<TrackHolderEntity<ReservationEntity>>() {
             @Override
             public void onResponse(Call<TrackHolderEntity<ReservationEntity>> call, Response<TrackHolderEntity<ReservationEntity>> response) {
@@ -89,7 +82,9 @@ public class TodayPresenter implements TodayContract.Presenter, PlaceItem{
                     } else {
                         currentPage = -1;
                     }
-                    getTravelList(response.body().getResults());
+
+                    mView.getListTravel(response.body().getResults());
+
 
                 } else {
                     mView.showErrorMessage("Error al obtener la lista");
@@ -107,22 +102,6 @@ public class TodayPresenter implements TodayContract.Presenter, PlaceItem{
         });
     }
 
-    public void getTravelList(ArrayList<ReservationEntity> list){
-
-        ArrayList<ReservationEntity> newList = new ArrayList<>();
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd'/'MMMM'/'yyyy", new Locale("es","ES"));
-        String today = format.format(date);
-
-
-        for (int i = 0; i <list.size() ; i++) {
-
-            if(!list.get(i).is_confirm() && list.get(i).isEquals()){
-                newList.add(list.get(i));
-            }
-        }
-        mView.getTodayList(newList);
-    }
     @Override
     public void clickItem(ReservationEntity reservationEntity) {
         mView.showDetailsTravel(reservationEntity);

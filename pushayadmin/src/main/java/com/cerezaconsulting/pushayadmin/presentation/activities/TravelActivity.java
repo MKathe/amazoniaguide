@@ -119,6 +119,7 @@ public class TravelActivity extends BaseActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
         adapter.addFragment(new TodayFragment(), "Hoy");
         adapter.addFragment(new ComingSoonFragment(), "Próximamente");
         viewPager.setAdapter(adapter);
@@ -170,7 +171,7 @@ public class TravelActivity extends BaseActivity {
                                 break;
                             case R.id.action_programming:
                                 Bundle bundle = new Bundle();
-                                bundle.putString("daySelected", "Lunes");
+                                bundle.putString("daySelected", "monday");
                                 next(TravelActivity.this,bundle, SchedulesActivity.class, false);
                                 break;
                             case R.id.action_help:

@@ -13,8 +13,8 @@
             android:tint="@color/black"/>
         <ImageView
             android:layout_marginTop="30dp"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:src="@mipmap/ic_launcher"/>
 

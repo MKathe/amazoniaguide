@@ -33,5 +33,6 @@ public interface DestinyContract {
 
         void startLoad(int id);
 
+
     }
 }

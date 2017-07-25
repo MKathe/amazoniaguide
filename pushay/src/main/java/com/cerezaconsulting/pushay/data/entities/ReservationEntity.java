@@ -19,11 +19,38 @@ public class ReservationEntity implements Serializable{
     private String name;
     private SchedulesEntity schedules;
     private String date;
-    private UserEntity userEntity;
+    private UserEntity user_client;
     private int num_coupons;
     private boolean is_confirm;
     private String status;
     private Boolean payment_status;
+    private float pay_total;
+    private String qrcode;
+    private String code;
+
+    public float getPay_total() {
+        return pay_total;
+    }
+
+    public void setPay_total(float pay_total) {
+        this.pay_total = pay_total;
+    }
+
+    public String getQrcode() {
+        return qrcode;
+    }
+
+    public void setQrcode(String qrcode) {
+        this.qrcode = qrcode;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getName() {
         return name;
@@ -66,11 +93,11 @@ public class ReservationEntity implements Serializable{
     }
 
     public UserEntity getUserEntity() {
-        return userEntity;
+        return user_client;
     }
 
     public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+        this.user_client     = userEntity;
     }
 
     public int getNum_coupons() {

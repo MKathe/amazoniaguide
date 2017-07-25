@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class SchedulesEntity implements Serializable {
     private int id;
+    private String name;
     private UserEntity guide;
     private DayEntity day;
     private String day_name;
@@ -15,6 +16,32 @@ public class SchedulesEntity implements Serializable {
     private String destiny_name;
     private float price_normal;
     private int max_user;
+    private String locality;
+    private String hour;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLocality() {
+        return locality;
+    }
+
+    public void setLocality(String locality) {
+        this.locality = locality;
+    }
+
+    public String getHour() {
+        return hour;
+    }
+
+    public void setHour(String hour) {
+        this.hour = hour;
+    }
 
     public int getId() {
         return id;
@@ -79,4 +106,9 @@ public class SchedulesEntity implements Serializable {
     public void setMax_user(int max_user) {
         this.max_user = max_user;
     }
+
+    public String getPriceNormal(){
+        return "S/. "+price_normal+ " c/u.";
+    }
+
 }
