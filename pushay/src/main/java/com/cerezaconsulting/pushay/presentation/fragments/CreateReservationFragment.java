@@ -14,7 +14,6 @@ import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.core.BaseFragment;
 import com.cerezaconsulting.pushay.data.entities.SchedulesEntity;
 import com.cerezaconsulting.pushay.data.local.SessionManager;
-import com.cerezaconsulting.pushay.presentation.activities.PaymentActivity;
 import com.cerezaconsulting.pushay.presentation.contracts.CreateReservationContract;
 import com.cerezaconsulting.pushay.utils.ProgressDialogCustom;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -36,7 +35,7 @@ import butterknife.Unbinder;
  * Created by katherine on 24/07/17.
  */
 
-public class CreateReservationFragment extends BaseFragment implements CreateReservationContract.View , Validator.ValidationListener{
+public class CreateReservationFragment extends BaseFragment implements CreateReservationContract.View, Validator.ValidationListener {
 
     @BindView(R.id.tv_name)
     TextView tvName;
@@ -60,6 +59,8 @@ public class CreateReservationFragment extends BaseFragment implements CreateRes
     @BindView(R.id.btn_buy)
     Button btnBuy;
     Unbinder unbinder;
+    @BindView(R.id.tv_day_detail)
+    TextView tvDayDetail;
 
     private SessionManager mSessionManager;
     private SchedulesEntity schedulesEntity;
@@ -109,6 +110,7 @@ public class CreateReservationFragment extends BaseFragment implements CreateRes
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Realizando compra...");
 
         tvName.setText(mSessionManager.getUserEntity().getFullName());
+        tvDayDetail.setText(getDay());
 
         tvDestinyName.setText(schedulesEntity.getDestiny().getName());
         tvHour.setText(schedulesEntity.getHour());
@@ -148,7 +150,7 @@ public class CreateReservationFragment extends BaseFragment implements CreateRes
 
     @Override
     public void onValidationSucceeded() {
-        mPresenter.createReservation(Integer.valueOf(etQuantity.getText().toString()),false,schedulesEntity.getName());
+        mPresenter.createReservation(Integer.valueOf(etQuantity.getText().toString()), false, schedulesEntity.getName());
     }
 
     @Override

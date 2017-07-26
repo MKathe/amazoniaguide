@@ -226,6 +226,13 @@ public class TravelActivity extends BaseActivity {
             });
             tv_mail.setText(mUser.getEmail());
 
+            profile_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    next(TravelActivity.this, null, ProfileActivity.class, false);
+                }
+            });
+
             if (mUser.getPicture() != null) {
                     Glide.with(this)
                     .load(mSessionManager.getUserEntity().getPicture())
