@@ -6,7 +6,8 @@
         android:background="@color/white">
         <ImageView
             android:id="@+id/im_close"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_width="wrap_content"
             android:layout_gravity="right"
             android:layout_height="wrap_content"

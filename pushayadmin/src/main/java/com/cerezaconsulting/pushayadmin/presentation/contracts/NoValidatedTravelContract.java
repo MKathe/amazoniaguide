@@ -18,6 +18,12 @@ public interface NoValidatedTravelContract {
 
         void showDetailsTravel(ReservationEntity reservationEntity);
 
+        void sendValidateTravelWithCode(String code, boolean is_confirm);
+
+        void sendValidateTravelWithQr(int id, boolean is_confirm);
+
+        void showDetailsValidate(String msg);
+
         boolean isActive();
 
 
@@ -33,6 +39,12 @@ public interface NoValidatedTravelContract {
         void startLoad(int id);
 
         void loadListTravel(int id, final int page);
+
+        void validatedTravelWithCode(String code, boolean is_confirm);
+
+        void validatedTravelWithQr(int id, boolean is_confirm);
+
+
 
 
     }

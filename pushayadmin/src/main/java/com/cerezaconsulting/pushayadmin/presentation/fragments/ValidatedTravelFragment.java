@@ -142,10 +142,6 @@ public class ValidatedTravelFragment extends BaseFragment implements ValidatedTr
 
     @Override
     public void clickItemTravel(ReservationEntity reservationEntity) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("travel", reservationEntity);
-        TravelDetailsDialog travelDetailsDialog = new TravelDetailsDialog(getContext(), bundle);
-        travelDetailsDialog.show();
     }
 
     @Override

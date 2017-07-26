@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,6 +117,7 @@ public class ValidateFragment extends BaseFragment implements ZXingScannerView.R
     @Override
     public void handleResult(Result result) {
         //
+        Log.e("RESULT", result.toString());
         confirmedDialog();
     }
 

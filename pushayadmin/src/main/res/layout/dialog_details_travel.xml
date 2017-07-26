@@ -9,10 +9,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"
         android:text="@string/title"
-        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/xxxlarge_text" />
 
@@ -111,19 +110,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:layout_marginTop="20dp"
             android:text="Validar viaje por código"
             android:textAllCaps="true"
-            android:textSize="@dimen/xlarge_text"
+            android:textSize="@dimen/large_text"
             android:textStyle="bold" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:hint="Ingresa el código aquí" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:hint="Ingresa el código aquí" />
+
+            <ImageView
+                android:id="@+id/im_validate_code"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:layout_gravity="bottom"
+                android:tint="@color/gray_regular"
+                android:src="@drawable/ic_check_box"/>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -140,10 +157,10 @@
 
     <Button
         android:id="@+id/btn_validate_travel"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
         android:background="@color/colorPrimary"
         android:text="@string/validate_travel"
         android:textColor="@color/white" />

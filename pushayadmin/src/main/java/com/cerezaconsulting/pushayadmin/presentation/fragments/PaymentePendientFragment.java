@@ -143,10 +143,6 @@ public class PaymentePendientFragment extends BaseFragment implements PaymentCon
 
     @Override
     public void clickItemPayment(ReservationEntity reservationEntity) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("travel", reservationEntity);
-        TravelDetailsDialog travelDetailsDialog = new TravelDetailsDialog(getContext(), bundle);
-        travelDetailsDialog.show();
     }
 
     @Override

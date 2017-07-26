@@ -107,4 +107,8 @@ public class ReservationEntity implements Serializable {
         return parseDateForShowDetail.format(tempDate);
     }
 
+    public String numCoupons(){
+       return String.valueOf(num_coupons);
+    }
+
 }

@@ -101,7 +101,6 @@ public class ValidatedTravelPresenter implements ValidatedTravelContract.Present
 
     @Override
     public void clickItem(ReservationEntity reservationEntity) {
-        mView.clickItemTravel(reservationEntity);
     }
 
     @Override

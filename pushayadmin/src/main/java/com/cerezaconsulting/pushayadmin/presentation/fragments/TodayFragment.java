@@ -141,8 +141,26 @@ public class TodayFragment extends BaseFragment implements NoValidatedTravelCont
     public void showDetailsTravel(ReservationEntity reservationEntity) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("travel", reservationEntity);
-        TravelDetailsDialog travelDetailsDialog = new TravelDetailsDialog(getContext(), bundle);
+        TravelDetailsDialog travelDetailsDialog = new TravelDetailsDialog(getContext(), bundle, this);
         travelDetailsDialog.show();
+    }
+
+    @Override
+    public void sendValidateTravelWithCode(String code, boolean is_confirm) {
+        mPresenter.validatedTravelWithCode(code, is_confirm);
+
+    }
+
+    @Override
+    public void sendValidateTravelWithQr(int id, boolean is_confirm) {
+        mPresenter.validatedTravelWithQr(id, is_confirm);
+
+    }
+
+    @Override
+    public void showDetailsValidate(String msg) {
+        showMessage(msg);
+
     }
 
     @Override

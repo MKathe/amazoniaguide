@@ -7,6 +7,7 @@ import com.cerezaconsulting.pushayadmin.data.entities.trackholder.TrackHolderEnt
 import com.cerezaconsulting.pushayadmin.data.local.SessionManager;
 import com.cerezaconsulting.pushayadmin.data.remote.ServiceFactory;
 import com.cerezaconsulting.pushayadmin.data.remote.request.ListRequest;
+import com.cerezaconsulting.pushayadmin.data.remote.request.ReservationRequest;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.NoValidatedTravelContract;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
 
@@ -27,6 +28,7 @@ public class NoValidatedTravelPresenter implements NoValidatedTravelContract.Pre
     private Context context;
     private boolean firstLoad = false;
     private int currentPage = 1;
+    private int newId;
 
     public NoValidatedTravelPresenter(NoValidatedTravelContract.View mView, Context context) {
         this.mView = mView;
@@ -64,7 +66,7 @@ public class NoValidatedTravelPresenter implements NoValidatedTravelContract.Pre
 
 
     @Override
-    public void loadListTravel(int id, final int page) {
+    public void loadListTravel(final int id, final int page) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
         final Call<TrackHolderEntity<ReservationEntity>> reservation = listRequest.getNoValidateReservation("Token "+mSessionManager.getUserToken(), id , page);
@@ -82,7 +84,7 @@ public class NoValidatedTravelPresenter implements NoValidatedTravelContract.Pre
                     } else {
                         currentPage = -1;
                     }
-
+                    newId = id;
                     mView.getListTravel(response.body().getResults());
 
 
@@ -103,8 +105,80 @@ public class NoValidatedTravelPresenter implements NoValidatedTravelContract.Pre
     }
 
     @Override
+    public void validatedTravelWithCode(String code, boolean is_confirm) {
+        mView.setLoadingIndicator(true);
+        ReservationRequest reservationRequest = ServiceFactory.createService(ReservationRequest.class);
+        final Call<Void> reservation = reservationRequest.updateWithCode("Token "+mSessionManager.getUserToken(), code , is_confirm);
+        reservation.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (!mView.isActive()) {
+                    return;
+                }
+                mView.setLoadingIndicator(false);
+                if (response.isSuccessful()) {
+                    mView.showDetailsValidate("El viaje ha sido validado con éxito");
+
+
+                } else {
+                    mView.showErrorMessage("Error al obtener la lista");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                if (!mView.isActive()) {
+                    return;
+                }
+                mView.setLoadingIndicator(false);
+                mView.showErrorMessage("Error al conectar con el servidor");
+            }
+        });
+    }
+
+    @Override
+    public void validatedTravelWithQr(int id, boolean is_confirm) {
+        mView.setLoadingIndicator(true);
+        ReservationRequest reservationRequest = ServiceFactory.createService(ReservationRequest.class);
+        final Call<Void> reservation = reservationRequest.updateWithQr("Token "+mSessionManager.getUserToken(), id, is_confirm);
+        reservation.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (!mView.isActive()) {
+                    return;
+                }
+                mView.setLoadingIndicator(false);
+                if (response.isSuccessful()) {
+                    mView.showDetailsValidate("El viaje ha sido validado con éxito");
+
+
+                } else {
+                    mView.showErrorMessage("Error al obtener la lista");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                if (!mView.isActive()) {
+                    return;
+                }
+                mView.setLoadingIndicator(false);
+                mView.showErrorMessage("Error al conectar con el servidor");
+            }
+        });
+    }
+
+    @Override
     public void clickItem(ReservationEntity reservationEntity) {
-        mView.showDetailsTravel(reservationEntity);
+        switch (newId){
+            case 1:
+                break;
+            case 2:
+                mView.showDetailsTravel(reservationEntity);
+                break;
+            case 3:
+                break;
+        }
     }
 
     @Override

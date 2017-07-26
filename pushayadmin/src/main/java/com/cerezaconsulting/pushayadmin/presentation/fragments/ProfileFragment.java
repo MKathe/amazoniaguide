@@ -27,6 +27,7 @@ import com.cerezaconsulting.pushayadmin.presentation.activities.EditPasswordActi
 import com.cerezaconsulting.pushayadmin.presentation.activities.HistoryTravelActivity;
 import com.cerezaconsulting.pushayadmin.presentation.activities.PaymentHistoryActivity;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.ProfileContract;
+import com.cerezaconsulting.pushayadmin.presentation.dialogs.ConfirmedDialog;
 import com.cerezaconsulting.pushayadmin.presentation.dialogs.EditDialog;
 import com.cerezaconsulting.pushayadmin.utils.BitmapCircleUtil;
 import com.cerezaconsulting.pushayadmin.utils.CircleTransform;
@@ -182,6 +183,12 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
                 editDialog.show();
                 break;
             case R.id.btn_suscribe:
+                String msg = "Muy pronto podrás disfrutar de más opciones dentro de la aplicación";
+                Bundle bundle01 = new Bundle();
+                bundle01.putString("msg", msg);
+                ConfirmedDialog confirmedDialog = new ConfirmedDialog(getContext(), bundle01);
+                confirmedDialog.show();
+
                 break;
             case R.id.ly_account:
                 next(getActivity(), null, EditPasswordActivity.class, false);

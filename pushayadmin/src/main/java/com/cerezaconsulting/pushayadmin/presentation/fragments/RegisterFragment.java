@@ -225,12 +225,7 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
                 gender = "F";
                 break;
             case R.id.btn_create:
-                if(!isLoading){
-                    InputMethodManager input = (InputMethodManager) getActivity()
-                            .getSystemService(Activity.INPUT_METHOD_SERVICE);
-                    input.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-                    validator.validate();
-                }
+                validator.validate();
                 break;
         }
     }
