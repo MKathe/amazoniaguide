@@ -31,6 +31,7 @@ import com.cerezaconsulting.pushay.utils.BitmapCircleUtil;
 import com.cerezaconsulting.pushay.utils.CircleTransform;
 import com.cerezaconsulting.pushay.utils.ImagePicker;
 import com.cerezaconsulting.pushay.utils.ProgressDialogCustom;
+import com.facebook.AccessToken;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -236,7 +237,12 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
                 editDialog.show();
                 break;
             case R.id.ly_account:
-                next(getActivity(), null, EditPasswordActivity.class, false);
+                if (AccessToken.getCurrentAccessToken() != null) {
+                    next(getActivity(), null, EditPasswordActivity.class, false);
+                }else{
+                    showErrorMessage("Te has logueado con facebook");
+                }
+
                 break;
             case R.id.ly_action_edit:
                 methodRequiresTwoPermission();

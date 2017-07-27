@@ -70,7 +70,7 @@ public class HistoryTravelAdapter extends LoaderAdapter<ReservationEntity> imple
         ((ViewHolder) holder).tvDate.setText(reservationEntities.getDay());
         if (reservationEntities.is_confirm()) {
             ((ViewHolder) holder).tvStatus.setText("VALIDADO");
-            ((ViewHolder) holder).tvStatus.setTextColor(context.getResources().getColor(R.color.colorPrimary, null));
+            ((ViewHolder) holder).tvStatus.setTextColor(context.getResources().getColor(R.color.colorPrimary));
         } else {
             ((ViewHolder) holder).tvStatus.setText("NO VALIDADO");
         }

@@ -76,7 +76,7 @@ public class ComingSoonAdapter extends LoaderAdapter<ReservationEntity> implemen
         ((ViewHolder) holder).tvHour.setText(reservationEntities.getSchedules().getHour());
         if (reservationEntities.is_confirm()) {
             ((ViewHolder) holder).tvStatus.setText("VALIDADO");
-            ((ViewHolder) holder).tvStatus.setTextColor(context.getResources().getColor(R.color.colorAccent, null));
+            ((ViewHolder) holder).tvStatus.setTextColor(context.getResources().getColor(R.color.colorAccent));
         } else {
             ((ViewHolder) holder).tvStatus.setText("NO VALIDADO");
         }

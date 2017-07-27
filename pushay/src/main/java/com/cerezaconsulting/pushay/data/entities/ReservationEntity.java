@@ -126,6 +126,9 @@ public class ReservationEntity implements Serializable{
 
 
     public String getDay(){
+        if (getDate() == null ){
+            return "";
+        }
         Date tempDate = null;
         SimpleDateFormat parseDateFromServer= new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat parseDateForShowDetail =  new SimpleDateFormat("dd' de 'MMMM' del 'yyyy", new Locale("es","ES"));

@@ -68,7 +68,7 @@ public class PaymentHistoryAdapter extends LoaderAdapter<ReservationEntity> impl
 
         if (reservationEntities.isPayment_status()) {
             ((ViewHolder) holder).tvPayment.setText("PAGO REALIZADO");
-            ((ViewHolder) holder).tvPayment.setTextColor(context.getResources().getColor(R.color.colorAccent, null));
+            ((ViewHolder) holder).tvPayment.setTextColor(context.getResources().getColor(R.color.colorAccent));
         } else {
             ((ViewHolder) holder).tvPayment.setText("SU PAGO ESTÁ EN PROCESO");
         }

@@ -225,13 +225,13 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_price:
-                btnPrice.setTextColor(getResources().getColor(R.color.white, null));
-                btnStars.setTextColor(getResources().getColor(R.color.colorPrimaryDark, null));
+                btnPrice.setTextColor(getResources().getColor(R.color.white));
+                btnStars.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
 
                 break;
             case R.id.btn_stars:
-                btnStars.setTextColor(getResources().getColor(R.color.white, null));
-                btnPrice.setTextColor(getResources().getColor(R.color.colorPrimaryDark, null));
+                btnStars.setTextColor(getResources().getColor(R.color.white));
+                btnPrice.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
 
                 break;
         }
