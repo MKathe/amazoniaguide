@@ -43,7 +43,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     }
 
     @Override
-    public void registerUser(@NonNull UserEntity userEntity) {
+    public void registerUser(@NonNull final UserEntity userEntity) {
 
         RegisterRequest registerRequest =
                 ServiceFactory.createService(RegisterRequest.class);
@@ -58,7 +58,8 @@ public class RegisterPresenter implements RegisterContract.Presenter {
             @Override
             public void onResponse(Call<AccessTokenEntity> call, Response<AccessTokenEntity> response) {
                 if (response.isSuccessful()) {
-                    getProfile(response.body());
+                    mView.setLoadingIndicator(false);
+                    mView.registerSuccessful(userEntity);
                 } else {
                     mView.setLoadingIndicator(false);
                     mView.errorRegister("Falló el registro, por favor inténtelo nuevamente");
@@ -72,35 +73,4 @@ public class RegisterPresenter implements RegisterContract.Presenter {
         });
     }
 
-
-    private void getProfile(final AccessTokenEntity tokenEntity) {
-        LoginRequest loginRequest =
-                ServiceFactory.createService(LoginRequest.class);
-        Call<UserEntity> call = loginRequest.getUser("Token " + tokenEntity.getAccessToken());
-        call.enqueue(new Callback<UserEntity>() {
-            @Override
-            public void onResponse(Call<UserEntity> call, Response<UserEntity> response) {
-                if (response.isSuccessful()) {
-                    openSession(tokenEntity, response.body());
-                } else {
-                    mView.setLoadingIndicator(false);
-                    mView.errorRegister("Ocurrió un error al cargar su perfil");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UserEntity> call, Throwable t) {
-                mView.setLoadingIndicator(false);
-                mView.showErrorMessage("Fallo al traer datos, comunicarse con su administrador");
-            }
-        });
-    }
-
-
-    private void openSession(AccessTokenEntity token, UserEntity userEntity) {
-        mSessionManager.openSession(token);
-        mSessionManager.setUser(userEntity);
-        mView.setLoadingIndicator(false);
-        mView.registerSuccessful(userEntity);
-    }
 }

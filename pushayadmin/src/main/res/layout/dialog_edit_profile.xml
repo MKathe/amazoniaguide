@@ -32,6 +32,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:focusable="false"
+                android:textColor="@color/grey"
                 android:hint="@string/firstname"
                 android:imeOptions="actionNext"
                 android:inputType="textCapWords"
@@ -45,9 +47,11 @@
 
             <EditText
                 android:id="@+id/et_lastname"
+                android:focusable="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:textColor="@color/grey"
                 android:hint="@string/lasttname"
                 android:imeOptions="actionNext"
                 android:inputType="textCapWords"
@@ -57,9 +61,7 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:focusable="false">
-
+            android:layout_gravity="center_horizontal">
             <EditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
@@ -68,6 +70,7 @@
                 android:focusable="false"
                 android:hint="@string/email"
                 android:imeOptions="actionNext"
+                android:textColor="@color/grey"
                 android:inputType="textEmailAddress"
                 android:padding="10dp" />
         </android.support.design.widget.TextInputLayout>
