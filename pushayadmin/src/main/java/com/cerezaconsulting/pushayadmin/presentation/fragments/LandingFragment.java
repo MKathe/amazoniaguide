@@ -1,5 +1,7 @@
 package com.cerezaconsulting.pushayadmin.presentation.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -78,6 +80,12 @@ public class LandingFragment extends BaseFragment {
                 nextActivity(getActivity(), null, RegisterActivity.class, false);
                 break;
             case R.id.tv_download:
+                final String appPackageName = "com.cerezaconsulting.pushay"; // getPackageName() from Context or Activity object
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
                 break;
         }
     }

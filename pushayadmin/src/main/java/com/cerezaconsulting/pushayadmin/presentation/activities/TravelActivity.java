@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushayadmin.R;
@@ -178,6 +179,7 @@ public class TravelActivity extends BaseActivity {
                                 next(TravelActivity.this,null, SlideActivity.class, false);
                               break;
                             case R.id.action_info:
+                                Toast.makeText(TravelActivity.this, "Faltan datos", Toast.LENGTH_SHORT).show();
                              /*  Intent intent_connect = new Intent(getBaseContext(), ProfileActivity.class);
                                 startActivityForResult(intent_connect,200);*/
                               break;
