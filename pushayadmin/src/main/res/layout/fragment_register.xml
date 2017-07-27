@@ -32,15 +32,15 @@
                 android:layout_width="300dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/et_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:imeOptions="actionNext"
-                    android:padding="10dp" />
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:imeOptions="actionNext"
+                android:padding="10dp" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout

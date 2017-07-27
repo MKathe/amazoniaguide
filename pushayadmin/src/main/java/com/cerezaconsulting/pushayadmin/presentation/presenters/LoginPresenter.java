@@ -52,7 +52,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                 } else {
                     mView.setLoadingIndicator(false);
-                    mView.errorLogin("login fallido");
+                    mView.errorLogin("Registrese o espere a que aprobemos su registro");
                 }
             }
 

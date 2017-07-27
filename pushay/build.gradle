@@ -1,13 +1,22 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    signingConfigs {
+        config {
+            keyAlias 'pushayuser'
+            keyPassword 'pushayuser'
+            storePassword 'pushayuser'
+            storeFile file('/home/katherine/pushayuser')
+        }
+    }
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "com.cerezaconsulting.pushay"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
+        versionCode 2
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -30,7 +39,7 @@ android {
     productFlavors {
         prod {
             buildConfigField 'String', 'BASE', '"http://pushay.cerezaconsulting.com/api/"'
-
+            signingConfig signingConfigs.config
         }
         mock {
             buildConfigField 'String', 'BASE', '"http://pushay.cerezaconsulting.com/api/"'
@@ -44,34 +53,26 @@ android {
             variant.setIgnore(true);
         }
     }
-
-
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     testCompile 'junit:junit:4.12'
-
     compile supportDesignLibraries.appcompat
     compile supportDesignLibraries.design
     compile supportDesignLibraries.recyclerView
     compile supportDesignLibraries.supportv4
     compile supportDesignLibraries.supportv13
     compile supportDesignLibraries.cardview
-
-
-
     compile coreProject.retrofit
     compile coreProject.retrofitGson
     compile coreProject.gson
     compile coreProject.interceptor
     compile coreProject.butterKnife
     annotationProcessor coreProject.butterknifeProcesor
-
     compile helpLibraries.guava
     compile helpLibraries.calligraphy
     compile helpLibraries.pagerindicator
@@ -80,11 +81,8 @@ dependencies {
     compile helpLibraries.dateTimePicker
     compile helpLibraries.permissions
     compile helpLibraries.iab
-
     compile googleService.auth
     compile googleService.wallet
-
     compile imagesLoader.glide
     compile facebookCore.facebook
-
 }
