@@ -1,5 +1,7 @@
 package com.cerezaconsulting.pushay.presentation.fragments;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,7 +16,9 @@ import com.cerezaconsulting.pushay.core.BaseActivity;
 import com.cerezaconsulting.pushay.core.BaseFragment;
 import com.cerezaconsulting.pushay.data.entities.SchedulesEntity;
 import com.cerezaconsulting.pushay.data.local.SessionManager;
+import com.cerezaconsulting.pushay.presentation.activities.TicketsActivity;
 import com.cerezaconsulting.pushay.presentation.contracts.CreateReservationContract;
+import com.cerezaconsulting.pushay.presentation.dialogs.ConfirmedDialog;
 import com.cerezaconsulting.pushay.utils.ProgressDialogCustom;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -37,6 +41,7 @@ import butterknife.Unbinder;
 
 public class CreateReservationFragment extends BaseFragment implements CreateReservationContract.View, Validator.ValidationListener {
 
+
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_destiny_name)
@@ -45,6 +50,8 @@ public class CreateReservationFragment extends BaseFragment implements CreateRes
     TextView tvCityName;
     @BindView(R.id.tv_day)
     TextView tvDay;
+    @BindView(R.id.tv_day_detail)
+    TextView tvDayDetail;
     @BindView(R.id.tv_hour)
     TextView tvHour;
 
@@ -52,16 +59,19 @@ public class CreateReservationFragment extends BaseFragment implements CreateRes
     @BindView(R.id.et_quantity)
     EditText etQuantity;
 
-    @BindView(R.id.textView)
-    TextView textView;
-    @BindView(R.id.tv_date)
-    TextView tvDate;
+    @BindView(R.id.title_locality)
+    TextView titleLocality;
+    @BindView(R.id.tv_cost)
+    TextView tvCost;
+    @BindView(R.id.et_card)
+    EditText etCard;
+    @BindView(R.id.et_expiration)
+    EditText etExpiration;
+    @BindView(R.id.et_ccv)
+    EditText etCcv;
     @BindView(R.id.btn_buy)
     Button btnBuy;
     Unbinder unbinder;
-    @BindView(R.id.tv_day_detail)
-    TextView tvDayDetail;
-
     private SessionManager mSessionManager;
     private SchedulesEntity schedulesEntity;
     private String date;
@@ -100,6 +110,7 @@ public class CreateReservationFragment extends BaseFragment implements CreateRes
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_buy, container, false);
+
         unbinder = ButterKnife.bind(this, root);
         return root;
     }
@@ -150,7 +161,7 @@ public class CreateReservationFragment extends BaseFragment implements CreateRes
 
     @Override
     public void onValidationSucceeded() {
-        mPresenter.createReservation(Integer.valueOf(etQuantity.getText().toString()), false, schedulesEntity.getName());
+        mPresenter.createReservation(mSessionManager.getUserToken(), Integer.valueOf(etQuantity.getText().toString()), false, schedulesEntity.getName());
     }
 
     @Override
@@ -167,12 +178,23 @@ public class CreateReservationFragment extends BaseFragment implements CreateRes
 
     @Override
     public void createReservationResponse(String msg) {
-        showMessage(msg);
+        Bundle bundle = new Bundle();
+        bundle.putString("msg", msg);
+        ConfirmedDialog confirmedDialog = new ConfirmedDialog(getContext(), bundle);
+        confirmedDialog.show();
+        confirmedDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                Intent refresh = new Intent(getContext(), TicketsActivity.class);
+                startActivity(refresh);//Start the same Activity
+                getActivity().finish();
+            }
+        });
     }
 
     @Override
     public boolean isActive() {
-        return false;
+        return isAdded();
     }
 
     @Override

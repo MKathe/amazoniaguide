@@ -238,9 +238,9 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
                 break;
             case R.id.ly_account:
                 if (AccessToken.getCurrentAccessToken() != null) {
-                    next(getActivity(), null, EditPasswordActivity.class, false);
-                }else{
                     showErrorMessage("Te has logueado con facebook");
+                }else{
+                    next(getActivity(), null, EditPasswordActivity.class, false);
                 }
 
                 break;

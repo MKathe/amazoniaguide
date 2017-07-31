@@ -115,7 +115,6 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
             mPresenter.getCities(cityEntity.getCountry().getId(), 1);
         }
 
-
         unbinder = ButterKnife.bind(this, root);
         return root;
     }
@@ -136,6 +135,7 @@ public class CitiesFragment extends BaseFragment implements CitiesContract.View 
         mAdapter.setItems(list);
         if (list != null) {
             noList.setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
+            noListMain.setText("No hay ciudades registradas");
         }
         rvList.addOnScrollListener(new RecyclerViewScrollListener() {
             @Override

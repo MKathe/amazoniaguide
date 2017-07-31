@@ -61,8 +61,6 @@ public class PaymentActivity extends BaseActivity implements BillingProcessor.IB
     TextView tvDay;
     @BindView(R.id.tv_hour)
     TextView tvHour;
-    @BindView(R.id.textView)
-    TextView textView;
     @BindView(R.id.tv_date)
     TextView tvDate;
     @BindView(R.id.btn_buy)

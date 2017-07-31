@@ -131,8 +131,8 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
     public void getDestiny(ArrayList<DestinyTravelEntity> list) {
         mAdapter.setItems(list);
         if (list != null) {
-            noList
-                    .setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
+            noList.setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
+            noListMain.setText("No hay destinos registrados");
         }
         rvList.addOnScrollListener(new RecyclerViewScrollListener() {
             @Override

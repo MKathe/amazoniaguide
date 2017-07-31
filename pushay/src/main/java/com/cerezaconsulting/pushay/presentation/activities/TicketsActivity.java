@@ -16,12 +16,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
+import com.cerezaconsulting.pushay.data.entities.AccessTokenEntity;
 import com.cerezaconsulting.pushay.data.entities.UserEntity;
 import com.cerezaconsulting.pushay.data.local.SessionManager;
 import com.cerezaconsulting.pushay.presentation.fragments.TicketsFragment;
 import com.cerezaconsulting.pushay.presentation.presenters.TicketsPresenter;
 import com.cerezaconsulting.pushay.utils.ActivityUtils;
 import com.cerezaconsulting.pushay.utils.CircleTransform;
+import com.facebook.AccessToken;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -131,7 +133,7 @@ public class TicketsActivity extends BaseActivity {
                                 next(TicketsActivity.this, null, SlideActivity.class, false);
                                 break;
                             case R.id.action_info:
-                                //next(TicketsActivity.this,null, SlideActivity.class, false);
+                                next(TicketsActivity.this,null, AboutUsActivity.class, false);
                                 break;
                             case R.id.action_signout:
                                 CloseSession();
@@ -150,6 +152,7 @@ public class TicketsActivity extends BaseActivity {
 
     private void CloseSession() {
         mSessionManager.closeSession();
+        AccessToken.setCurrentAccessToken(null);
         newActivityClearPreview(this, null, LoginActivity.class);
 
     }

@@ -146,5 +146,6 @@ public class GuideDetailsFragment extends BaseFragment {
         bundle.putString("date", date);
         bundle.putSerializable("schedulesEntity", schedulesEntity);
         next(getActivity(), bundle, CreateReservationActivity.class, false);
+        getActivity().finish();
     }
 }

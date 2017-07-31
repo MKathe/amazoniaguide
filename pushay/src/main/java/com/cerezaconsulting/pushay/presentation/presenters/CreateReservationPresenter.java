@@ -43,29 +43,29 @@ public class CreateReservationPresenter implements CreateReservationContract.Pre
 
     }
     @Override
-    public void createReservation(int num_coupons, boolean is_confirm, String name) {
+    public void createReservation(String token, int num_coupons, boolean is_confirm, String name) {
         mView.setLoadingIndicator(true);
         PaymentRequest paymentRequest = ServiceFactory.createService(PaymentRequest.class);
-        Call<ReservationEntity> orders = paymentRequest.createReservation("Token "+mSessionManager.getUserToken(),num_coupons,is_confirm,name);
-        orders.enqueue(new Callback<ReservationEntity>() {
+        Call<Void> orders = paymentRequest.createReservation("Token "+token,num_coupons,is_confirm,name);
+        orders.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<ReservationEntity> call, Response<ReservationEntity> response) {
-
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                mView.setLoadingIndicator(false);
                 if (!mView.isActive()) {
                     return;
                 }
-                mView.setLoadingIndicator(false);
                 if (response.isSuccessful()) {
 
                     mView.createReservationResponse("Se ha comprado el ticket con éxito");
 
                 } else {
+
                     mView.showErrorMessage("Error al obtener las órdenes");
                 }
             }
 
             @Override
-            public void onFailure(Call<ReservationEntity> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 if (!mView.isActive()) {
                     return;
                 }

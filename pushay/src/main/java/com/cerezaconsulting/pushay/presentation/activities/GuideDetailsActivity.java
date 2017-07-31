@@ -6,6 +6,8 @@ import android.support.v7.widget.Toolbar;
 
 import com.cerezaconsulting.pushay.R;
 import com.cerezaconsulting.pushay.core.BaseActivity;
+import com.cerezaconsulting.pushay.data.entities.DestinyTravelEntity;
+import com.cerezaconsulting.pushay.data.entities.SchedulesEntity;
 import com.cerezaconsulting.pushay.presentation.fragments.GuideDetailsFragment;
 import com.cerezaconsulting.pushay.presentation.fragments.ListSchedulesFragment;
 import com.cerezaconsulting.pushay.presentation.presenters.ListSchedulesPresenter;
@@ -48,7 +50,13 @@ public class GuideDetailsActivity extends BaseActivity {
     }
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        //onBackPressed();
+        SchedulesEntity schedulesEntity = (SchedulesEntity) getIntent().getExtras().getSerializable("schedulesEntity");
+        DestinyTravelEntity destinyTravelEntity = schedulesEntity.getDestiny();
+        Bundle bundle = new Bundle();
+        bundle.putString("date", getIntent().getExtras().getString("date"));
+        bundle.putSerializable("destinyTravelEntity", destinyTravelEntity );
+        next(GuideDetailsActivity.this, bundle, ListSchedulesActivity.class, false);
         return true;
     }
 

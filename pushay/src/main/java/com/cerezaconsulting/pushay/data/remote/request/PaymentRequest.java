@@ -24,7 +24,7 @@ public interface PaymentRequest {
 
     @FormUrlEncoded
     @POST("createreservation/")
-    Call<ReservationEntity> createReservation(@Header("Authorization") String token,
+    Call<Void> createReservation(@Header("Authorization") String token,
                                               @Field("num_coupons") int num_coupons,
                                               @Field("is_confirm") boolean is_confirm,
                                               @Field("schedules_name") String name);

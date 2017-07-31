@@ -115,7 +115,6 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
         });
 
 
-
         unbinder = ButterKnife.bind(this, root);
         return root;
     }
@@ -138,6 +137,7 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
 
         if (list != null) {
             noList.setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
+            noListMain.setText("No hay guías registrados");
         }
         rvList.addOnScrollListener(new RecyclerViewScrollListener() {
             @Override
@@ -165,6 +165,7 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
         bundle.putSerializable("schedulesEntity", schedulesEntity);
         bundle.putString("date", date);
         next(getActivity(), bundle, GuideDetailsActivity.class, false);
+        getActivity().finish();
     }
 
     @Override

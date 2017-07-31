@@ -48,6 +48,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     return;
                 }
                 if (response.isSuccessful()) {
+                    AccessToken.setCurrentAccessToken(null);
                     getProfile(response.body());
 
                 } else {
@@ -115,7 +116,6 @@ public class LoginPresenter implements LoginContract.Presenter {
                     return;
                 }
                 if (response.isSuccessful()) {
-
                     getProfile(response.body());
                 } else {
                     mView.setLoadingIndicator(false);

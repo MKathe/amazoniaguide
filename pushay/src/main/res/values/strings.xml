@@ -46,8 +46,7 @@
 
     //Dialog Register User
     <string name="title_register">Hola! </string>
-    <string name="title_2">Gracias por registrarte como guía en Pushay </string>
-    <string name="confirm">Te estaremos contactando en los próximos días para validar tus datos</string>
+    <string name="title_2">Gracias por registrarte en Pushay </string>
 
 
 

@@ -7,7 +7,7 @@ android {
             keyAlias 'pushayuser'
             keyPassword 'pushayuser'
             storePassword 'pushayuser'
-            storeFile file('/home/katherine/pushayuser')
+            storeFile file('/home/katherine/Proyectos/jks/Pushay/pushayuser.jks')
         }
     }
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -16,7 +16,7 @@ android {
         applicationId "com.cerezaconsulting.pushay"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
+        versionCode 3
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -61,6 +61,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
+
     compile supportDesignLibraries.appcompat
     compile supportDesignLibraries.design
     compile supportDesignLibraries.recyclerView
@@ -84,5 +85,4 @@ dependencies {
     compile googleService.auth
     compile googleService.wallet
     compile imagesLoader.glide
-    compile facebookCore.facebook
-}
+    compile facebookCore.facebook}

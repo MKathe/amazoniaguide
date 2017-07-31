@@ -50,7 +50,12 @@ public class CreateReservationActivity extends BaseActivity {
     }
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        //onBackPressed();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("date", getIntent().getExtras().getString("date"));
+        bundle.putSerializable("schedulesEntity", getIntent().getExtras().getSerializable("schedulesEntity"));
+        next(CreateReservationActivity.this, bundle, GuideDetailsActivity.class, true);
         return true;
     }
 }

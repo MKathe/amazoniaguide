@@ -29,7 +29,7 @@ public interface CreateReservationContract {
 
     interface Presenter extends BasePresenter {
 
-        void createReservation(int num_coupons, boolean is_confirm, String name);
+        void createReservation(String token, int num_coupons, boolean is_confirm, String name);
 
     }
 }
