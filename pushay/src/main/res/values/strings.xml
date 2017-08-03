@@ -51,8 +51,8 @@
 
 
     //Details strings
-    <string name="locality">Lugar de encuentro</string>
-    <string name="hour">Hora de encuentro</string>
+    <string name="locality">Lugar de encuentro: </string>
+    <string name="hour">Hora de encuentro: </string>
     <string name="status">NO VALIDADO</string>
     <string name="price">PRECIO</string>
     <string name="stars">CALIFICACIÓN</string>

@@ -27,7 +27,9 @@
     <color name="deep_orange">#FF5505</color>
     <color name="brown">#7A5547</color>
     <color name="grey">#d1d1d1</color>
+    <color name="grey_back">#ECECEC</color>
     <color name="blue_grey">#5E7C8B</color>
+    <color name="back_price">#EDF7CD</color>
 
     <color name="gray_regular">#858585</color>
     <color name="gray">#b1b1b1</color>

@@ -125,6 +125,7 @@ public class HistoryTravelFragment extends BaseFragment implements HistoryTravel
         if (list != null) {
             noList.setVisibility((list.size() > 0) ? View.GONE : View.VISIBLE);
         }
+
         rvList.addOnScrollListener(new RecyclerViewScrollListener() {
             @Override
             public void onScrollUp() {
@@ -138,7 +139,7 @@ public class HistoryTravelFragment extends BaseFragment implements HistoryTravel
 
             @Override
             public void onLoadMore() {
-                mPresenter.loadFromNextPage();
+               // mPresenter.loadFromNextPage();
             }
         });
     }

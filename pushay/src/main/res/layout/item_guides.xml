@@ -12,12 +12,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
+            android:background="@color/grey_back"
             android:orientation="horizontal">
             <RelativeLayout
-                android:layout_width="80dp"
+                android:layout_width="120dp"
                 android:layout_margin="10dp"
                 android:layout_gravity="center"
-                android:layout_height="80dp">
+                android:layout_height="110dp">
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -40,43 +41,71 @@
                 <TextView
                     android:id="@+id/tv_name"
                     android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/large_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     fontPath ="fonts/Gotham-Medium.otf"
                     android:text="@string/name"/>
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/border_back"
                     android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/title_tv_price"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/white"
+                        android:textAllCaps="true"
                         android:layout_height="wrap_content"
+                        android:textStyle="bold"
                         android:text="Precio: "/>
 
                     <TextView
                         android:id="@+id/tv_price"
                         android:gravity="center"
                         android:layout_gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/large_text"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/pay_total"/>
+                        android:text="@string/pay_total"
+                        android:textStyle="bold"/>
 
                 </LinearLayout>
-               <RatingBar
-                   android:layout_marginTop="8dp"
-                   android:theme="@style/RatingBar"
-                   style="?android:attr/ratingBarStyleIndicator"
-                   android:numStars="5"
-                   android:isIndicator="true"
-                   android:stepSize="0.5"
-                   android:id="@+id/rating"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_height="wrap_content"
+                        android:text="Calif:"/>
+                    <RatingBar
+                        android:theme="@style/RatingBar"
+                        android:layout_gravity="center"
+                        style="?android:attr/ratingBarStyleIndicator"
+                        android:numStars="5"
+                        android:isIndicator="true"
+                        android:stepSize="0.5"
+                        android:id="@+id/rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

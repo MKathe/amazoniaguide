@@ -218,6 +218,7 @@ public class DestinyFragment extends BaseFragment implements DestinyContract.Vie
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+
         date = year+"-"+(monthOfYear+1)+"-"+dayOfMonth;
         Bundle bundle = new Bundle();
         bundle.putString("date", date);

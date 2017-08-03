@@ -6,16 +6,19 @@
         <item
             android:id="@+id/action_my_profile"
             android:visible="true"
-            android:title="Mi Cuenta" />
+            android:title="Mi Cuenta"
+            android:icon="@drawable/ic_profile"/>
         <item
             android:id="@+id/action_programming"
-            android:title="Programar horarios" />
+            android:title="Programar horarios"/>
         <item
             android:id="@+id/action_help"
-            android:title="Cómo funciona" />
+            android:title="Cómo funciona"
+            android:icon="@drawable/ic_function"/>
         <item
             android:id="@+id/action_info"
-            android:title="Acerca de" />
+            android:title="Acerca de"
+            android:icon="@drawable/ic_team"/>
 
     </group>
 
@@ -23,6 +26,7 @@
         android:id="@+id/group2">
         <item
             android:id="@+id/action_sign_off"
-            android:title="Cerrar Sesión" />
+            android:title="Cerrar Sesión"
+            android:icon="@drawable/ic_close_session"/>
     </group>
 </menu>

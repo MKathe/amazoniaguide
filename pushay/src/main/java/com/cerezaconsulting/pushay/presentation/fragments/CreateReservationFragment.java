@@ -72,6 +72,7 @@ public class CreateReservationFragment extends BaseFragment implements CreateRes
     @BindView(R.id.btn_buy)
     Button btnBuy;
     Unbinder unbinder;
+
     private SessionManager mSessionManager;
     private SchedulesEntity schedulesEntity;
     private String date;
@@ -161,7 +162,9 @@ public class CreateReservationFragment extends BaseFragment implements CreateRes
 
     @Override
     public void onValidationSucceeded() {
-        mPresenter.createReservation(mSessionManager.getUserToken(), Integer.valueOf(etQuantity.getText().toString()), false, schedulesEntity.getName());
+        System.out.println("FECHAAA----->" + date);
+        mPresenter.createReservation(mSessionManager.getUserToken(),
+                Integer.valueOf(etQuantity.getText().toString()), false, schedulesEntity.getName(), date);
     }
 
     @Override

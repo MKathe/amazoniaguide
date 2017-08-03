@@ -8,17 +8,21 @@
         <item
             android:id="@+id/action_profile"
             android:visible="true"
-            android:title="Mi perfil" />
+            android:title="Mi perfil"
+            android:icon="@drawable/ic_profile"/>
         <item
             android:id="@+id/action_buy"
             android:visible="true"
-            android:title="Realizar Compra" />
+            android:title="Realizar Compra"
+            android:icon="@drawable/ic_buy"/>
         <item
             android:id="@+id/action_help"
-            android:title="Cómo funciona" />
+            android:title="Cómo funciona"
+            android:icon="@drawable/ic_function"/>
         <item
             android:id="@+id/action_info"
-            android:title="Acerca de" />
+            android:title="Acerca de"
+            android:icon="@drawable/ic_team"/>
 
     </group>
 
@@ -26,6 +30,7 @@
         android:id="@+id/group2">
         <item
             android:id="@+id/action_signout"
-            android:title="Cerrar Sesión" />
+            android:title="Cerrar Sesión"
+            android:icon="@drawable/ic_close_session"/>
     </group>
 </menu>

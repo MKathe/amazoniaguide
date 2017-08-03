@@ -43,10 +43,10 @@ public class CreateReservationPresenter implements CreateReservationContract.Pre
 
     }
     @Override
-    public void createReservation(String token, int num_coupons, boolean is_confirm, String name) {
+    public void createReservation(String token, int num_coupons, boolean is_confirm, String name, String date) {
         mView.setLoadingIndicator(true);
         PaymentRequest paymentRequest = ServiceFactory.createService(PaymentRequest.class);
-        Call<Void> orders = paymentRequest.createReservation("Token "+token,num_coupons,is_confirm,name);
+        Call<Void> orders = paymentRequest.createReservation("Token "+token, num_coupons, is_confirm, name, date);
         orders.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

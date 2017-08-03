@@ -27,5 +27,6 @@ public interface PaymentRequest {
     Call<Void> createReservation(@Header("Authorization") String token,
                                               @Field("num_coupons") int num_coupons,
                                               @Field("is_confirm") boolean is_confirm,
-                                              @Field("schedules_name") String name);
+                                              @Field("schedules_name") String name,
+                                              @Field("date") String date);
 }
