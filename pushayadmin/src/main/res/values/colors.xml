@@ -29,6 +29,8 @@
     <color name="grey">#9D9D9D</color>
     <color name="blue_grey">#5E7C8B</color>
 
+    <color name="back_code">#AAAAAA</color>
+
     <color name="gray_regular">#858585</color>
     <color name="gray">#b1b1b1</color>
     <color name="white">#FFFFFF</color>

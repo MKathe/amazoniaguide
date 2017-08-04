@@ -73,7 +73,7 @@ public class CountriesAdapter extends LoaderAdapter<CountryEntity> implements On
                     .transform(new CircleTransform(context))
                     .into(((ViewHolder) holder).ivPlaces);
         }else{
-            ((ViewHolder) holder).ivPlaces.setImageDrawable(context.getDrawable(R.drawable.circular_symbol));
+            ((ViewHolder) holder).ivPlaces.setImageDrawable(context.getDrawable(R.drawable.ic_no_pais));
         }
 
     }

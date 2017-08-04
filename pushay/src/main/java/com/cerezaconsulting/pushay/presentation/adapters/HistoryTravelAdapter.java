@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cerezaconsulting.pushay.R;
@@ -68,12 +69,11 @@ public class HistoryTravelAdapter extends LoaderAdapter<ReservationEntity> imple
         ((ViewHolder) holder).tvTravel.setText(reservationEntities.getSchedules().getDestiny().getName());
         ((ViewHolder) holder).tvPrice.setText(String.valueOf(reservationEntities.getPay_total()));
         ((ViewHolder) holder).tvDate.setText(reservationEntities.getDay());
-        if (reservationEntities.is_confirm()) {
-            ((ViewHolder) holder).tvStatus.setText("VALIDADO");
-            ((ViewHolder) holder).tvStatus.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-        } else {
-            ((ViewHolder) holder).tvStatus.setText("NO VALIDADO");
+        if(reservationEntities.is_confirm()){
+            ((ViewHolder) holder).imValidate.setImageDrawable(context.getDrawable(R.drawable.ic_valid));
+
         }
+
     }
 
     @Override
@@ -84,18 +84,25 @@ public class HistoryTravelAdapter extends LoaderAdapter<ReservationEntity> imple
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.tv_travel)
-        TextView tvTravel;
+
         @BindView(R.id.im_photo)
         ImageView imPhoto;
+        @BindView(R.id.im_validate)
+        ImageView imValidate;
+        @BindView(R.id.ly_image)
+        LinearLayout lyImage;
+        @BindView(R.id.title_travel)
+        TextView titleTravel;
+        @BindView(R.id.tv_travel)
+        TextView tvTravel;
         @BindView(R.id.tv_name)
         TextView tvName;
         @BindView(R.id.tv_date)
         TextView tvDate;
         @BindView(R.id.tv_price)
         TextView tvPrice;
-        @BindView(R.id.tv_status)
-        TextView tvStatus;
+        @BindView(R.id.ly_center)
+        LinearLayout lyCenter;
         @BindView(R.id.card_view)
         CardView cardView;
         private OnClickListListener onClickListListener;

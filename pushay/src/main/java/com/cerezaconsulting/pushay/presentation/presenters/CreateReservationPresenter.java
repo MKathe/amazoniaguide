@@ -56,7 +56,7 @@ public class CreateReservationPresenter implements CreateReservationContract.Pre
                 }
                 if (response.isSuccessful()) {
 
-                    mView.createReservationResponse("Se ha comprado el ticket con éxito");
+                    mView.createReservationResponse("Tu ticket se ha comprado con éxito");
 
                 } else {
 

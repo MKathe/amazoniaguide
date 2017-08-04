@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cerezaconsulting.pushayadmin.R;
@@ -68,19 +69,18 @@ public class HistoryTravelAdapter extends LoaderAdapter<ReservationEntity> imple
         ((ViewHolder) holder).tvTravel.setText(reservationEntities.getSchedules().getDestiny().getName());
 
         ((ViewHolder) holder).tvDate.setVisibility(View.VISIBLE);
-        ((ViewHolder) holder).titleTvDate.setVisibility(View.VISIBLE);
+        ((ViewHolder) holder).lyDateTravel.setVisibility(View.VISIBLE);
         ((ViewHolder) holder).tvDate.setText(reservationEntities.getDay());
 
+        ((ViewHolder) holder).lyLocality.setVisibility(View.GONE);
+        ((ViewHolder) holder).lyHour.setVisibility(View.GONE);
+        ((ViewHolder) holder).tvName.setVisibility(View.GONE);
+        ((ViewHolder) holder).lyName.setVisibility(View.GONE);
         ((ViewHolder) holder).tvLocality.setVisibility(View.GONE);
         ((ViewHolder) holder).tvHour.setVisibility(View.GONE);
-        ((ViewHolder) holder).titleTcHour.setVisibility(View.GONE);
-        ((ViewHolder) holder).titleTvLocality.setVisibility(View.GONE);
 
         if (reservationEntities.is_confirm()) {
-            ((ViewHolder) holder).tvStatus.setText("VALIDADO");
-            ((ViewHolder) holder).tvStatus.setTextColor(context.getResources().getColor(R.color.colorAccent));
-        } else {
-            ((ViewHolder) holder).tvStatus.setText("NO VALIDADO");
+            ((ViewHolder) holder).imValidate.setImageDrawable(context.getDrawable(R.drawable.ic_valid));
         }
     }
 
@@ -91,27 +91,36 @@ public class HistoryTravelAdapter extends LoaderAdapter<ReservationEntity> imple
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        @BindView(R.id.tv_travel)
-        TextView tvTravel;
         @BindView(R.id.im_photo)
         ImageView imPhoto;
+        @BindView(R.id.ly_image)
+        LinearLayout lyImage;
+        @BindView(R.id.title_travel)
+        TextView titleTravel;
+        @BindView(R.id.tv_travel)
+        TextView tvTravel;
+        @BindView(R.id.ly_name)
+        LinearLayout lyName;
         @BindView(R.id.tv_name)
         TextView tvName;
-        @BindView(R.id.title_tv_locality)
-        TextView titleTvLocality;
+        @BindView(R.id.ly_locality)
+        LinearLayout lyLocality;
         @BindView(R.id.tv_locality)
         TextView tvLocality;
-        @BindView(R.id.title_tc_hour)
-        TextView titleTcHour;
+        @BindView(R.id.ly_hour)
+        LinearLayout lyHour;
         @BindView(R.id.tv_hour)
         TextView tvHour;
-        @BindView(R.id.title_tv_date)
-        TextView titleTvDate;
+        @BindView(R.id.title_travel_date)
+        TextView titleTravelDate;
         @BindView(R.id.tv_date)
         TextView tvDate;
-        @BindView(R.id.tv_status)
-        TextView tvStatus;
+        @BindView(R.id.ly_center)
+        LinearLayout lyCenter;
+        @BindView(R.id.im_validate)
+        ImageView imValidate;
+        @BindView(R.id.ly_date_travel)
+        LinearLayout lyDateTravel;
         @BindView(R.id.card_view)
         CardView cardView;
         private OnClickListListener onClickListListener;

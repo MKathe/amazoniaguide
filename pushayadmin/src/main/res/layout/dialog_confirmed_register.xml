@@ -36,7 +36,7 @@
         android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/ic_registro"/>
 
     <TextView
         android:textColor="@color/black"

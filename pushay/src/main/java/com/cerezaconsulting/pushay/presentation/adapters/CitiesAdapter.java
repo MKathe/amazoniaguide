@@ -72,7 +72,7 @@ public class CitiesAdapter extends LoaderAdapter<CityEntity> implements OnClickL
                     .transform(new CircleTransform(context))
                     .into(((ViewHolder) holder).ivPlaces);
         }else{
-            ((ViewHolder) holder).ivPlaces.setImageDrawable(context.getDrawable(R.drawable.circular_symbol));
+            ((ViewHolder) holder).ivPlaces.setImageDrawable(context.getDrawable(R.drawable.ic_no_pais));
         }
     }
 

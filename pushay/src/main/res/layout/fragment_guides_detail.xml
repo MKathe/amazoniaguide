@@ -6,232 +6,229 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_margin="15dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="@drawable/background_default"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginBottom="15dp"
-                android:src="@drawable/photo_guide"
-                android:layout_gravity="center_horizontal"/>
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                fontPath = "fonts/Gotham-Medium.otf"
-                android:textSize="@dimen/xlarge_text"
-                android:gravity="center"
-                android:text="@string/name"/>
-            <RatingBar
-                android:id="@+id/rating"
-                android:theme="@style/RatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:isIndicator="true"
-                android:stepSize="0.5"
-                android:layout_marginTop="10dp"
-                android:gravity="center"/>
+            android:orientation="horizontal">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="5dp"
-                android:background="@color/colorPrimary">
-
-            </View>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:padding="10dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/background_default"
+                android:orientation="vertical">
                 <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_destiny"/>
-                <TextView
-                    android:id="@+id/title_destiny_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Destino:"/>
-
-                <TextView
-                    android:id="@+id/tv_destiny_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAllCaps="true"
-                    android:textSize="@dimen/large_text"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="5dp"
-                    android:text="Piura"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_calendar"/>
-                <TextView
-                    android:id="@+id/title_day_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Día de Salida:"/>
-
-                <TextView
-                    android:id="@+id/tv_day_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/large_text"
-                    android:textAllCaps="true"
-                    android:layout_marginStart="5dp"
-                    android:text="Lunes"/>
-
-
-                <TextView
-                    android:id="@+id/tv_day"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/large_text"
-                    android:textAllCaps="true"
-                    android:layout_marginStart="5dp"
-                    android:text="Lunes"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_ubication"/>
-                <TextView
-                    android:id="@+id/title_locality"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/locality"/>
-
-                <TextView
-                    android:id="@+id/tv_locality"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/large_text"
-                    android:layout_marginStart="5dp"
-                    android:text="Plaza de armas"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_ubication"/>
-                <TextView
-                    android:id="@+id/title_hour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/hour"/>
-                <TextView
-                    android:id="@+id/tv_hour"
+                    android:id="@+id/imageView"
                     android:layout_width="120dp"
-                    android:textAllCaps="true"
-                    android:layout_marginStart="5dp"
-                    android:textColor="@color/black"
-                    android:layout_height="wrap_content"
-                    android:text="(9:00am - 6:00pm)"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                android:background="@color/back_price"
-                android:layout_marginBottom="5dp">
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/ic_ticket"/>
-
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/photo_guide"
+                    android:layout_gravity="center_horizontal"/>
                 <TextView
-                    android:id="@+id/title_tv_price"
-                    android:layout_width="60dp"
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:textSize="@dimen/tiny_text"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_gravity="center"
-                    android:text="Precio por persona:"/>
-                <TextView
-                    android:id="@+id/tv_price"
-                    android:layout_marginStart="10dp"
+                    fontPath = "fonts/Gotham-Medium.otf"
+                    android:textSize="@dimen/xlarge_text"
+                    android:gravity="center"
+                    android:text="@string/name"/>
+                <RatingBar
+                    android:id="@+id/rating"
+                    android:theme="@style/RatingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/large_text"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="20dp"
-                    android:text="s/. 120.00"/>
+                    android:isIndicator="true"
+                    android:stepSize="0.5"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="5dp"
+                    android:background="@color/colorPrimary">
+
+                </View>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_destiny"/>
+                    <TextView
+                        android:id="@+id/title_destiny_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Destino:"/>
+
+                    <TextView
+                        android:id="@+id/tv_destiny_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/large_text"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="5dp"
+                        android:text="Piura"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_calendar"/>
+                    <TextView
+                        android:id="@+id/title_day_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Día de Salida:"/>
+
+                    <TextView
+                        android:id="@+id/tv_day_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tiny_text"
+                        android:textAllCaps="true"
+                        android:layout_marginStart="5dp"
+                        android:text="Lunes"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tiny_text"
+                        android:textAllCaps="true"
+                        android:layout_marginStart="5dp"
+                        android:text="Lunes"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_ubication"/>
+                    <TextView
+                        android:id="@+id/title_locality"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/locality"/>
+
+                    <TextView
+                        android:id="@+id/tv_locality"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/large_text"
+                        android:layout_marginStart="5dp"
+                        android:text="Plaza de armas"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_ubication"/>
+                    <TextView
+                        android:id="@+id/title_hour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hour"/>
+                    <TextView
+                        android:id="@+id/tv_hour"
+                        android:layout_width="120dp"
+                        android:textAllCaps="true"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content"
+                        android:text="(9:00am - 6:00pm)"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/back_price"
+                    android:layout_marginBottom="5dp">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_ticket"/>
+
+                    <TextView
+                        android:id="@+id/title_tv_price"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:textSize="@dimen/tiny_text"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center"
+                        android:text="Precio por persona:"/>
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:layout_marginStart="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/large_text"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="20dp"
+                        android:text="s/. 120.00"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_next"
+                    android:layout_width="250dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/black"
+                    android:textAllCaps="false"
+                    android:background="@drawable/button_square_border"
+                    android:text="Continuar" />
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_next"
-                android:layout_width="250dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:textAllCaps="false"
-                android:background="@drawable/button_square_border"
-                android:text="Continuar" />
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="15dp"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
 

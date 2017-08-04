@@ -36,6 +36,7 @@
     <string name="selected_date">dd/mm/aaaa</string>
 
     <string name="decript">descripción</string>
+    <string name="persons">personas</string>
     <string name="decript_guide">descripción</string>
 
     //Paid Ticket
@@ -72,6 +73,7 @@
 
     <string name="locality">Lugar de encuentro: </string>
     <string name="hour">Hora de encuentro: </string>
+    <string name="date_travel">Fecha de viaje: </string>
     <string name="status">NO VALIDADO</string>
 
 </resources>

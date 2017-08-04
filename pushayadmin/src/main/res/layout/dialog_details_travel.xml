@@ -4,16 +4,16 @@
     android:layout_height="match_parent"
     android:layout_margin="20dp"
     android:orientation="vertical"
+    android:background="@drawable/background_default"
     android:padding="25dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginBottom="5dp"
         android:text="@string/title"
         android:textColor="@color/black"
-        android:textSize="@dimen/xxxlarge_text" />
+        android:textSize="@dimen/xlarge_text" />
 
     <View
         android:layout_width="match_parent"
@@ -32,8 +32,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/black"
             android:layout_marginTop="15dp"
             android:text="@string/firstname"
+            android:textStyle="bold"
             android:textSize="@dimen/xlarge_text" />
 
         <LinearLayout
@@ -43,9 +45,9 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_name_travel" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_destino" />
 
             <TextView
                 android:id="@+id/tv_name_detail_travel"
@@ -64,47 +66,21 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_descript_travel" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_personas" />
 
             <TextView
-                android:id="@+id/tv_descript_travel"
+                android:id="@+id/tv_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="@string/decript"
+                android:text="@string/persons"
                 android:textSize="@dimen/large_text" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="cantidad: "
-                android:textSize="@dimen/large_text" />
-
-            <TextView
-                android:id="@+id/tv_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="5"
-                android:textSize="@dimen/large_text" />
-        </LinearLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/colorPrimary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -114,33 +90,34 @@
             android:layout_marginTop="20dp"
             android:text="Validar viaje por código"
             android:textAllCaps="true"
-            android:textSize="@dimen/large_text"
+            android:textSize="@dimen/normal_text"
             android:textStyle="bold" />
 
-        <LinearLayout
+        <RelativeLayout
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/back_code"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/et_code"
-                android:layout_width="wrap_content"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:hint="Ingresa el código aquí" />
+                android:layout_gravity="center"/>
 
             <ImageView
+                android:layout_toEndOf="@id/et_code"
                 android:id="@+id/im_validate_code"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_centerInParent="true"
                 android:layout_marginStart="5dp"
                 android:layout_gravity="bottom"
-                android:tint="@color/gray_regular"
-                android:src="@drawable/ic_check_box"/>
+                android:src="@drawable/ic_check"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -161,7 +138,7 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_gravity="center_horizontal"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/button_black"
         android:text="@string/validate_travel"
         android:textColor="@color/white" />
 
