@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseActivity;
 import com.cerezaconsulting.pushayadmin.presentation.fragments.ValidateFragment;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.NoValidatedTravelPresenter;
 import com.cerezaconsulting.pushayadmin.utils.ActivityUtils;
 
 import butterknife.BindView;
@@ -41,7 +42,7 @@ public class ValidateActivity extends BaseActivity {
                     fragment, R.id.body);
         }
 
-        //new RegisterPresenter(fragment, this);
+        new NoValidatedTravelPresenter(fragment, this);
     }
 
     @Override

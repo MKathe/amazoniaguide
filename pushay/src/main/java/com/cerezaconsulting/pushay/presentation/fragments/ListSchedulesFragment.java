@@ -228,11 +228,13 @@ public class ListSchedulesFragment extends BaseFragment implements ListSchedules
             case R.id.btn_price:
                 btnPrice.setTextColor(getResources().getColor(R.color.white));
                 btnStars.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                mPresenter.getListGuideInOrder(destinyTravelEntity.getName(), date, 2, 1);
 
                 break;
             case R.id.btn_stars:
                 btnStars.setTextColor(getResources().getColor(R.color.white));
                 btnPrice.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                mPresenter.getListGuideInOrder(destinyTravelEntity.getName(), date, 1, 1);
                 break;
         }
     }

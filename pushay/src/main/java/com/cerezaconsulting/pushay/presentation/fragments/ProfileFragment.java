@@ -146,10 +146,17 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mProgressDialogCustom = new ProgressDialogCustom(getContext(), "Cargando datos...");
-        Glide.with(getContext())
-                .load(mSessionManager.getUserEntity().getPicture())
-                .transform(new CircleTransform(getContext()))
-                .into(photoProfile);
+        if(mSessionManager.getUserEntity().getPicture()!=null){
+            Glide.with(getContext())
+                    .load(mSessionManager.getUserEntity().getPicture())
+                    .transform(new CircleTransform(getContext()))
+                    .into(photoProfile);
+        }/*else{
+            Glide.with(getContext())
+                    .load(getContext().getResources().getDrawable(R.drawable.ic_usuario))
+                    .transform(new CircleTransform(getContext()))
+                    .into(photoProfile);
+        }*/
         tvName.setText(mSessionManager.getUserEntity().getFullName());
         tvNameDetail.setText(mSessionManager.getUserEntity().getFullName());
         tvEmailDetail.setText(mSessionManager.getUserEntity().getEmail());
@@ -297,10 +304,12 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     public void ShowSessionInformation(UserEntity userEntity) {
         if (userEntity != null) {
             this.userEntity = userEntity;
-            Glide.with(getContext())
-                    .load(userEntity.getPicture())
-                    .transform(new CircleTransform(getContext()))
-                    .into(photoProfile);
+            if(userEntity.getPicture()!=null){
+                Glide.with(getContext())
+                        .load(userEntity.getPicture())
+                        .transform(new CircleTransform(getContext()))
+                        .into(photoProfile);
+            }
             tvName.setText(userEntity.getFullName());
             tvNameDetail.setText(userEntity.getFullName());
             tvEmailDetail.setText(userEntity.getEmail());

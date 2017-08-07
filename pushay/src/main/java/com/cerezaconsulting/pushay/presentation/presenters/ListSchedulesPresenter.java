@@ -73,11 +73,50 @@ public class ListSchedulesPresenter implements ListSchedulesContract.Presenter, 
     }
 
     @Override
-    public void getListGuideByDestiny(String destinyName, String date, int page) {
+    public void getListGuideByDestiny(String destinyName, String date, final int page) {
         mView.setLoadingIndicator(true);
         ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
         Call<TrackHolderEntity<SchedulesEntity>> orders = listRequest.getListSchedules("Token "+ mSessionManager.getUserToken(),
                 date, destinyName, page);
+        orders.enqueue(new Callback<TrackHolderEntity<SchedulesEntity>>() {
+            @Override
+            public void onResponse(Call<TrackHolderEntity<SchedulesEntity>> call, Response<TrackHolderEntity<SchedulesEntity>> response) {
+
+                if (!mView.isActive()) {
+                    return;
+                }
+                mView.setLoadingIndicator(false);
+                if (response.isSuccessful()) {
+
+                    if (response.body().getNext() != null) {
+                        currentPage = page +1;
+                    } else {
+                        currentPage = -1;
+                    }
+                    mView.getListGuideByDestiny(response.body().getResults());
+
+                } else {
+                    mView.showErrorMessage("Error al obtener las órdenes");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TrackHolderEntity<SchedulesEntity>> call, Throwable t) {
+                if (!mView.isActive()) {
+                    return;
+                }
+                mView.setLoadingIndicator(false);
+                mView.showErrorMessage("Error al conectar con el servidor");
+            }
+        });
+    }
+
+    @Override
+    public void getListGuideInOrder(String destinyName, String date, int num, int page) {
+        mView.setLoadingIndicator(true);
+        ListRequest listRequest = ServiceFactory.createService(ListRequest.class);
+        Call<TrackHolderEntity<SchedulesEntity>> orders = listRequest.getListSchedulesInOrder("Token "+ mSessionManager.getUserToken(), destinyName,
+                date, num, page);
         orders.enqueue(new Callback<TrackHolderEntity<SchedulesEntity>>() {
             @Override
             public void onResponse(Call<TrackHolderEntity<SchedulesEntity>> call, Response<TrackHolderEntity<SchedulesEntity>> response) {

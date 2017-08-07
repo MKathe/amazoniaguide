@@ -50,6 +50,7 @@ public interface ListRequest {
     Call<TrackHolderEntity<SchedulesEntity>> getSchedules(@Header("Authorization") String token,
                                                           @Query("page") int numberPage);
 
+
     @GET("list/reservation/payment/goal/")
     Call<TrackHolderEntity<ReservationEntity>> getMyPaymentGoal(@Header("Authorization") String token,
                                                                       @Query("page") int numberPage);

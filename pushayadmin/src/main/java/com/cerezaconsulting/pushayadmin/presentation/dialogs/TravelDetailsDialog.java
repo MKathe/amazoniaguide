@@ -17,7 +17,6 @@ import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushayadmin.presentation.activities.ValidateActivity;
 import com.cerezaconsulting.pushayadmin.presentation.contracts.NoValidatedTravelContract;
-import com.cerezaconsulting.pushayadmin.presentation.presenters.NoValidatedTravelPresenter;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -32,16 +31,12 @@ import butterknife.OnClick;
  * Created by katherine on 23/03/17.
  */
 
-public class TravelDetailsDialog extends AlertDialog implements Validator.ValidationListener{
+public class TravelDetailsDialog extends AlertDialog implements Validator.ValidationListener {
 
     @BindView(R.id.tv_user_name)
     TextView tvUserName;
     @BindView(R.id.tv_name_detail_travel)
     TextView tvNameDetailTravel;
-    @BindView(R.id.tv_descript_travel)
-    TextView tvDescriptTravel;
-    @BindView(R.id.tv_count)
-    TextView tvCount;
     @BindView(R.id.btn_validate_travel)
     Button btnValidateTravel;
 
@@ -50,6 +45,8 @@ public class TravelDetailsDialog extends AlertDialog implements Validator.Valida
     EditText etCode;
     @BindView(R.id.im_validate_code)
     ImageView imValidateCode;
+    @BindView(R.id.tv_quantity)
+    TextView tvQuantity;
 
     private ImageView im_close;
     private int num;
@@ -81,9 +78,8 @@ public class TravelDetailsDialog extends AlertDialog implements Validator.Valida
 
         reservationEntity = (ReservationEntity) bundle.getSerializable("travel");
         tvUserName.setText(reservationEntity.getUserEntity().getFullName());
-        tvDescriptTravel.setText(reservationEntity.getSchedules().getDestiny().getDescription());
         tvNameDetailTravel.setText(reservationEntity.getSchedules().getDestiny().getName());
-        tvCount.setText(reservationEntity.numCoupons());
+        tvQuantity.setText(reservationEntity.numCoupons());
 
     }
 
@@ -92,7 +88,7 @@ public class TravelDetailsDialog extends AlertDialog implements Validator.Valida
         super.onCreate(savedInstanceState);
     }
 
-    @OnClick({R.id.et_code, R.id.im_validate_code,R.id.btn_validate_travel})
+    @OnClick({R.id.et_code, R.id.im_validate_code, R.id.btn_validate_travel})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.et_code:

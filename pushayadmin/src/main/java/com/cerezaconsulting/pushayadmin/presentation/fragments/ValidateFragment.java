@@ -12,9 +12,13 @@ import android.widget.FrameLayout;
 
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.BaseFragment;
+import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
+import com.cerezaconsulting.pushayadmin.presentation.contracts.NoValidatedTravelContract;
 import com.cerezaconsulting.pushayadmin.presentation.dialogs.ConfirmedDialog;
+import com.cerezaconsulting.pushayadmin.presentation.presenters.NoValidatedTravelPresenter;
 import com.google.zxing.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,7 +33,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * Created by katherine on 26/05/17.
  */
 
-public class ValidateFragment extends BaseFragment implements ZXingScannerView.ResultHandler, EasyPermissions.PermissionCallbacks {
+public class ValidateFragment extends BaseFragment implements ZXingScannerView.ResultHandler, EasyPermissions.PermissionCallbacks, NoValidatedTravelContract.View{
     private static final int CAMERA_PERMISSIONS = 123;
     @BindView(R.id.fl_content_frame)
     FrameLayout flContentFrame;
@@ -38,6 +42,8 @@ public class ValidateFragment extends BaseFragment implements ZXingScannerView.R
 
     private boolean isOpenCamera = false;
     private ZXingScannerView mScannerView;
+
+    private NoValidatedTravelContract.Presenter mPresenter;
 
     public static ValidateFragment newInstance() {
         return new ValidateFragment();
@@ -117,12 +123,16 @@ public class ValidateFragment extends BaseFragment implements ZXingScannerView.R
     @Override
     public void handleResult(Result result) {
         //
+        System.out.println("RESULT------------------------->" + result.toString());
         Log.e("RESULT", result.toString());
-        confirmedDialog();
+        sendValidateTravelWithQr(Integer.valueOf(result.toString()), true);
+        //confirmedDialog();
     }
 
-    private void confirmedDialog(){
-        ConfirmedDialog confirmedDialog = new ConfirmedDialog(getContext(), null);
+    private void confirmedDialog(String msg){
+        Bundle bundle = new Bundle();
+        bundle.putString("msg", msg);
+        ConfirmedDialog confirmedDialog = new ConfirmedDialog(getContext(), bundle);
         confirmedDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
@@ -130,5 +140,55 @@ public class ValidateFragment extends BaseFragment implements ZXingScannerView.R
             }
         });
         confirmedDialog.show();
+    }
+
+    @Override
+    public void getListTravel(ArrayList<ReservationEntity> list) {
+
+    }
+
+    @Override
+    public void showDetailsTravel(ReservationEntity reservationEntity) {
+
+    }
+
+    @Override
+    public void sendValidateTravelWithCode(String code, boolean is_confirm) {
+
+    }
+
+    @Override
+    public void sendValidateTravelWithQr(int id, boolean is_confirm) {
+        mPresenter.validatedTravelWithQr(id, is_confirm);
+    }
+
+    @Override
+    public void showDetailsValidate(String msg) {
+        confirmedDialog(msg);
+    }
+
+    @Override
+    public boolean isActive() {
+        return isAdded();
+    }
+
+    @Override
+    public void setPresenter(NoValidatedTravelContract.Presenter mPresenter) {
+        this.mPresenter = mPresenter;
+    }
+
+    @Override
+    public void setLoadingIndicator(boolean active) {
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+
     }
 }

@@ -26,7 +26,7 @@ public interface NoValidatedTravelContract {
 
         boolean isActive();
 
-
+//TGbtNVA9
 
     }
 

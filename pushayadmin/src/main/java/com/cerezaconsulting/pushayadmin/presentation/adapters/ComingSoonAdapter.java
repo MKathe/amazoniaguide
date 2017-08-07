@@ -12,11 +12,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cerezaconsulting.pushayadmin.R;
 import com.cerezaconsulting.pushayadmin.core.LoaderAdapter;
 import com.cerezaconsulting.pushayadmin.data.entities.ReservationEntity;
 import com.cerezaconsulting.pushayadmin.presentation.adapters.listener.OnClickListListener;
 import com.cerezaconsulting.pushayadmin.presentation.presenters.commons.PlaceItem;
+import com.cerezaconsulting.pushayadmin.utils.CircleTransform;
 
 import java.util.ArrayList;
 
@@ -74,6 +76,13 @@ public class ComingSoonAdapter extends LoaderAdapter<ReservationEntity> implemen
         ((ViewHolder) holder).tvDate.setText(reservationEntities.getDay());
 
         ((ViewHolder) holder).tvHour.setText(reservationEntities.getSchedules().getHour());
+
+        if (reservationEntities.getUserEntity().getPicture() != null) {
+            Glide.with(context)
+                    .load(reservationEntities.getUserEntity().getPicture())
+                    .transform(new CircleTransform(context))
+                    .into(((ViewHolder) holder).imPhoto);
+        }
     }
 
     @Override

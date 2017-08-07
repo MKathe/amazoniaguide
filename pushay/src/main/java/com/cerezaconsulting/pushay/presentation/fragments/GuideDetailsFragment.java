@@ -107,7 +107,7 @@ public class GuideDetailsFragment extends BaseFragment {
         tvName.setText(schedulesEntity.getGuide().getFullName());
         tvDestinyName.setText(schedulesEntity.getDestiny().getName());
         tvDay.setText(getDay());
-        tvDayName.setText(schedulesEntity.getDay().getName());
+        tvDayName.setText(schedulesEntity.getDay().getName_sp());
         tvLocality.setText(schedulesEntity.getLocality());
         tvHour.setText(schedulesEntity.getHour());
         tvPrice.setText(schedulesEntity.getPriceNormal());

@@ -17,10 +17,6 @@ public interface ListSchedulesContract {
 
         void getListGuideByDestiny(ArrayList<SchedulesEntity> list);
 
-        void getListGuideByPrice(ArrayList<SchedulesEntity> list);
-
-        void getListGuideByCalification(ArrayList<SchedulesEntity> list);
-
 
         void showDetailsTickets(SchedulesEntity schedulesEntity);
 

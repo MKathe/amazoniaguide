@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class DayEntity implements Serializable{
     private int id;
     private String name;
+    private String name_esp;
 
     public DayEntity(int id, String name) {
         this.id = id;
@@ -29,5 +30,13 @@ public class DayEntity implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getName_sp() {
+        return name_esp;
+    }
+
+    public void setName_sp(String name_esp) {
+        this.name_esp = name_esp;
     }
 }

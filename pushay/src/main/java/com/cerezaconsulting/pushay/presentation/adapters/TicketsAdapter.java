@@ -58,23 +58,30 @@ public class TicketsAdapter extends LoaderAdapter<ReservationEntity> implements 
     @Override
     public RecyclerView.ViewHolder getYourItemViewHolder(ViewGroup parent) {
         View root = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tickets, parent, false);
-        return new TicketsAdapter.ViewHolder(root, this);
+        return new ViewHolder(root, this);
     }
 
     @Override
     public void bindYourViewHolder(RecyclerView.ViewHolder holder, int position) {
         ReservationEntity ticketEntity = getItems().get(position);
+        //((ViewHolder) holder).cardView.setBackgroundResource(ticketEntity.getSchedules().getDestiny().getImage_1());
+
         ((ViewHolder) holder).tvPackageName.setText(ticketEntity.getSchedules().getLocality());
         ((ViewHolder) holder).tvPackageDate.setText(ticketEntity.getSchedules().getHour());
         ((ViewHolder) holder).tvDate.setText(ticketEntity.getDay());
         ((ViewHolder) holder).tvNameCity.setText(ticketEntity.getSchedules().getDestiny().getName());
         ((ViewHolder) holder).tvDescriptCity.setText(ticketEntity.getSchedules().getDestiny().getCity().getName());
 
-        if(ticketEntity.getSchedules().getGuide().getPicture()!=null){
+        if (ticketEntity.getSchedules().getGuide().getPicture() != null) {
             Glide.with(context)
-                    .load(ticketEntity.getSchedules().getDestiny().getImage_1())
+                    .load(ticketEntity.getSchedules().getGuide().getPicture())
                     .transform(new CircleTransform(context))
                     .into(((ViewHolder) holder).imPerfil);
+        }
+        if (ticketEntity.getSchedules().getDestiny().getImage_1()!= null) {
+            Glide.with(context)
+                    .load(ticketEntity.getSchedules().getDestiny().getImage_1())
+                    .into(((ViewHolder) holder).imBackground);
         }
 
     }
@@ -100,6 +107,8 @@ public class TicketsAdapter extends LoaderAdapter<ReservationEntity> implements 
         TextView tvPackageName;
         @BindView(R.id.tv_package_date)
         TextView tvPackageDate;
+        @BindView(R.id.im_background)
+        ImageView imBackground;
         @BindView(R.id.card_view)
         CardView cardView;
 

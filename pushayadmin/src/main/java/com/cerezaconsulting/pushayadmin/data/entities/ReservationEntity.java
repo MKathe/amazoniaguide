@@ -108,7 +108,7 @@ public class ReservationEntity implements Serializable {
     }
 
     public String numCoupons(){
-       return String.valueOf(num_coupons);
+       return String.valueOf(num_coupons)+ " Personas";
     }
 
 }

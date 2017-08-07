@@ -127,7 +127,7 @@ public class CreateReservationFragment extends BaseFragment implements CreateRes
         tvDestinyName.setText(schedulesEntity.getDestiny().getName());
         tvHour.setText(schedulesEntity.getHour());
         tvCityName.setText(schedulesEntity.getDestiny().getCity().getName());
-        tvDay.setText(schedulesEntity.getDay().getName());
+        tvDay.setText(schedulesEntity.getDay().getName_sp());
 
     }
 
