@@ -17,6 +17,10 @@ public interface ListSchedulesContract {
 
         void getListGuideByDestiny(ArrayList<SchedulesEntity> list);
 
+        void getListGuideByPrice(ArrayList<SchedulesEntity> list);
+
+        void getListGuideByCalification(ArrayList<SchedulesEntity> list);
+
 
         void showDetailsTickets(SchedulesEntity schedulesEntity);
 
@@ -37,6 +41,7 @@ public interface ListSchedulesContract {
         void getListGuideByDestiny(String destinyName, String date, int page);
 
 
+        void getListGuideInOrder(String destinyName, String date, int num, int page);
 
     }
 }

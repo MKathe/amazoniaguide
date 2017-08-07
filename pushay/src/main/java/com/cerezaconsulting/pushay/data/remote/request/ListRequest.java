@@ -37,6 +37,16 @@ public interface ListRequest {
                                                               @Path("date") String date,
                                                               @Query("search") String destinyName,
                                                               @Query("page") int numberPage);
+
+
+    @GET("listschedulebydestinies/{destiny}/{date}/{num}/")
+    Call<TrackHolderEntity<SchedulesEntity>> getListSchedulesInOrder(@Header("Authorization") String token,
+                                                                     @Path("destiny") String destiny,
+                                                                     @Path("date") String date,
+                                                                     @Path("num") int num,
+                                                                     @Query("page") int numberPage);
+
+
     @GET("myreservation/")
     Call<TrackHolderEntity<ReservationEntity>> getReservation(@Header("Authorization") String token,
                                                               @Query("page") int numberPage);
